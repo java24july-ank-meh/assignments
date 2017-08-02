@@ -12,6 +12,7 @@ public class SubStringLogic {
 		for (int i = 0; i <= idx - 1; i++) {
 			build.append(str.charAt(i));
 		}
+		//simple build, very similar to reversing the string, just needed to use methods that dealt with characters specifically 
 		// String retString = build.toString();
 		return build.toString();
 	}

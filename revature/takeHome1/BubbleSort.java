@@ -9,7 +9,7 @@ public class BubbleSort {
 
 	}
 
-	// swap will help keep up with swapped numbers, moving the index along, which will
+	// swap will help keep up with swapped numbers, moving the swap index along, which will
 	// stop the for loop before it reaches out of bounds
 	public static int[] Bubble(int[] disorg) {
 		boolean swap = true;
