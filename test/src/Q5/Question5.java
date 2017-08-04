@@ -1,15 +1,14 @@
-package test;
-//1) Reverse a string without using a temporary variable. DO NO USE REVERSE()
-//2) Write a substring method that acceots a string str and in integer idx and 
-//returns the substring contained between 0 and idx-1 inclusive. DO NOT use any existing substring metho
-public class reverse {
+package Q5;
+
+public class Question5 {
 	
-	public static String reverseString(String str) {
-		if(str.length()<=1)
-			return str;
-		return reverseString(str.substring(1))+str.charAt(0);
-	}
+	public final static float yi=1.1f;
+	public final static float er=2.22f;
 	
+	/*
+	 * Q5 Write a substring method that accepts a string str and an integer idx and 
+	 * returns the substring contained between 0 and idx-1 invlusive.
+	 */
 	public static String mysubstring(String str, int idx) {
 		if(str.equals(""))
 			return "You entered an empty string";
@@ -23,12 +22,9 @@ public class reverse {
 	}
 	
 	public static void main(String args[]) {
-		System.out.println(reverseString("Hello World"));
-		System.out.println(reverseString(""));
 		System.out.println(mysubstring("",5));
 		System.out.println(mysubstring("Hello World",5));
 		System.out.println(mysubstring("hello",6));
 		
 	}
-
 }
