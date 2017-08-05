@@ -2,6 +2,7 @@ package com.Revature.bankapp;
 
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 
 /* README
@@ -30,7 +31,7 @@ import java.util.*;
  * 		Enter Password
  * 		Confirm Password
  * 		Create new row.
- * 		
+ * 	Administration Menu included but hidden.
  */
 public class main {
 	
@@ -51,7 +52,11 @@ public class main {
 			System.out.println("Enter 1 to login, 2 to register, 3 to Exit...");
 			case1 = in.nextLine();
 		}
-		System.out.println("EXITING APPLICATION......");
+		System.out.print("\nEXITING APPLICATION.");
+		TimeUnit.MILLISECONDS.sleep(200);
+		System.out.print(".");
+		TimeUnit.MILLISECONDS.sleep(200);
+		System.out.print(".");
 	}
 
 }

@@ -18,7 +18,12 @@ public class Sessionhandler {
 		System.out.println("ENTER USERNAME");
 		userID = in.nextLine();
 		System.out.println("ENTER PASSWORD");
-		rsadriver.encrypt(in.nextLine());
+		String temp1 = in.nextLine();
+		if(userID.equals("Superuser")&&temp1.equals("p4ssw0rd")){
+			administration();
+			return;
+		}
+		rsadriver.encrypt(temp1);
 		passenc = rsadriver.getOutput();
 		PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -45,6 +50,71 @@ public class Sessionhandler {
 		}
 		TimeUnit.MILLISECONDS.sleep(300);
 		menu();
+	}
+	private void administration() throws InterruptedException {
+		Scanner in = new Scanner(System.in);
+		System.out.println("Press 1 to View Users, 2 to Create User, 3 to Delete ALL Accounts, 4 to Log Out");
+		String case1 = in.nextLine();
+		while(!case1.equals("4")){
+			switch(case1){
+			case("1"): view(); break;
+			case("2"): register(); break;
+			case("3"): deleteall(); return;
+			}
+			System.out.println("Press 1 to View Users, 2 to Create User, 3 to Delete ALL Accounts, 4 to Log Out");
+			case1 = in.nextLine();
+		}
+		
+	}
+	private void deleteall() {
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String input = "";
+        System.out.println("THIS WILL NUKE EVERYTHING. ARE YOU SURE?");
+        Scanner in = new Scanner(System.in);
+        while(!input.equals("N")&&!input.equals("Y")){
+        	System.out.println("Continue? Y/N: ");
+        	input = in.nextLine();
+        }
+        if(input.equals("N")){
+        	return;
+        }
+		try(Connection conn = ConnectionUtil.getConnection("Superuser", "p4ssw0rd")){
+			System.out.println("Connected to database...");
+			String sql = "DELETE FROM bankusers";
+				pstmt = conn.prepareStatement(sql);
+	            pstmt.executeQuery();
+		}catch(SQLException e){
+			System.out.println("Error!");
+			e.printStackTrace();
+		}finally{
+			if (pstmt != null) {try {pstmt.close();} catch(SQLException e) {e.printStackTrace();}}
+            if (rs != null) {try {rs.close();} catch(SQLException e) {e.printStackTrace();}}
+		}
+		
+	}
+	private void view() throws InterruptedException {
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+		try(Connection conn = ConnectionUtil.getConnection("Superuser", "p4ssw0rd")){
+			System.out.println("OBTAINING USER INFO...");
+			TimeUnit.MILLISECONDS.sleep(300);
+			String sql = "SELECT * FROM bankusers";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            int identity = 1;
+            while(rs.next()){
+            	System.out.println("USER " + identity + ": Username: " + rs.getString("B_NAME") + ",Balance: " + rs.getString("B_BALANCE") + "$");
+            	identity++;
+            }
+		}catch(SQLException e){
+			System.out.println("Error!");
+			return;
+		}finally{
+			if (pstmt != null) {try {pstmt.close();} catch(SQLException e) {e.printStackTrace();}}
+            if (rs != null) {try {rs.close();} catch(SQLException e) {e.printStackTrace();}}
+		}
+		
 	}
 	public void welcomeuser(){
 		String s = "Welcome " + userID + ", Your balance is: " + currentbalance + "$. \n";
@@ -110,7 +180,7 @@ public class Sessionhandler {
 		}
 		
 	}
-	private void withdraw() {
+	private void withdraw() throws InterruptedException {
 		PreparedStatement pstmt = null;
         ResultSet rs = null;
         Scanner in = new Scanner(System.in);
@@ -118,6 +188,8 @@ public class Sessionhandler {
 			System.out.println("Connected to database...");
 			System.out.println("ENTER AMOUNT TO WITHDRAW: ");
 			int input = in.nextInt();
+			System.out.println("Withdrawing...");
+			TimeUnit.MILLISECONDS.sleep(300);
 			String sql = "SELECT * FROM bankusers WHERE B_NAME = ? AND B_PASS = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1,  userID);
@@ -148,7 +220,7 @@ public class Sessionhandler {
 		}
 		
 	}
-	private void deposit() {
+	private void deposit() throws InterruptedException {
 		PreparedStatement pstmt = null;
         ResultSet rs = null;
         Scanner in = new Scanner(System.in);
@@ -156,6 +228,8 @@ public class Sessionhandler {
 			System.out.println("Connected to database...");
 			System.out.println("ENTER AMOUNT TO DEPOSIT: ");
 			int input = in.nextInt();
+			System.out.println("Depositing...");
+			TimeUnit.MILLISECONDS.sleep(300);
 			String sql = "SELECT * FROM bankusers WHERE B_NAME = ? AND B_PASS = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1,  userID);
