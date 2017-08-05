@@ -29,5 +29,9 @@ public class SuperUser extends BankUser{
 	public void changeUserField(BankUser b, UserField f) {
 		
 	}
+	
+	public void forfeit() {
+		
+	}
 
 }

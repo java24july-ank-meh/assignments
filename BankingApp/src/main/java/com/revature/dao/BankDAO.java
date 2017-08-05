@@ -16,4 +16,6 @@ public interface BankDAO {
 	public void deleteBankUser(SuperUser su);
 	public List<BankUser> viewAllUsers(SuperUser su);
 	public List<Account> viewAllAccounts(SuperUser su);
+	public void logIn(BankUser b);
+	public void logOut(BankUser b);
 }

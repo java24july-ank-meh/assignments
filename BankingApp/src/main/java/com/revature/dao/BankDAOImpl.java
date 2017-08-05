@@ -85,4 +85,16 @@ public class BankDAOImpl implements BankDAO{
 		return null;
 	}
 
+	@Override
+	public void logIn(BankUser b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void logOut(BankUser b) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
