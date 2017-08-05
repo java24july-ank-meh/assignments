@@ -66,4 +66,8 @@ public class BankUser {
 		this.accounts.add(a);
 	}
 	
+	public void forfeit() {
+		
+	}
+	
 }
