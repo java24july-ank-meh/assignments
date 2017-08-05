@@ -3,15 +3,22 @@ package com.revature.main;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
+import com.revature.dao.BankDAO;
+import com.revature.dao.BankDAOImpl;
 import com.revature.domain.BankUser;
+import com.revature.util.ApplicationSession;
 import com.revature.util.ConnectionUtil;
 
 public class Main {
 	
-	private static List<BankUser> allUsers = new ArrayList<>(); 
+	private static ApplicationSession as = null;
+	private static Scanner s = null;
+	private static BankDAO bankdao = null;
 
 	public static void main(String[] args) {
 		
@@ -23,12 +30,38 @@ public class Main {
 			e.printStackTrace();
 		}
 		*/
-		Scanner s = new Scanner(System.in);
+		as = ApplicationSession.startApplicationSession();
+		bankdao = new BankDAOImpl();
+		s = new Scanner(System.in);
 		System.out.println("Welcome to banking app!");
 		String input = "";
-		while(!input.equalsIgnoreCase("exit")){
+		while(!input.equalsIgnoreCase("quit")){
 			System.out.println("Are you a returning user or a new user?");
 			input = s.nextLine();
+			if(input.equalsIgnoreCase("new")) {
+				createUserFromInput();
+			}
 		}
+		s.close();
+	}
+	
+	public static BankUser createUserFromInput(){
+		
+		System.out.println("Enter username");
+		String username = s.nextLine();
+		System.out.println("Enter password");
+		String pass = s.nextLine();
+		System.out.println("Enter first name");
+		String firstname = s.nextLine();
+		System.out.println("Enter last name");
+		String lastname = s.nextLine();
+		
+		BankUser newUser = new BankUser(username, pass, firstname, lastname);
+		bankdao.createBankUser(newUser);
+		return newUser;
+	}
+	
+	public static void invalidCommand() {
+		System.out.println("Invalid command. Type \"help\" for a list of commands.");
 	}
 }

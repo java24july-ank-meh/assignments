@@ -4,12 +4,15 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.revature.dao.BankDAO;
+import com.revature.dao.BankDAOImpl;
 import com.revature.domain.BankUser;
 
 public class UserSession {
 
 	private static Object lock = new Object();
 	private static UserSession userSession;
+	private static BankDAO bankdao = new BankDAOImpl();
 	private BankUser user;
 	
 	private UserSession(BankUser user) {
@@ -28,29 +31,12 @@ public class UserSession {
 	
 	public static void login() {
 		
-		CallableStatement cs = null;
-		
-		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "{CALL LOGIN(?)}";
-			cs = conn.prepareCall(sql);
-			cs.setInt(1, userSession.user.getId());
-			cs.execute();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+		bankdao.login(userSession.user);
 	}
 	
 	public static void logout() {
 		
-		CallableStatement cs = null;
-		
-		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "{CALL LOGOUT(?)}";
-			cs.setInt(1, userSession.user.getId());
-			cs.execute();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+		bankdao.logout(userSession.user);
 	}
 	
 	

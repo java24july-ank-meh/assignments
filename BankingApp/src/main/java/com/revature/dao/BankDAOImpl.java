@@ -1,8 +1,11 @@
 package com.revature.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.domain.Account;
@@ -74,9 +77,29 @@ public class BankDAOImpl implements BankDAO{
 	}
 
 	@Override
-	public List<BankUser> viewAllUsers(SuperUser su) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BankUser> viewAllUsers() {
+		
+		PreparedStatement pstmt = null;
+		List<BankUser> allUsers = new ArrayList<>();
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "SELECT * FROM BANKUSERS";
+			pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BankUser nextUser = new BankUser(rs.getString("USERNAME"), rs.getString("PASS"),
+						rs.getString("FIRSTNAME"), rs.getString("LASTNAME"));
+				nextUser.setId(rs.getInt("USERID"));
+				allUsers.add(nextUser);
+				
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return allUsers;
 	}
 
 	@Override
@@ -86,14 +109,32 @@ public class BankDAOImpl implements BankDAO{
 	}
 
 	@Override
-	public void logIn(BankUser b) {
-		// TODO Auto-generated method stub
+	public void login(BankUser b) {
+		CallableStatement cs = null;
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "{CALL LOGIN(?)}";
+			cs = conn.prepareCall(sql);
+			cs.setInt(1, b.getId());
+			cs.execute();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
-	public void logOut(BankUser b) {
-		// TODO Auto-generated method stub
+	public void logout(BankUser b) {
+		CallableStatement cs = null;
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "{CALL LOGOUT(?)}";
+			cs = conn.prepareCall(sql);
+			cs.setInt(1, b.getId());
+			cs.execute();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

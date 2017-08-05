@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.revature.dao.BankDAO;
+import com.revature.dao.BankDAOImpl;
 import com.revature.domain.BankUser;
 
 public class ApplicationSession {
@@ -13,6 +15,7 @@ public class ApplicationSession {
 	private List<BankUser> allUsers;
 	private static Object lock = new Object();
 	private static ApplicationSession applicationSession;
+	private static BankDAO bankdao = new BankDAOImpl();
 	private UserSession userSession;
 	
 	private ApplicationSession() {
@@ -31,23 +34,14 @@ public class ApplicationSession {
 	
 	public void populateAllUsers() {
 		
-		PreparedStatement pstmt = null;
-		
-		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "SELECT * FROM BANKUSERS";
-			pstmt = conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				BankUser nextUser = new BankUser(rs.getString("USERNAME"), rs.getString("PASS"),
-						rs.getString("FIRSTNAME"), rs.getString("LASTNAME"));
-				nextUser.setId(rs.getInt("USERID"));
-				allUsers.add(nextUser);
-				
-			}
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+		allUsers = bankdao.viewAllUsers();
 	}
+	
+	public static void end() {
+		UserSession.logout();
+		applicationSession = null;
+		
+	}
+	
+	public UserSession getUserSession() {return applicationSession.userSession;}
 }
