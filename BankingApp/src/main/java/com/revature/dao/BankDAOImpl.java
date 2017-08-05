@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +28,15 @@ public class BankDAOImpl implements BankDAO{
 			String firstname = b.getFirstname();
 			String lastname = b.getLastname();
 			
-			String sql = "INSERT INTO BANKUSERS VALUES(?,?,?,?)";
+			String sql = "INSERT INTO BANKUSERS (USERNAME,PASS,FIRSTNAME,LASTNAME,ISSUPER,LOGGEDIN) VALUES(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, username);
 			pstmt.setString(2, pass);
 			pstmt.setString(3, firstname);
 			pstmt.setString(4, lastname);
+			pstmt.setByte(5, (byte)0);
+			pstmt.setByte(6, (byte)1);
 			
 			int rowsChanged = pstmt.executeUpdate();
 			System.out.println(rowsChanged + " rows changed");
@@ -136,6 +139,43 @@ public class BankDAOImpl implements BankDAO{
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public BankUser getUserFromInfo(String username, String pass) {
+		CallableStatement cs = null;
+		BankUser existingUser = null;
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "{CALL GET_USER_FROM_INFO(?,?,?,?,?,?)}";
+			cs = conn.prepareCall(sql);
+			cs.setString(1, username);
+			cs.setString(2, pass);
+			cs.registerOutParameter(3, Types.INTEGER);
+			cs.registerOutParameter(4, Types.VARCHAR);
+			cs.registerOutParameter(5, Types.VARCHAR);
+			cs.registerOutParameter(6, Types.VARCHAR);
+			
+			cs.execute();
+			ResultSet rs = cs.getResultSet();
+			int isSuper = rs.getInt(3);
+			if(isSuper>0) {
+				existingUser = SuperUser.createSuperUser(username, pass, rs.getString("FN"), 
+						rs.getString("LN"));
+			}
+			else {
+				existingUser = new BankUser(username, pass, rs.getString("FN"), 
+						rs.getString("LN"));
+			}
+			
+			existingUser.setId(rs.getInt("U"));
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return existingUser;
 	}
 
 }

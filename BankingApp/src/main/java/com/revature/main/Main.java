@@ -41,6 +41,9 @@ public class Main {
 			if(input.equalsIgnoreCase("new")) {
 				createUserFromInput();
 			}
+			else if(input.equalsIgnoreCase("returning")) {
+				loginFromInput();
+			}
 		}
 		s.close();
 	}
@@ -59,6 +62,15 @@ public class Main {
 		BankUser newUser = new BankUser(username, pass, firstname, lastname);
 		bankdao.createBankUser(newUser);
 		return newUser;
+	}
+	
+	public static void loginFromInput() {
+		System.out.println("Enter your username");
+		String username = s.nextLine();
+		System.out.println("Enter your password");
+		String pass = s.nextLine();
+		BankUser oldUser = bankdao.getUserFromInfo(username, pass);
+		bankdao.login(oldUser);
 	}
 	
 	public static void invalidCommand() {

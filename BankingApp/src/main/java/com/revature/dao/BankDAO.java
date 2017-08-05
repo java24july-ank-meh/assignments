@@ -18,4 +18,5 @@ public interface BankDAO {
 	public List<Account> viewAllAccounts(SuperUser su);
 	public void login(BankUser b);
 	public void logout(BankUser b);
+	public BankUser getUserFromInfo(String username, String pass);
 }
