@@ -1,5 +1,7 @@
 package com.revature.domain;
 
+import java.util.List;
+
 public class BankUser {
 
 	private int id;
@@ -7,6 +9,7 @@ public class BankUser {
 	private String pass;
 	private String firstname;
 	private String lastname;
+	private List<Account> accounts;
 	
 	public BankUser(String username, String pass, String firstname, String lastname) {
 		this.username = username;
@@ -53,6 +56,14 @@ public class BankUser {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+	
+	public List<Account> getAccounts(){
+		return this.accounts;
+	}
+	
+	public void addAccount(Account a) {
+		this.accounts.add(a);
 	}
 	
 }
