@@ -8,4 +8,5 @@ public interface SuperInterface {
 	public void readBankAccount(int id);
 	public void updateBankAccount(User b);
 	public void deleteBankAccount(int id);
+	
 }
