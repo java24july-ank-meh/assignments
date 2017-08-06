@@ -14,6 +14,8 @@ import com.revature.util.ConnectionUtil;
 
 public class BankDAOImpl implements BankDAO {
 
+	//implemented
+	// creates a new bank user
 	@Override
 	public void CreateBU(BankUser bu) {
 		// opening a new connection
@@ -113,6 +115,9 @@ public class BankDAOImpl implements BankDAO {
 		return null;
 	}
 
+	
+	// implemented
+	// gets the bank user id  after they create an account
 	@Override
 	public int GetUserID(BankUser bu) {
 		PreparedStatement pstmt = null;
@@ -139,7 +144,8 @@ public class BankDAOImpl implements BankDAO {
 		
 	}
 
-
+	// implemented
+	// gets all columns for a specific row
 	@Override
 	public Accounts GetAccInfo(BankUser bu, String str) {
 		Accounts temp = new Accounts();
@@ -176,6 +182,8 @@ public class BankDAOImpl implements BankDAO {
 		return temp;
 	}
 
+	//implemented
+	//get an account number depending on the bank user and the type of account
 	@Override
 	public int GetAccNUM(BankUser bu, String str) {
 		int num = 0;

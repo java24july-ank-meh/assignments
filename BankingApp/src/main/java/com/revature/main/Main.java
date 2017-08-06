@@ -20,7 +20,6 @@ public class Main {
 		c.setUserID(dao.GetUserID(c));
 		//dao.CreateAcc(c);
 		a.setAccountNum(dao.GetAccNUM(c, str));
-		System.out.println(a.getAccountNum());
 		System.out.println(a);
 		a = dao.GetAccInfo(c, str);
 		System.out.println(a);
