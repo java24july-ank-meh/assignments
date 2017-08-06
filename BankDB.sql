@@ -14,7 +14,7 @@ grant create table to bank;
 grant create view to bank;
 
 /*Connect as new user, otherwise will use current user*/
-connect bank/password;
+connect bank/bpass;
 
 /*Create tables*/
 create table PERSON(
