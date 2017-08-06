@@ -44,8 +44,26 @@ Alter table ACCOUNT add constraint FK_USER_ID foreign key (USER_ID)
 create sequence SQ_USER_ID_PERSON
 start with 1
 increment by 1;
-
+/
 create sequence SQ_BANK_ACCOUNT_ID
 start with 1
 increment by 1;
+/
+/*create Triggers*/
+create or replace trigger TR_INSERT_PERSON
+before insert on PERSON
+for each row
+begin
+	select SQ_USER_ID_PERSON.NEXTVAL into :NEW.USER_ID from DUAL;
+end;
+/
+﻿create or replace trigger TR_INSERT_ACCOUNTS
+before insert on ACCOUNTS
+for each row
+begin
+	select SQ_BANK_ACCOUNT_ID.NEXTVAL into :NEW.ACCOUNTNUM from DUAL;
+end;
+
+
+
 
