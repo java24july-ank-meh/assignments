@@ -11,8 +11,8 @@ public interface BankDAO {
 	public void createBankUser(BankUser b);
 	public void createAccount(BankUser b, Account a);
 	public void createSuperUser(BankUser b);
-	public void withdraw(BankUser b, Account a, int amount);
-	public double viewBalance(BankUser b);
+	public void transaction(BankUser b, Account a, int amount);
+	public double viewBalance(BankUser b, Account a);
 	public void deleteBankUser(SuperUser su);
 	public List<BankUser> viewAllUsers();
 	public List<Account> viewAllAccounts(SuperUser su);

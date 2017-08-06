@@ -2,10 +2,19 @@ package com.revature.domain;
 
 public class Account {
 
+	private int id;
 	private BankUser bankUser;
 	private double balance;
 	private AccountType accountType;
 	private double interestRate;
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public BankUser getBankUser() {
 		return bankUser;

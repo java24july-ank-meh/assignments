@@ -39,8 +39,15 @@ public class BankDAOImpl implements BankDAO{
 			pstmt.setByte(6, (byte)0);
 			
 			int rowsChanged = pstmt.executeUpdate();
-			System.out.println(rowsChanged + " rows changed");
+			System.out.println(rowsChanged + " row(s) added to BANKUSERS");
 			
+			String sql2 = "{CALL GET_USERID_FROM_USERNAME(?,?)}";
+			CallableStatement cs = conn.prepareCall(sql2);
+			cs.setString(1, b.getUsername());
+			cs.registerOutParameter(2, Types.INTEGER);
+			cs.execute();
+			
+			b.setId(cs.getInt(2));
 			
 		}catch(SQLException e) {
 			System.out.println("Failed to create user");
@@ -51,8 +58,31 @@ public class BankDAOImpl implements BankDAO{
 
 	@Override
 	public void createAccount(BankUser b, Account a) {
-		// TODO Auto-generated method stub
 		
+		PreparedStatement pstmt = null;
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+		
+			String sql = "INSERT INTO ACCOUNTS VALUES(?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, a.getAccountType().toString());
+			pstmt.setInt(2, b.getId());
+			pstmt.setDouble(3, 0.00);
+			pstmt.setDouble(4,a.getInterestRate());
+			
+			int rowsChanged = pstmt.executeUpdate();
+			System.out.println(rowsChanged+" added to ACCOUNTS");
+			
+			String sql2 = "{CALL ACCOUNT_KEY(?)}";
+			CallableStatement cs = conn.prepareCall(sql2);
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.execute();
+			
+			a.setId(cs.getInt(1));
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	@Override
@@ -62,14 +92,39 @@ public class BankDAOImpl implements BankDAO{
 	}
 
 	@Override
-	public void withdraw(BankUser b, Account a, int amount) {
-		// TODO Auto-generated method stub
+	public void transaction(BankUser b, Account a, int amount) {
+		
+		double newBalance = a.getBalance() + amount;
+		if(newBalance < 0.0) {
+			System.out.println("Insufficient funds");
+			return;
+		}
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "UPDATE ACCOUNTS SET BALANCE=? WHERE ACCOUNTID=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setDouble(1, newBalance);
+			pstmt.setInt(2, a.getId());
+			int rowsChanged = pstmt.executeUpdate();
+			System.out.println(rowsChanged+" account(s) changed");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
-	public double viewBalance(BankUser b) {
-		// TODO Auto-generated method stub
+	public double viewBalance(BankUser b, Account a) {
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "SELECT BALANCE FROM ACCOUNTS WHERE ACCOUNTID=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, a.getId());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				return rs.getDouble("BALANCE");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
@@ -95,13 +150,11 @@ public class BankDAOImpl implements BankDAO{
 						rs.getString("FIRSTNAME"), rs.getString("LASTNAME"));
 				nextUser.setId(rs.getInt("USERID"));
 				allUsers.add(nextUser);
-				
 			}
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return allUsers;
 	}
 
@@ -123,7 +176,6 @@ public class BankDAOImpl implements BankDAO{
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
@@ -138,7 +190,6 @@ public class BankDAOImpl implements BankDAO{
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
@@ -155,9 +206,8 @@ public class BankDAOImpl implements BankDAO{
 			cs.registerOutParameter(4, Types.VARCHAR);
 			cs.registerOutParameter(5, Types.VARCHAR);
 			cs.registerOutParameter(6, Types.VARCHAR);
-			
+
 			cs.execute();
-			
 			
 			String isSuper = cs.getString(6);
 			if(isSuper.equals("0")) {
@@ -169,9 +219,7 @@ public class BankDAOImpl implements BankDAO{
 					cs.getString(5));
 			}
 			
-			
 		existingUser.setId(cs.getInt(3));
-			
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -199,5 +247,4 @@ public class BankDAOImpl implements BankDAO{
 		}
 		return false;
 	}
-
 }
