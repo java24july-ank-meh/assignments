@@ -5,11 +5,19 @@ public class Accounts {
 	private int userID;
 	private int accountNum;
 	private int balance;
+	private String typea;
 	
 	
+	public String getTypea() {
+		return typea;
+	}
+	public void setTypea(String typea) {
+		this.typea = typea;
+	}
 	@Override
 	public String toString() {
-		return "Accounts [userID=" + userID + ", accountNum=" + accountNum + ", balance=" + balance + "]";
+		return "Accounts [userID=" + userID + ", accountNum=" + accountNum + ", balance=" + balance + ", typea=" + typea
+				+ "]";
 	}
 	public Accounts() {
 		super();

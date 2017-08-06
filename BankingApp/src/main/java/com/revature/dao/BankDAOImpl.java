@@ -114,7 +114,7 @@ public class BankDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public int getUserID(BankUser bu) {
+	public int GetUserID(BankUser bu) {
 		PreparedStatement pstmt = null;
 		String un = bu.getUname();
 		int id = 0;
@@ -124,7 +124,6 @@ public class BankDAOImpl implements BankDAO {
 			pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				System.out.println(rs.getInt("USER_ID"));
 				id = rs.getInt("USER_ID");
 			}
 			rs.close();
@@ -138,6 +137,68 @@ public class BankDAOImpl implements BankDAO {
 		}
 		return id;
 		
+	}
+
+
+	@Override
+	public Accounts GetAccInfo(BankUser bu, String str) {
+		Accounts temp = new Accounts();
+		PreparedStatement pstmt = null;
+		int uid = bu.getUserID();
+		int id = 0;
+		int anum = 500;
+		int bal = 20;
+		String t = "";
+		try {
+			Connection conn = ConnectionUtil.getConnectionProp();
+			String sql = "SELECT USER_ID, ACCOUNTNUM, BALANCE, TYPEACC FROM ACCOUNTS Where USER_ID ="+uid+"";
+			pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				id = rs.getInt("USER_ID");
+				anum = rs.getInt("ACCOUNTNUM");
+				bal = rs.getInt("BALANCE");
+				t = rs.getString("TYPEACC");
+				temp.setAccountNum(anum);
+				temp.setUserID(id);
+				temp.setBalance(bal);
+				temp.setTypea(t);
+			}
+			rs.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt!=null) {
+				try {pstmt.close();} 
+				catch(SQLException e) {e.printStackTrace();}
+			}
+		}
+		return temp;
+	}
+
+	@Override
+	public int GetAccNUM(BankUser bu, String str) {
+		int num = 0;
+		PreparedStatement pstmt = null;
+		int uid = bu.getUserID();
+		try {
+			Connection conn = ConnectionUtil.getConnectionProp();
+			String sql = "SELECT ACCOUNTNUM FROM ACCOUNTS Where USER_ID ="+uid+" and TYPEACC = '"+str+"'";
+			pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				num = rs.getInt("ACCOUNTNUM");
+			}
+			rs.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt!=null) {
+				try {pstmt.close();} 
+				catch(SQLException e) {e.printStackTrace();}
+			}
+		}
+		return num;
 	}
 
 

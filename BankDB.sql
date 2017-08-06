@@ -29,16 +29,18 @@ create table PERSON(
 	Constraint PK_PERSON primary key (SSN)
 );
 
-create table ACCOUNT(
+create table ACCOUNTS(
 	USER_ID integer NOT NULL,
 	ACCOUNTNUM integer NOT NULL,
 	balance integer NOT NULL,
 	constraint PK_ACCOUNT primary key (USER_ID, ACCOUNTNUM)
 );
 
-/*create foreign keys*/
-Alter table ACCOUNT add constraint FK_USER_ID foreign key (USER_ID)
+/*create foreign keys and altercations to the tables*/
+Alter table ACCOUNTS add constraint FK_USER_ID foreign key (USER_ID)
 	references PERSON (USER_ID) on delete cascade;
+Alter table ACCOUNTS 
+	add TYPEACC varchar2(20) default 'Savings' NOT NULL;
 	
 /*Create sequences*/
 create sequence SQ_USER_ID_PERSON

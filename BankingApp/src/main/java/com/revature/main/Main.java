@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.revature.dao.BankDAO;
 import com.revature.dao.BankDAOImpl;
+import com.revature.domain.Accounts;
 import com.revature.domain.BankUser;
 
 public class Main {
@@ -11,12 +12,19 @@ public class Main {
 		
 		BankDAO dao = new BankDAOImpl();
 		Scanner sc = new Scanner(System.in);
+		String str = "Savings";
 		String input = "";
+		Accounts a = new Accounts();
 		BankUser c = new BankUser("Anabel", "ocon", "4567890123", "ancon", "ppasses", "ancon@mail.com");
 		//dao.CreateBU(c);
-		c.setUserID(dao.getUserID(c));
-		System.out.println(c.getUserID());
-		dao.CreateAcc(c);
+		c.setUserID(dao.GetUserID(c));
+		//dao.CreateAcc(c);
+		a.setAccountNum(dao.GetAccNUM(c, str));
+		System.out.println(a.getAccountNum());
+		System.out.println(a);
+		a = dao.GetAccInfo(c, str);
+		System.out.println(a);
+		
 		
 		//System.out.println("Welcome!");
 		//System.out.println("Do you have an account with us? ");
