@@ -41,6 +41,10 @@ Alter table ACCOUNTS add constraint FK_USER_ID foreign key (USER_ID)
 	references PERSON (USER_ID) on delete cascade;
 Alter table ACCOUNTS 
 	add TYPEACC varchar2(20) default 'Savings' NOT NULL;
+Alter table PERSON 
+	add constraint USER_NAME_UNIQUE unique (P_ID);
+Alter table PERSON
+	add PNUM integer default 0 not null;
 	
 /*Create sequences*/
 create sequence SQ_USER_ID_PERSON
@@ -89,6 +93,7 @@ begin
 	commit;
 end;
 /
+
 
 
 

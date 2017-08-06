@@ -47,10 +47,39 @@ public class BankDAOImpl implements BankDAO {
 		
 	}
 
+	// implemented
+	// gets current bankUser information.
+	// this information will be used for future functions
 	@Override
-	public void ReadBU(BankUser bu) {
-		// TODO Auto-generated method stub
-		
+	public BankUser ReadBU(String un, String pw) {
+		BankUser temp = new BankUser();
+		PreparedStatement pstmt = null;
+		try {
+			Connection conn = ConnectionUtil.getConnectionProp();
+			String sql = "SELECT FIRSTNAME, LASTNAME, PHONENUM, P_ID, P_PW, EMAIL,"
+					+ " USER_ID, PNUM FROM PERSON WHERE P_ID = '"+un+"' AND P_PW = '"+pw+"'";
+			pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				temp.setfName(rs.getString("FIRSTNAME"));
+				temp.setlName(rs.getString("LASTNAME"));
+				temp.setPhoneNum(rs.getString("PHONENUM"));
+				temp.setUname(rs.getString("P_ID"));
+				temp.setPw(rs.getString("P_PW"));
+				temp.setEmail(rs.getString("EMAIL"));
+				temp.setUserID(rs.getInt("USER_ID"));
+				temp.setPnum(rs.getInt("PNUM"));
+			}
+			rs.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt!=null) {
+				try {pstmt.close();} 
+				catch(SQLException e) {e.printStackTrace();}
+			}
+		}
+		return temp;
 	}
 
 	@Override
@@ -94,7 +123,8 @@ public class BankDAOImpl implements BankDAO {
 		// TODO Auto-generated method stub
 		
 	}
-
+	// implemented
+	// creates an account for a user.
 	@Override
 	public void WithdrawAcc(Accounts ac, int amount) {
 		if(amount > ac.getBalance()) {

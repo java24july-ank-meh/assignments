@@ -13,18 +13,30 @@ public class Main {
 		BankDAO dao = new BankDAOImpl();
 		Scanner sc = new Scanner(System.in);
 		String str = "Savings";
-		String input = "";
+		String uname = "";
+		String pass = "";
 		Accounts a = new Accounts();
-		BankUser c = new BankUser("Anabel", "ocon", "4567890123", "ancon", "ppasses", "ancon@mail.com");
+		BankUser cur = new BankUser();
+		System.out.println("Enter your username: ");
+		uname = sc.nextLine();
+		System.out.println("Enter your password: ");
+		pass = sc.nextLine();
+		cur = dao.ReadBU(uname, pass);
+		System.out.println(cur);
+		cur = dao.ReadBU("aocon", "ppasses");
+		System.out.println(cur);
+		
+		//BankUser c = new BankUser("Anabel", "ocon", "4567890123", "ancon", "ppasses", "ancon@mail.com");
 		//dao.CreateBU(c);
-		c.setUserID(dao.GetUserID(c));
+		//c.setUserID(dao.GetUserID(c));
 		//dao.CreateAcc(c);
-		a.setAccountNum(dao.GetAccNUM(c, str));
-		System.out.println(a);
-		a = dao.GetAccInfo(c, str);
-		System.out.println(a);
-		dao.DepositAcc(a, 250);
-		dao.WithdrawAcc(a, 500);
+		
+		//a.setAccountNum(dao.GetAccNUM(cur, str));
+		//System.out.println(a);
+		//a = dao.GetAccInfo(cur, str);
+		//System.out.println(a);
+		//dao.DepositAcc(a, 50);
+		//dao.WithdrawAcc(a, 25);
 		
 		
 		//System.out.println("Welcome!");

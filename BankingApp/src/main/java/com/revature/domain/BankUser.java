@@ -11,13 +11,20 @@ public class BankUser {
 	private String pw;
 	private String email;
 	private int userID;
+	private int pnum;
+	public int getPnum() {
+		return pnum;
+	}
+	public void setPnum(int pnum) {
+		this.pnum = pnum;
+	}
 	private List<Accounts> accountList;
 	
 	
 	@Override
 	public String toString() {
-		return "BankUser [fName=" + fName + ", lName=" + lName + ", phoneNum=" + phoneNum + ", uname=" + uname
-				+ ", email=" + email + "]";
+		return "BankUser [First Name=" + fName + ", Last Name=" + lName + ", Phone Number=" + phoneNum + ", Username=" + uname
+				+ ", Email=" + email + "]";
 	}
 	public BankUser() {
 		super();

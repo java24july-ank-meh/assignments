@@ -6,7 +6,7 @@ import com.revature.domain.*;
 
 public interface BankDAO {
 	public void CreateBU(BankUser bu);
-	public void ReadBU(BankUser bu);
+	public  BankUser ReadBU(String un, String pw);
 	public void UpdateBU(BankUser bu);
 	public void DeleteBU(BankUser bu);
 	public int GetUserID(BankUser bu);
