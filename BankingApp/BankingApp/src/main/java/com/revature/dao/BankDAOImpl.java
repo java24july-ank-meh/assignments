@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.domain.Account;
+import com.revature.domain.AccountTypes;
 import com.revature.domain.BankUser;
 import com.revature.domain.SuperUser;
 import com.revature.util.ConnectionUtil;
@@ -63,11 +64,11 @@ public class BankDAOImpl implements BankDAO{
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 		
-			String sql = "INSERT INTO ACCOUNTS VALUES(?,?,?,?)";
+			String sql = "INSERT INTO ACCOUNTS (ACCOUNTTYPE,USERID,BALANCE,INTERESTRATE) VALUES(?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, a.getAccountType().toString());
+			pstmt.setString(1, a.getAccountType());
 			pstmt.setInt(2, b.getId());
-			pstmt.setDouble(3, 0.00);
+			pstmt.setDouble(3, a.getBalance());
 			pstmt.setDouble(4,a.getInterestRate());
 			
 			int rowsChanged = pstmt.executeUpdate();
@@ -84,6 +85,19 @@ public class BankDAOImpl implements BankDAO{
 			e.printStackTrace();
 		}	
 	}
+	
+	public void deleteAccount(BankUser b, Account a) {
+		PreparedStatement pstmt = null;
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "DELETE FROM ACCOUNTS WHERE ACCOUNTID=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, a.getId());
+			int rowsChanged = pstmt.executeUpdate();
+			System.out.println(rowsChanged + " account(s) deleted");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void createSuperUser(BankUser b) {
@@ -92,7 +106,7 @@ public class BankDAOImpl implements BankDAO{
 	}
 
 	@Override
-	public void transaction(BankUser b, Account a, int amount) {
+	public void transaction(BankUser b, Account a, double amount) {
 		
 		double newBalance = a.getBalance() + amount;
 		if(newBalance < 0.0) {
@@ -210,7 +224,7 @@ public class BankDAOImpl implements BankDAO{
 			cs.execute();
 			
 			String isSuper = cs.getString(6);
-			if(isSuper.equals("0")) {
+			if(!isSuper.equals("0")) {
 				existingUser = SuperUser.createSuperUser(username, pass, cs.getString(4), 
 					cs.getString(5));
 			}
@@ -246,5 +260,52 @@ public class BankDAOImpl implements BankDAO{
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public List<Account> viewMyAccounts(BankUser b) {
+		List<Account> accs = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "SELECT * FROM ACCOUNTS WHERE USERID=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, b.getId());
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int accountId = rs.getInt(1);
+				String accountType = rs.getString(2);
+				int userId = rs.getInt(3);
+				double balance = rs.getDouble(4);
+				double interestRate = rs.getDouble(5);
+				
+				Account newAccount = new Account(b, balance, accountType, interestRate);
+				newAccount.setId(accountId);
+				accs.add(newAccount);
+				b.addAccount(newAccount);
+			}
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return accs;
+	}
+	
+	public void populateAccountTypes() {
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "SELECT * FROM ACCOUNTTYPES";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String nextType = rs.getString(1);
+				AccountTypes.addType(nextType);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -10,14 +10,17 @@ public interface BankDAO {
 
 	public void createBankUser(BankUser b);
 	public void createAccount(BankUser b, Account a);
+	public void deleteAccount(BankUser b, Account a);
 	public void createSuperUser(BankUser b);
-	public void transaction(BankUser b, Account a, int amount);
+	public void transaction(BankUser b, Account a, double amount);
 	public double viewBalance(BankUser b, Account a);
 	public void deleteBankUser(SuperUser su);
 	public List<BankUser> viewAllUsers();
 	public List<Account> viewAllAccounts(SuperUser su);
+	public List<Account> viewMyAccounts(BankUser b);
 	public void login(BankUser b);
 	public void logout(BankUser b);
 	public BankUser getUserFromInfo(String username, String pass);
 	public boolean isLoggedIn(BankUser b);
+	public void populateAccountTypes();
 }

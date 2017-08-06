@@ -5,7 +5,7 @@ public class Account {
 	private int id;
 	private BankUser bankUser;
 	private double balance;
-	private AccountType accountType;
+	private String accountType;
 	private double interestRate;
 	
 	public int getId() {
@@ -32,11 +32,11 @@ public class Account {
 		this.balance = balance;
 	}
 
-	public AccountType getAccountType() {
+	public String getAccountType() {
 		return accountType;
 	}
 
-	public void setAccountType(AccountType accountType) {
+	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
 
@@ -48,10 +48,16 @@ public class Account {
 		this.interestRate = interestRate;
 	}
 
-	public Account(BankUser bankUser, double balance, AccountType accountType, double interestRate) {
+	public Account(BankUser bankUser, double balance, String accountType, double interestRate) {
 		this.bankUser = bankUser;
 		this.accountType = accountType;
 		this.interestRate = interestRate;
-		this.balance = 0.0;
+		this.balance = balance;
+	}
+	
+	@Override
+	public String toString() {
+		return accountType + " account " + id + " held by user " 
+				+ bankUser.getUsername(); 
 	}
 }

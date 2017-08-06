@@ -25,6 +25,7 @@ public class ApplicationSession {
 			}
 		}
 		applicationSession.populateAllUsers();
+		bankdao.populateAccountTypes();
 		return applicationSession;
 	}
 	

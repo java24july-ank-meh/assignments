@@ -1,5 +1,6 @@
 package com.revature.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankUser {
@@ -16,6 +17,7 @@ public class BankUser {
 		this.pass = pass;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.accounts = new ArrayList<Account>();
 	}
 
 	public int getId() {
@@ -64,6 +66,18 @@ public class BankUser {
 	
 	public void addAccount(Account a) {
 		this.accounts.add(a);
+	}
+	
+	@Override
+	public String toString() {
+		return "User " + id + " " + username;
+	}
+	
+	public Account getAccountFromId(int id) {
+		for (Account a : accounts) {
+			if(a.getId()==id) {return a;}
+		}
+		return null;
 	}
 	
 }
