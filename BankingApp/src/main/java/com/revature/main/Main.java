@@ -24,6 +24,7 @@ public class Main {
 		a = dao.GetAccInfo(c, str);
 		System.out.println(a);
 		dao.DepositAcc(a, 250);
+		dao.WithdrawAcc(a, 500);
 		
 		
 		//System.out.println("Welcome!");

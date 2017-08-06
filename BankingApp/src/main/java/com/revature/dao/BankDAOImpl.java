@@ -65,6 +65,8 @@ public class BankDAOImpl implements BankDAO {
 		
 	}
 
+	// implemented
+	// creates an account for a user. 
 	@Override
 	public void CreateAcc(BankUser bu) {
 		try(Connection conn = ConnectionUtil.getConnectionProp()){
@@ -94,8 +96,35 @@ public class BankDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public void WithdrawAcc(Accounts ac) {
-		// TODO Auto-generated method stub
+	public void WithdrawAcc(Accounts ac, int amount) {
+		if(amount > ac.getBalance()) {
+			System.out.println("Trying to withdraw more than you have");
+			return;
+		}
+		//Callable Statement, extends PreparedStatement
+		CallableStatement cs = null;
+		try(Connection conn = ConnectionUtil.getConnectionProp()){
+			//CallableStatement: {Call Prodecure_Name(?))}
+			String sql = "{CALL SP_REV_BAL(?, ?, ?, ?)}";
+			cs = conn.prepareCall(sql);
+			
+			
+			cs.setString(1, ac.getTypea());
+			cs.setInt(2, ac.getUserID());
+			cs.setInt(3, amount);
+			cs.registerOutParameter(4, Types.INTEGER);
+			cs.execute();
+			ac.setBalance(cs.getInt(4));
+			System.out.println();
+			
+			// returns a boolean
+			System.out.println("New balance is: "+cs.getInt(4));
+			
+			cs.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}	
+
 		
 	}
 
@@ -125,9 +154,7 @@ public class BankDAOImpl implements BankDAO {
 			cs.close();
 		}catch(Exception e) {
 			e.printStackTrace();
-		}
-		
-		
+		}	
 	}
 
 	@Override
