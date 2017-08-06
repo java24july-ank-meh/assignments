@@ -23,6 +23,7 @@ public class Main {
 		System.out.println(a);
 		a = dao.GetAccInfo(c, str);
 		System.out.println(a);
+		dao.DepositAcc(a, 250);
 		
 		
 		//System.out.println("Welcome!");

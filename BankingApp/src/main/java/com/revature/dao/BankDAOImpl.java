@@ -1,11 +1,13 @@
 package com.revature.dao;
 
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.List;
 
 import com.revature.domain.Accounts;
@@ -97,9 +99,34 @@ public class BankDAOImpl implements BankDAO {
 		
 	}
 
+	// implemented
+	// adds funds to account;
 	@Override
-	public void DepositAcc(Accounts ac) {
-		// TODO Auto-generated method stub
+	public void DepositAcc(Accounts ac, int amount) {
+		//Callable Statement, extends PreparedStatement
+		CallableStatement cs = null;
+		try(Connection conn = ConnectionUtil.getConnectionProp()){
+			//CallableStatement: {Call Prodecure_Name(?))}
+			String sql = "{CALL SP_ADD_BAL(?, ?, ?, ?)}";
+			cs = conn.prepareCall(sql);
+			
+			
+			cs.setString(1, ac.getTypea());
+			cs.setInt(2, ac.getUserID());
+			cs.setInt(3, amount);
+			cs.registerOutParameter(4, Types.INTEGER);
+			cs.execute();
+			ac.setBalance(cs.getInt(4));
+			System.out.println();
+			
+			// returns a boolean
+			System.out.println("New balance is: "+cs.getInt(4));
+			
+			cs.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 
@@ -207,6 +234,12 @@ public class BankDAOImpl implements BankDAO {
 			}
 		}
 		return num;
+	}
+
+	@Override
+	public List<Accounts> ReadUserAcc(BankUser bu) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

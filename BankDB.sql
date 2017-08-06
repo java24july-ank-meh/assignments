@@ -65,7 +65,18 @@ for each row
 begin
 	select SQ_BANK_ACCOUNT_ID.NEXTVAL into :NEW.ACCOUNTNUM from DUAL;
 end;
-
+/
+﻿create or replace procedure SP_ADD_BAL(ACCTYPE in varchar2, USERID in number, AMOUNT in number,
+NBAL out number) as
+begin
+	update ACCOUNTS set BALANCE = BALANCE + AMOUNT
+	where USER_ID = USERID and TYPEACC = ACCTYPE;
+    select BALANCE
+    into NBAL
+    from ACCOUNTS where USER_ID = USERID and TYPEACC = ACCTYPE;
+	commit;
+end;
+/
 
 
 

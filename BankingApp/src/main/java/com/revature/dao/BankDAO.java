@@ -17,9 +17,10 @@ public interface BankDAO {
 	public void CreateAcc(BankUser bu);
 	public void ReadAcc(Accounts ac);
 	public void WithdrawAcc(Accounts ac);
-	public void DepositAcc(Accounts ac);
+	public void DepositAcc(Accounts ac, int amount);
 	public void DeleteAcc(Accounts ac);
 	public List<Accounts> ReadAllAcc(BankUser bu);
+	public List<Accounts> ReadUserAcc(BankUser bu);
 	
 	
 	
