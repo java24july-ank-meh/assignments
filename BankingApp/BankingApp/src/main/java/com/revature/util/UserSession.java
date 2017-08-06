@@ -1,8 +1,6 @@
 package com.revature.util;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.Scanner;
 
 import com.revature.dao.BankDAO;
 import com.revature.dao.BankDAOImpl;
@@ -22,7 +20,7 @@ public class UserSession {
 	public static UserSession startUserSession(BankUser b) {
 		
 		synchronized(lock) {
-			if(userSession!=null) {
+			if(userSession==null) {
 				userSession = new UserSession(b);
 			}
 		}
@@ -37,6 +35,24 @@ public class UserSession {
 	public static void logout() {
 		
 		bankdao.logout(userSession.user);
+	}
+	
+	public void sessionLoop() {
+		Scanner s = new Scanner(System.in);
+		if(!bankdao.isLoggedIn(user)) {
+			System.out.println("Login failed. Failed to update LOGGEDIN field in BANKUSERS table");
+			return;
+		}
+		System.out.println("You are now logged in!");
+		sessionLoop:while(true) {
+			System.out.println("Type next command");
+			String input = s.nextLine();
+			if(input.equalsIgnoreCase("logout")) {
+				bankdao.logout(user);
+				System.out.println("\nCome again soon!\n");
+				break sessionLoop;
+			}
+		}
 	}
 	
 	

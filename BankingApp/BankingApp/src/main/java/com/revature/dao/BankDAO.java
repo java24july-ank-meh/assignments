@@ -19,4 +19,5 @@ public interface BankDAO {
 	public void login(BankUser b);
 	public void logout(BankUser b);
 	public BankUser getUserFromInfo(String username, String pass);
+	public boolean isLoggedIn(BankUser b);
 }

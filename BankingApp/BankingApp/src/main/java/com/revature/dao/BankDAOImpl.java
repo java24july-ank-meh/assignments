@@ -36,7 +36,7 @@ public class BankDAOImpl implements BankDAO{
 			pstmt.setString(3, firstname);
 			pstmt.setString(4, lastname);
 			pstmt.setByte(5, (byte)0);
-			pstmt.setByte(6, (byte)1);
+			pstmt.setByte(6, (byte)0);
 			
 			int rowsChanged = pstmt.executeUpdate();
 			System.out.println(rowsChanged + " rows changed");
@@ -157,18 +157,20 @@ public class BankDAOImpl implements BankDAO{
 			cs.registerOutParameter(6, Types.VARCHAR);
 			
 			cs.execute();
-			ResultSet rs = cs.getResultSet();
-			int isSuper = rs.getInt(3);
-			if(isSuper>0) {
-				existingUser = SuperUser.createSuperUser(username, pass, rs.getString("FN"), 
-						rs.getString("LN"));
+			
+			
+			String isSuper = cs.getString(6);
+			if(isSuper.equals("0")) {
+				existingUser = SuperUser.createSuperUser(username, pass, cs.getString(4), 
+					cs.getString(5));
 			}
 			else {
-				existingUser = new BankUser(username, pass, rs.getString("FN"), 
-						rs.getString("LN"));
+				existingUser = new BankUser(username, pass, cs.getString(4), 
+					cs.getString(5));
 			}
 			
-			existingUser.setId(rs.getInt("U"));
+			
+		existingUser.setId(cs.getInt(3));
 			
 			
 		}catch(SQLException e) {
@@ -176,6 +178,26 @@ public class BankDAOImpl implements BankDAO{
 		}
 		
 		return existingUser;
+	}
+
+	@Override
+	public boolean isLoggedIn(BankUser b) {
+		PreparedStatement pstmt = null;
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "SELECT LOGGEDIN FROM BANKUSERS WHERE USERNAME=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getUsername());
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String result = rs.getString("LOGGEDIN");
+				if(result.equals("1")) {return true;}
+				return false;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }
