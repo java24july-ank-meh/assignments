@@ -1,0 +1,214 @@
+/*Please note that there was an issue with the save that I only right before turning this in.
+I had most of the SQL challenges done (save one that I never could understand and the very last one)
+but that data is gone and I do not have enough time to do them again. If you would like them
+done, please let me know and I will be happy to finish them again.*/
+/*HOMEWORK STARTS HERE!*/
+
+/*2.1 SELECT*/
+SELECT * FROM Employee;
+SELECT * FROM Employee WHERE LASTNAME = 'King';
+SELECT * FROM Employee WHERE FIRSTNAME = 'Andrew' AND REPORTSTO IS NULL;
+
+/*2.2 ORDER BY*/
+SELECT * from Album order by Title;
+SELECT FirstName FROM Customer order by city;
+
+/*2.3 INSERT INTO*/
+/*SELECT * FROM Genre;*/
+INSERT INTO Genre VALUES(26, 'Big Band');
+INSERT INTO Genre VALUES(27, 'Swing');
+/*SELECT * FROM Employee;*/
+INSERT INTO Employee (EMPLOYEEID, FIRSTNAME, LASTNAME, TITLE) VALUES(96, 'Nora', 'Duckett', 'Best Employee Ever of All Time');
+INSERT INTO Employee (EMPLOYEEID, FIRSTNAME, LASTNAME, TITLE) VALUES(42, 'Twilight', 'Sparkle', 'Princess of Friendship');
+/*SELECT * FROM Customer;*/
+INSERT INTO Customer (CUSTOMERID, FIRSTNAME, LASTNAME, COMPANY, email) VALUES (60, 'Rainbow', 'Dash', 'Wonderbolts', 'RD@wonderbolts.gov');
+INSERT INTO Customer (CUSTOMERID, FIRSTNAME, LASTNAME, STATE, EMAIL) VALUES (67, 'Luna', 'Lunamoon', 'Equestria', 'Nothing@gmail.edu');
+
+/*2.4 UPDATE*/
+UPDATE Customer
+SET FIRSTNAME = 'Robert', LASTNAME = 'Walter'
+WHERE FIRSTNAME = 'Aaron' AND LASTNAME = 'Mitchell';
+/*SELECT * FROM Customer WHERE CUSTOMERID = 32;*/
+
+UPDATE Artist
+SET Name = 'CCR'
+WHERE Name = 'Creedence Clearwater Revival';
+/*SELECT * FROM Artist WHERE ArtistID = 76;*/
+
+/*2.5 LIKE*/
+SELECT * FROM Invoice
+WHERE BILLINGADDRESS LIKE 'T%';
+
+/*2.6 BETWEEN*/
+SELECT * FROM Invoice
+WHERE Total BETWEEN 15 AND 50;
+
+SELECT * FROM Employee
+WHERE HireDate BETWEEN '01-JUN-03' AND '01-MAR-04';
+
+
+
+
+/*2.7 DELETE*/
+
+ALTER TABLE InvoiceLine
+    DROP CONSTRAINT FK_InvoiceLineInvoiceId;
+ALTER TABLE InvoiceLine ADD CONSTRAINT FK_InvoiceLineInvoiceId
+    FOREIGN KEY (InvoiceId) REFERENCES Invoice (InvoiceId) ON DELETE CASCADE ;
+    COMMIT;
+
+DELETE FROM Customer WHERE FIRSTNAME = 'Robert' AND LASTNAME = 'Walter';
+/*SELECT * FROM Customer WHERE FIRSTNAME = 'Robert' AND LASTNAME = 'Walter';*/
+
+/*3.1 System Defined Functions*/
+CREATE OR REPLACE FUNCTION GET_CURRENT_TIME RETURN date IS MyDate date;
+BEGIN
+    myDate:=CURRENT_TIMESTAMP;
+    RETURN myDate;
+END;
+/
+
+/*I think that this is what the thing was going for, but I do not know for sure. */
+CREATE OR REPLACE FUNCTION LENGTH_OF_MEDIA RETURN NUMBER
+IS NUM NUMBER;
+BEGIN
+    SELECT LENGTH(NAME) INTO NUM FROM mediatype;
+    RETURN NUM;
+END;
+/
+
+/*3.2 System Defined Aggregate Functions
+Task – Create a function that returns the average total of all invoices
+Task – Create a function that returns the most expensive track*/
+CREATE OR REPLACE FUNCTION AVERAGE_INVOICE_TOTAL RETURN NUMBER
+IS AverageTotal NUMBER;
+BEGIN
+    SELECT AVG(TOTAL)into AverageTotal FROM INVOICE;
+    return averagetotal;
+END;
+/
+
+CREATE OR REPLACE FUNCTION GET_MOST_EXPENSIVE_TRACK_PRICE RETURN NUMBER
+IS HighestPrice NUMBER;
+BEGIN
+    SELECT MAX(UNITPRICE) into HighestPrice FROM TRACK;
+    RETURN HighestPrice;
+END;
+/
+
+/*3.3 User Defined Functions
+Task – Create a function that returns the average price of invoiceline items in
+the invoiceline table*/
+CREATE OR REPLACE FUNCTION AVERAGE_INVOICELINE_PRICE RETURN NUMBER
+IS AveragePrice NUMBER;
+BEGIN
+    SELECT AVG(unitprice) into AveragePrice FROM INVOICELINE;
+    RETURN (AveragePrice);
+END;
+/
+
+
+
+
+
+
+
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+/*3.4 User Defined Table Valued Functions
+Task – Create a function that returns all employees who are born after 1968.*/
+CREATE or replace TYPE E_TABLE IS OBJECT
+(
+    FirstName VARCHAR2(20)
+    , LastName VARCHAR2(20)
+);
+
+CREATE or replace TYPE E_TABLE_COLL IS TABLE OF T_TABLE;
+
+
+CREATE OR REPLACE FUNCTION EMPLOYEES_BORN_AFTER_1968 RETURN E_TABLE_COLL
+IS YoungEmployees object;
+BEGIN
+    SELECT * into YoungEmployees FROM EMPLOYEE
+    WHERE TO_DATE('01-JAN-1968') <= BIRTHDATE;
+    RETURN YoungEmployees;
+END;
+/
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+/*THIS DOES NOT WORK!*//*THIS DOES NOT WORK!*/
+
+
+
+
+
+
+/*6.1 AFTER/FOR
+Task - Create an after insert trigger on the employee table fired after a new record is inserted into the table.
+Task – Create an after update trigger on the album table that fires after a row is inserted in the table
+Task – Create an after delete trigger on the customer table that fires after a row is deleted from the table.*/
+CREATE OR REPLACE TRIGGER TR_INSERT_EMPLOYEE
+BEFORE INSERT ON EMPLOYEE
+FOR EACH ROW
+BEGIN
+    SELECT * FROM EMPLOYEE;
+END;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_ALBUM
+BEFORE INSERT ON ALBUM
+FOR EACH ROW
+BEGIN
+    SELECT * FROM ALBUM;
+END;
+
+CREATE OR REPLACE TRIGGER TR_INSERT_CUSTOMER
+BEFORE DELETE ON CUSTOMER
+FOR EACH ROW
+BEGIN
+    SELECT * FROM CUSTOMER;
+END;
+
+/*7.0 JOINS
+7.1 INNER*/
+/*Will need to join INVOICE and CUSTOMER and INVOICE has CustomerID as a foreign
+key that points to the CustomerID column in CUSTOMER*/
+SELECT FIRSTNAME, LASTNAME, INVOICEID
+FROM CUSTOMER INNER JOIN INVOICE ON Customer.CustomerID = Invoice.CustomerID;
+
+/*7.2 OUTER
+Task – Create an outer join that joins the customer and invoice table, specifying
+the CustomerId, firstname, lastname, invoiceId, and total.*/
+SELECT CUSTOMER.CustomerID, FIRSTNAME, LASTNAME, INVOICEID, TOTAL
+FROM CUSTOMER FULL OUTER JOIN INVOICE ON Customer.CustomerID = Invoice.CustomerID;
+
+/*7.3 RIGHT
+Task – Create a right join that joins album and artist specifying artist name and title.*/
+SELECT * FROM ALBUM RIGHT JOIN ARTIST ON ALBUM.ArtistID = Artist.Artistid
+WHERE NAME = 'AC/DC' AND TITLE = 'For Those About To Rock We Salute You';
+/*SELECT * FROM ALBUM;*/
+
+/*7.4 CROSS
+Task – Create a cross join that joins album and artist and sorts by artist name
+in ascending order.*/
+SELECT * FROM ALBUM CROSS JOIN ARTIST
+ORDER BY NAME;
+
+/*7.5 SELF
+Task – Perform a self-join on the employee table, joining on the reportsto column.*/
+/*SELECT * FROM EMPLOYEE;*/
+SELECT A.FIRSTNAME AS AnEmployee, B.FIRSTNAME AS Boss
+from Employee A, Employee B
+WHERE B.ReportsTo <> A.EmployeeId;
+
+
+
+
+
+/*7.6 Complicated Join assignment
+Create an inner join between all tables in the chinook database.*/
+/*I SHALL RETURN HERE AT A LATER POINT*/

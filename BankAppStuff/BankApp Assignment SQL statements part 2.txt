@@ -1,0 +1,29 @@
+SELECT * FROM BankUser;
+
+SELECT * FROM VW_USERTYPES;
+
+/*Create the view for seeing what accounts belong to what users
+and the balances of those accounts*/
+CREATE OR REPLACE VIEW VW_USERACCOUNTS AS
+    SELECT Username, Bank_Account_ID, Balance
+    FROM Account LEFT JOIN BankUser ON Account.Account_Holder_ID = BankUser.USER_ID;
+/
+
+
+INSERT INTO account (Account_Holder_ID, Balance) VALUES(21, 0);
+
+SELECT * FROM VW_USERACCOUNTS where username = 'MagicMare';
+commit;
+
+/*Stored Procedure*/
+/*The A_ID stands for Account ID, and AMT stands for the amount to deposit into
+the account. NEW_BAL is the new balance of the account after the deposit*/
+CREATE OR REPLACE PROCEDURE SP_DEPOSIT
+    (A_ID IN NUMBER, AMT IN NUMBER, NEW_BAL OUT NUMBER) AS
+BEGIN
+    UPDATE Account SET Balance = Balance + AMT
+        WHERE bank_account_id = A_ID;
+    COMMIT;
+    SELECT Balance INTO NEW_BAL FROM account WHERE bank_account_id = A_ID;
+END;
+/

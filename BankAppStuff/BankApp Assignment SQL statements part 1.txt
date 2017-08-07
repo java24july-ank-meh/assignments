@@ -1,0 +1,138 @@
+/*Drop database if it exists*/
+DROP USER bank CASCADE;
+
+/*Create the database user*/
+CREATE USER bank
+IDENTIFIED BY p4ssw0rd
+DEFAULT TABLESPACE users
+TEMPORARY TABLESPACE temp
+QUOTA 10M ON users;
+
+GRANT connect to bank;
+GRANT resource to bank;
+GRANT create session to bank;
+GRANT CREATE TABLE TO bank;
+GRANT CREATE view To bank;
+
+/*Connect as new user, otherwise will use current user*/
+CONNECT bank/p4ssw0rd;
+
+CREATE TABLE BankUser
+(
+    USER_ID NUMBER NOT NULL,
+    Username VARCHAR2(30) NOT NULL UNIQUE,
+    Password VARCHAR2(50) NOT NULL,
+    FirstName VARCHAR2(20),
+    LastName VARCHAR(20),
+    User_Type number, /*Will act as an enum. Is also Foreign Key to account types table*/
+    CONSTRAINT PK_User_ID PRIMARY KEY (USER_ID)
+);
+
+CREATE TABLE Account
+(
+    Bank_Account_ID NUMBER NOT NULL,
+    Account_Holder_ID NUMBER NOT NULL, /*foreign key*/
+    BALANCE NUMBER, /*can make it default to 0 with the way I add rows later*/
+    CONSTRAINT PK_Bank_Account_ID PRIMARY KEY (Bank_Account_ID)
+);
+
+CREATE TABLE UserType
+(
+    Type_ID NUMBER NOT NULL,
+    Type_Name VARCHAR2(20) NOT NULL,
+    CONSTRAINT PK_Type_ID PRIMARY KEY (Type_ID)
+);
+
+
+/*Add Foreign Keys*/
+ALTER TABLE BankUser ADD CONSTRAINT FK_User_Type
+    FOREIGN KEY (User_Type) REFERENCES UserType (Type_ID) on delete cascade;
+ALTER TABLE Account ADD CONSTRAINT FK_User_ID
+    FOREIGN KEY (Account_Holder_ID) REFERENCES BankUser (USER_ID) on delete cascade;
+
+
+/*Views to make things easier to call all the time*/
+CREATE OR REPLACE VIEW VW_USERTYPES AS
+    SELECT USER_ID, Username, Type_name
+    FROM BankUser LEFT JOIN UserType ON BankUser.User_Type = UserType.Type_ID;
+/
+
+
+
+/*Functions*/
+/*CREATE OR REPLACE FUNCTION FN_GET_ACCOUNT_BALANCE (X IN NUMBER) RETURN NUMBER
+IS BAL NUMBER;
+BEGIN
+    SELECT Balance into BAL FROM Account WHERE Bank_Account_ID = x;
+    return BAL;
+END;*/
+
+/*Stored Procedures (you know, because they can actually be called in java code)*/
+/*checking to see if an account has any money in it*/
+CREATE OR REPLACE PROCEDURE SP_GET_ACCOUNT_BALANCE
+(X IN NUMBER, Bal OUT NUMBER) AS
+BEGIN
+    SELECT Balance into BAL FROM Account WHERE Bank_Account_ID = X;
+END;
+/
+
+
+/*Create sequences*/
+CREATE SEQUENCE SQ_PK_BANKUSER
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE SEQUENCE SQ_PK_ACCOUNT
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE SEQUENCE SQ_PK_USERTYPE
+START WITH 1
+INCREMENT BY 1;
+/
+
+/*Create triggers*/
+CREATE OR REPLACE TRIGGER TR_INSERT_BANKUSER
+BEFORE INSERT ON BANKUSER
+FOR EACH ROW
+BEGIN
+    SELECT SQ_PK_BANKUSER.NEXTVAL INTO :NEW.USER_ID FROM DUAL;
+END;
+/
+
+CREATE OR REPLACE TRIGGER TR_INSERT_ACCOUNT
+BEFORE INSERT ON ACCOUNT
+FOR EACH ROW
+BEGIN
+    SELECT SQ_PK_ACCOUNT.NEXTVAL INTO :NEW.Bank_Account_ID FROM DUAL;
+END;
+/
+
+CREATE OR REPLACE TRIGGER TR_INSERT_USERTYPE
+BEFORE INSERT ON USERTYPE
+FOR EACH ROW
+BEGIN
+    SELECT SQ_PK_UserType.NEXTVAL INTO :NEW.Type_ID FROM DUAL;
+END;
+/
+
+
+
+
+/*Populate tables*/
+INSERT INTO UserType (Type_Name) VALUES ('NormalUser');
+INSERT INTO UserType (Type_Name) VALUES ('SuperUser');
+
+INSERT INTO BankUser (username, password, FirstName, LastName, User_Type)
+    VALUES('SlimShade', 'y0da', 'Nora', 'Duckett', 2);
+INSERT INTO BankUser (username, password, FirstName, LastName, User_Type)
+    VALUES('Tester1', 'Word', 'Nigel', 'Uno', 1);
+INSERT INTO BankUser (username, password, FirstName, LastName, User_Type)
+    VALUES('Tester2', 'Word', 'Twilight', 'Sparkle', 1);
+INSERT INTO BankUser (username, password, FirstName, LastName, User_Type)
+    VALUES('Tester3', 'Word', 'Flutterbat', 'Melody', 1);
+INSERT INTO BankUser (username, password, FirstName, LastName, User_Type)
+    VALUES('Tester4', 'Word', 'Wade', 'Wilson', 1);
+    
