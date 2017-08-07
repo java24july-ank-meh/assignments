@@ -83,9 +83,39 @@ public class BankDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public void UpdateBU(BankUser bu) {
-		// TODO Auto-generated method stub
-		
+	public BankUser UpdateBU(BankUser bu, String input1, String input2, String input3, String input4) {
+		String con = "";
+		String t1 = bu.getfName();
+		String t2 = bu.getlName();
+		String t3 = bu.getPhoneNum();
+		String t4 = bu.getEmail();
+		if(input1.equals(con))
+			input1 = t1;
+		if(input2.equals(con))
+			input2 = t2;
+		if(input3.equals(con))
+			input3 = t3;
+		if(input4.equals(con))
+			input4 = t4;
+		bu.setfName(input1);
+		bu.setlName(input2);
+		bu.setPhoneNum(input3);
+		bu.setEmail(input4);
+		try(Connection conn = ConnectionUtil.getConnectionProp()){
+			// declare sql statement + arguments
+			String sql = "UPDATE PERSON SET FIRSTNAME = '"+input1+"', LASTNAME = '"+input2+"',"
+					+ " PHONENUM = '"+input3+"', EMAIL = '"+input4+"' WHERE P_ID ='"+bu.getUname()+"'"
+							+ " AND P_PW = '"+bu.getPw()+"'";
+			// create the statement, as part of the connection
+			Statement stmt = conn.createStatement();
+			// execute the statement 
+			int nRowsAffected = stmt.executeUpdate(sql);
+					
+			System.out.println(nRowsAffected + " row created");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bu;
 	}
 
 	@Override
@@ -118,11 +148,38 @@ public class BankDAOImpl implements BankDAO {
 		
 	}
 
+	// Implemented
+	// will return the user's account
 	@Override
-	public void ReadAcc(Accounts ac) {
-		// TODO Auto-generated method stub
+	public Accounts ReadAcc(BankUser bu, String t) {
+		Accounts temp = new Accounts();
+		int uid = bu.getUserID();
+		PreparedStatement pstmt = null;
+		try {
+			Connection conn = ConnectionUtil.getConnectionProp();
+			String sql = "SELECT USER_ID, ACCOUNTNUM, BALANCE, TYPEACC"
+					+ " FROM ACCOUNTS WHERE USER_ID = "+uid+" AND TYPEACC = '"+t+"'";
+			pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				temp.setUserID(rs.getInt("USER_ID"));
+				temp.setAccountNum(rs.getInt("ACCOUNTNUM"));
+				temp.setBalance(rs.getInt("BALANCE"));
+				temp.setTypea(rs.getString("TYPEACC"));
+			}
+			rs.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt!=null) {
+				try {pstmt.close();} 
+				catch(SQLException e) {e.printStackTrace();}
+			}
+		}
+		return temp;
 		
 	}
+	
 	// implemented
 	// creates an account for a user.
 	@Override
@@ -295,6 +352,18 @@ public class BankDAOImpl implements BankDAO {
 
 	@Override
 	public List<Accounts> ReadUserAcc(BankUser bu) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Accounts> ReadUserAllAcc(BankUser bu) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BankUser> ReadAllBankUsers() {
 		// TODO Auto-generated method stub
 		return null;
 	}

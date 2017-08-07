@@ -10,21 +10,31 @@ import com.revature.domain.BankUser;
 public class Main {
 	public static void main(String[] args) {
 		
+		
 		BankDAO dao = new BankDAOImpl();
 		Scanner sc = new Scanner(System.in);
 		String str = "Savings";
 		String uname = "";
 		String pass = "";
-		Accounts a = new Accounts();
+		Accounts acur = new Accounts();
 		BankUser cur = new BankUser();
 		System.out.println("Enter your username: ");
 		uname = sc.nextLine();
 		System.out.println("Enter your password: ");
 		pass = sc.nextLine();
 		cur = dao.ReadBU(uname, pass);
+		acur = dao.ReadAcc(cur, str);
 		System.out.println(cur);
+		System.out.println(acur);
 		cur = dao.ReadBU("aocon", "ppasses");
+		acur = dao.ReadAcc(cur, str);
 		System.out.println(cur);
+		System.out.println(acur);
+		
+		System.out.println(cur);
+		cur = dao.UpdateBU(cur, "Ceci", "Garcia", "", "eGarcia@mail.com");
+		System.out.println(cur);
+		
 		
 		//BankUser c = new BankUser("Anabel", "ocon", "4567890123", "ancon", "ppasses", "ancon@mail.com");
 		//dao.CreateBU(c);
