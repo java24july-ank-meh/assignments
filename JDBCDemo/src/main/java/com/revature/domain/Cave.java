@@ -1,0 +1,45 @@
+package com.revature.domain;
+
+import java.util.List;
+
+import com.revature.dao.CaveDao;
+
+public class Cave {
+
+	private int id;
+	private String name;
+	private int maxBears;
+	
+	public Cave(int i, String n, int mB) {
+		id = i;
+		name = n;
+		maxBears = mB;
+	}
+
+	public Cave() {}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getMaxBears() {
+		return maxBears;
+	}
+
+	public void setMaxBears(int maxBears) {
+		this.maxBears = maxBears;
+	}
+	
+}
