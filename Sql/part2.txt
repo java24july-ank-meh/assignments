@@ -1,0 +1,621 @@
+/*2.1 Select*/
+select * from EMPLOYEE;
+
+select * from EMPLOYEE
+where lastname = 'King';
+
+select * from EMPLOYEE
+where firstname = 'Andrew' and reportsto is null;
+
+/*2.2 Order by*/
+select * from ALBUM order by title asc;
+
+select firstname from CUSTOMER order by city desc;
+select firstname, city from CUSTOMER order by city desc;
+
+
+/*2.3 Insert into
+had to add them to past the last current id*/
+insert into GENRE values(26,'Trap');
+insert into GENRE values(27,'Folk');
+/*or*/
+select max(GENREID) into maxGID From GENRE; /*shows biggest genreid */
+insert into GENRE values((select max(GENREID) From GENRE)+1, 'New Age Remix');
+
+/*2.4*/
+update CUSTOMER
+set firstname = 'Robert', lastname = 'Walter'
+where firstname = 'Aaron' and lastname = 'Mitchell';
+
+/*2.5 Like (not is like)*/
+select * from INVOICE where billingaddress like 'T%';
+
+/*2.6 Between*/
+select * from INVOICE where total between 15 and 30;
+select * from EMPLOYEE order by hiredate desc;
+select * from EMPLOYEE 
+where hiredate between TO_DATE('2003/06/03','yyyy/mm/dd') and TO_DATE('2004/04/01','yyyy-mm-dd');
+/*or*/
+select * from EMPLOYEE 
+where hiredate >= TO_DATE('2003/6/3','yyyy/mm/dd') and hiredate <= TO_DATE('2004/4/1','yyyy-mm-dd');
+
+/*2.7 Delete*/
+alter table InvoiceLine
+    drop constraint FK_InvoiceLineInvoiceId;
+
+alter table INVOICE
+    drop constraint FK_INVOICECUSTOMERID;    
+
+/*from chinook.sql, but edited to add the "on delete cascade"*/
+ALTER TABLE InvoiceLine ADD CONSTRAINT FK_InvoiceLineInvoiceId
+    FOREIGN KEY (InvoiceId) REFERENCES Invoice (InvoiceId)
+    on delete cascade;
+
+ALTER TABLE Invoice ADD CONSTRAINT FK_InvoiceCustomerId 
+    FOREIGN KEY (CustomerId) REFERENCES Customer (CustomerId)
+    on delete cascade;
+    
+/*from chinook.sql, but edited to add the "on delete set null" checking if check constriants will throw errors
+no error thrown, i guess check constraints are only for inserts*/
+ALTER TABLE InvoiceLine ADD CONSTRAINT FK_InvoiceLineInvoiceId
+    FOREIGN KEY (InvoiceId) REFERENCES Invoice (InvoiceId)
+    on delete set null;
+
+ALTER TABLE Invoice ADD CONSTRAINT FK_InvoiceCustomerId 
+    FOREIGN KEY (CustomerId) REFERENCES Customer (CustomerId)
+    on delete set null;
+
+delete from Customer where firstname = 'Robert' and lastname = 'Walter'; 
+/
+
+INSERT INTO Customer (CustomerId, FirstName, LastName, Address, City, State, Country, PostalCode, Phone, Email, SupportRepId) VALUES (32, 'Aaron', 'Mitchell', '696 Osborne Street', 'Winnipeg', 'MB', 'Canada', 'R3L 2B9', '+1 (204) 452-6452', 'aaronmitchell@yahoo.ca', 4);
+
+INSERT INTO Invoice (InvoiceId, CustomerId, InvoiceDate, BillingAddress, BillingCity, BillingState, BillingCountry, BillingPostalCode, Total) VALUES (50, 32, TO_DATE('2009-8-6 00:00:00','yyyy-mm-dd hh24:mi:ss'), '696 Osborne Street', 'Winnipeg', 'MB', 'Canada', 'R3L 2B9', 1.98);
+
+INSERT INTO InvoiceLine (InvoiceLineId, InvoiceId, TrackId, UnitPrice, Quantity) VALUES (267, 50, 1626, 0.99, 1);
+INSERT INTO InvoiceLine (InvoiceLineId, InvoiceId, TrackId, UnitPrice, Quantity) VALUES (268, 50, 1628, 0.99, 1);
+
+/*always make sure cascades are right for children and fks*/
+select * from CUSTOMER where customerid =32;/*robert walter, use to be aaron mitchell*/
+
+select * from INVOICE where invoiceid =50;/*invoice  for this person robert walter, use to be aaron mitchell*/
+/*null customerid for "on delete set null or nothing at all if "on delete cascade"
+desc INVOICE;
+
+/*3.0 Functions */
+/*3.1 System Defined Functions*/
+SELECT * FROM DUAL; /*dummy table? */ 
+SELECT SESSIONTIMEZONE, CURRENT_TIMESTAMP FROM DUAL;    /*shows the dual table with teh vales timezone and time stamp*/
+select sysdate, current_date, systimestamp, localtimestamp from DUAL;
+
+/*
+sysdate: database side time
+current_date: laptop side time
+*/
+/*
+systimestamp shows localtimestamp + timezone(hour wise)
+ex: 03-AUG-17 02.23.09.165000000 PM -04:00 vs 03-AUG-17 02.23.09.165000000 PM
+*/
+
+create or replace
+function get_Current_Time
+return varchar2 is /*can also return as a systimestamp*/
+curr varchar2(20);
+begin
+
+    select To_Char(current_timestamp, 'HH:MI.SS') into curr 
+    from DUAL;
+    return curr;
+end;
+/
+
+declare
+    x varchar2(20);
+begin
+    x := get_Current_Time;
+    dbms_output.put_line('Current Time '||x);
+	dbms_output.put_line('Current Time '||current_timestamp);
+end;
+
+Create or Replace function mediatypeLength
+Return number is
+    totallength number(3) := 0;
+Begin
+    Select count(*) into totallength
+    from MediaType;  
+    return totallength;
+end;
+/
+
+declare
+    m number;
+Begin
+    m := mediatypeLength();
+    dbms_output.put_line('Length of a mediatype -> ' || m);
+end;
+
+Create or Replace function mediatype_Name_Length(m_id number)
+Return number is
+    totallength number;
+Begin
+    Select length(name) into totallength
+    from MediaType where mediatypeid = m_id;
+    return totallength;
+end;
+/
+Create or Replace function mediatype_Name(m_id number)
+Return varchar is
+    given_name varchar(120);
+Begin
+    Select name into given_name
+    from MediaType where mediatypeid = m_id;  
+    return given_name;
+end;
+/
+
+declare
+    m_id MediaType.mediatypeid%type;
+    mN number;
+    nN MediaType.name%type;
+Begin
+    m_id := 1;
+    mN := mediatype_Name_Length(m_id);
+    nN := mediatype_Name(m_id);
+    dbms_output.put_line('Length of a mediatype name('||nN||')-> '||mN);
+end;
+
+/*3.2 System Defined Aggregate Functions*/
+Create or Replace function avgOfInvoices
+Return number is
+    avgtotal number;
+Begin
+    Select AVG(total) into avgtotal
+    from Invoice;  
+    return avgtotal;
+end;
+/
+
+declare
+    a number;
+Begin
+    a := avgOfInvoices();
+    dbms_output.put_line('Avg of total -> ' || a);
+end;
+
+Create or Replace function highest_Priced_Track
+Return number is
+    highest number;
+Begin
+    Select Max(unitprice) into highest
+    from Track;  
+    return highest;
+end;
+/
+
+Select unitprice from Track order by unitprice desc;  
+
+declare
+    a number;
+Begin
+    a := highest_Priced_Track();
+    dbms_output.put_line('Highest unit of total -> ' || a);
+end;
+
+/*3.3 User Defined Functions*/
+Select * from Invoiceline;  
+
+Create or Replace function avg_Unitprice_Invoicelines
+Return number is
+    avgp number;
+Begin
+    Select AVG(unitprice) into avgp
+    from Invoiceline;  
+    return avgp;
+end;
+/
+
+declare
+    a number;
+Begin
+    a := avg_Unitprice_Invoicelines();
+    dbms_output.put_line('Avg unit price of invoiceline table -> ' || a);
+end;
+
+
+/*3.4 User Defined Table Valued Functions*/
+Select * from Employee where birthdate > TO_DATE('1968/12/31','yyyy/mm/dd');  
+
+/*first create a type*/
+Create or Replace Type human_birth as object(firstname varchar2(15), employeeid integer, birthdate date);
+
+/*drop type human_birth;*/
+/*then create table from type*/
+create or Replace Type human_birth_record is Table of human_birth;
+
+/*drop type human_birth_record;*/
+/*then create a func to return table*/
+Create or Replace 
+function employees_Born_After1968
+Return human_birth_record 
+as var_hb human_birth_record; /*define var as table type*/
+Begin
+    select human_birth(firstname, employeeid, birthdate) bulk collect /*To return a bulk/mass data from database table*/
+    into var_hb from Employee
+        where birthdate > TO_DATE('1968/12/31','yyyy/mm/dd');  
+    return var_hb;
+    
+end;
+/
+/*drop function employees_Born_After1968;*/
+/*finally call function which returns data set*/
+select * from table ( employees_Born_After1968);
+
+
+/*4.0 Stored Procedure*/
+
+/*4.1 Basic Stored Procedure*/
+create or replace procedure get_Names_AllEmployees (S out Sys_Refcursor) as
+begin
+    Open S for
+        Select firstname, lastname from Employee;
+end;
+/
+
+Declare
+    S Sys_Refcursor;
+    f_name Employee.firstname%Type;
+    l_name Employee.lastname%Type;
+Begin
+    get_Names_AllEmployees(S);
+    
+    loop
+        fetch S into f_name, l_name;
+        Exit when S%notfound;
+        DBMS_output.put_line(f_name||' '||l_name||' is the employe`s name');
+    end loop;
+    close S;
+end;
+
+/*4.2 Stored Procedure input parameters*/
+Create or Replace 
+procedure update_Employee_Info(e_ID number,
+    lName VARCHAR2,
+    fName VARCHAR2,
+    addr VARCHAR2,
+    city_in VARCHAR2,
+    state_in VARCHAR2,
+    country_in VARCHAR2,
+    postcode VARCHAR2,
+    phone_of VARCHAR2,
+    fax_of VARCHAR2,
+    email_of VARCHAR2) as
+
+Begin
+    Update Employee set 
+    LastName = lName,
+    FirstName = fName,
+    Address = addr,
+    City = city_in,
+    State = state_in,
+    Country = country_in,
+    PostalCode = postcode,
+    Phone = phone_of,
+    Fax = fax_of,
+    Email = email_of 
+    where employeeid = e_ID;
+    dbms_output.put_line('id '||e_ID||' Updated..');
+    commit;
+    
+    Exception when others then dbms_output.put_line('FAILED');
+    Rollback;
+end;   
+/
+
+/*select * from Employee;*/
+begin 
+    update_Employee_Info(3, 'Cox', 'Sarah', '1910 Park Str', 'San Wei', 'AB',
+    'Canada', 'T2P 9Z9', '+1 (403) 262-3440', '+1 (403) 262-0001', 'sarahC@chinookcorp.com'); 
+end;
+/*Select * from Employee where employeeid = 3;*/
+
+
+
+Create or Replace 
+procedure employees_Managers(e_ID number, S out Sys_Refcursor) as 
+begin
+    Open S for
+        Select E1.firstname, E1.lastname, E1.employeeid, E1.title 
+        from Employee E1
+        where E1.employeeid = (select E2.reportsto from employee E2 where e_ID = E2.employeeID);
+end;
+/
+
+Declare
+    S Sys_Refcursor;
+    fName Employee.firstname%Type;
+    lName Employee.lastname%Type;
+    man_ID Employee.employeeID%Type;
+    man_title Employee.title%Type;
+Begin
+    employees_Managers(3,S);
+    
+    loop
+        fetch S into fName, lName, emp_ID, emp_title;
+        Exit when S%notfound;
+        DBMS_output.put_line('id 3 employee is managed by '||fName||' '||lName||', id is '||man_ID||' with the title '||man_title);
+    end loop;
+    close S;
+end;
+
+Create or Replace 
+procedure find_manager(e_ID in number, man_ID out number) is
+begin
+    select reportsto into man_ID
+        from employee where employeeid = e_ID;
+end;
+/
+
+Declare
+    S Sys_Refcursor;
+    man_ID Employee.employeeID%Type;
+    emp_ID number;
+    man_title Employee.title%Type;
+    emp_title Employee.title%Type;
+Begin
+    emp_ID := 3;
+    find_manager(emp_ID,man_ID);
+    
+    Select title into man_title
+        from Employee
+        where employeeid = man_ID;
+
+     Select title into emp_title
+        from Employee
+        where employeeid = emp_ID;
+    
+    DBMS_output.put_line('employee id: '||emp_ID||' working as '||emp_title||' is managed by an employee with an id of '||man_ID||' with the title '||man_title);
+end;
+
+Create or Replace 
+procedure find_manager_and_return_Data(e_ID in number, man_ID out number, emp_title out varchar, man_title out varchar) is
+begin
+    select reportsto into man_ID
+        from employee 
+        where employeeid = e_ID;
+        
+    Select title into man_title
+        from Employee
+        where employeeid = man_ID;
+
+     Select title into emp_title
+        from Employee
+        where employeeid = e_ID;
+end;
+/
+
+Declare
+    man_ID Employee.employeeID%Type;
+    emp_ID number;
+    man_title Employee.title%Type;
+    emp_title Employee.title%Type;
+Begin
+    emp_ID := 2;
+    find_manager_and_return_Data(emp_ID,man_ID,emp_title,man_title);
+    DBMS_output.put_line('employee id: '||emp_ID||' working as '||emp_title||' is managed by an employee with an id of '||man_ID||' with the title '||man_title);
+end;
+
+/*4.3 Stored Procedure output parametters*/
+
+Create or Replace 
+procedure find_customer_info(c_ID in number, c_company out varchar, c_Fname out varchar, c_Lname out varchar) is
+begin
+    select firstname into c_Fname
+        from customer 
+        where customerid = c_ID;
+    
+    select lastname into c_Lname
+        from customer 
+        where customerid = c_ID;
+        
+    Select company into c_company
+        from customer
+        where customerid = c_ID;
+
+end;
+/
+
+Declare
+    cust_com Customer.company%Type;
+    cust_id number;
+    cust_f Customer.firstname%Type;
+    cust_l Customer.lastname%Type;
+Begin
+    cust_ID := 5;
+    find_customer_info(cust_id,cust_com,cust_f,cust_l);
+    DBMS_output.put_line('Customer id: '||cust_id||', '||cust_f||' '||cust_l||' from '||cust_com);
+end;
+
+/*5.0 Transactions*/
+create or replace
+procedure do(i_id in integer)
+as
+begin
+    
+    delete from Invoice where invoiceid =i_id;   
+    commit;
+end;
+/
+select * from invoice;
+
+declare
+    x number;
+begin
+    x := 1;
+    do(1);
+end;
+
+select * from invoice;
+
+INSERT INTO Invoice (InvoiceId, CustomerId, InvoiceDate, BillingAddress, BillingCity, BillingCountry, BillingPostalCode, Total) VALUES (1, 2, TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), 'Theodor-Heuss-Straße 34', 'Stuttgart', 'Germany', '70174', 1.98);
+
+/**/
+
+create or replace
+procedure insert_New_Customer(fname varchar2, lname varchar2, co varchar2, addr varchar2, city varchar2, state varchar2, country varchar2, pC varchar2, phN varchar2, faxN varchar2, eAddr varchar2, supp number)
+as
+begin
+    declare
+        nu number;
+    begin
+        select Max(customerid) into nu from Customer;
+  
+    
+    nu := nu+1;
+    INSERT INTO Customer (CustomerId, FirstName, LastName, Company, Address, City, State, Country, PostalCode, Phone, Fax, Email, SupportRepId) 
+    VALUES (nu, fname, lname, co, addr, city, state, country, pC, phN, faxN, eAddr, supp);
+    dbms_output.put_line('Inserted');
+    commit;
+    
+    end;
+end;
+/
+select * from Customer order by customerid desc;
+
+declare
+    fname Customer.firstname%Type;
+    lname Customer.lastname%Type;
+    co Customer.company%Type;
+    addr Customer.address%Type;
+    city Customer.city%Type;
+    state Customer.state%Type;
+    country Customer.country%Type;
+    pC Customer.postalcode%Type;
+    phN Customer.phone%Type;
+    faxN Customer.fax%Type;
+    eAddr Customer.email%Type;
+    supp Customer.SUPPORTREPID%Type;
+begin
+    fname := 'Frost';
+    lname := 'Bane';
+    co := 'Killer Industries';
+    addr := '9909 Parkdeer Ave';
+    city := 'Toronto';
+    state := 'Ab';
+    country := 'Can';
+    pC := '784-5';
+    phN := '6658-547-8759';
+    faxN := 'ext: 7895';
+    eAddr := 'killerceo_frost@gmail.com';
+    supp := 2 ;
+    insert_New_Customer(fname, lname, co, addr, city, state, country, pC, phN, faxN, eAddr, supp);
+
+end;
+
+select * from Customer order by customerid desc;
+
+
+/*6.0 Triggers*/
+/*6.1 After/For*/
+Create or Replace Trigger employee_After_Insert
+After Insert On Employee
+For each Row
+Begin
+	dbms_output.put_line('Employee Inserted');
+End;
+
+INSERT INTO Employee (EmployeeId, LastName, FirstName, Title, BirthDate, HireDate, Address, City, State, Country, PostalCode, Phone, Fax, Email) VALUES (10, 'Adams', 'Andrew', 'General Manager', TO_DATE('1962-2-18 00:00:00','yyyy-mm-dd hh24:mi:ss'), TO_DATE('2002-8-14 00:00:00','yyyy-mm-dd hh24:mi:ss'), '11120 Jasper Ave NW', 'Edmonton', 'AB', 'Canada', 'T5K 2N1', '+1 (780) 428-9482', '+1 (780) 428-3457', 'andrew@chinookcorp.com');
+select * from Employee order by employeeid desc;
+
+Create or Replace Trigger employee_After_Insert
+After Update On Album
+For each row
+Begin
+	dbms_ouput.put_line('Album Updated');
+End;
+
+Update Album set title='For Those About To Rock, We Salute You' where Albumid = 1;
+select * from Album order by albumid;
+Update Album set title='For Those About To Rock We Salute You' where Albumid = 1;
+
+Create or Replace Trigger employee_After_Insert
+After Delete On Customer
+For each row
+Begin
+	dbms_ouput.put_line('Customer deleted');
+End;
+
+Delete Customer where customerid = 1;
+select * from Customer order by customerid;
+INSERT INTO Customer (CustomerId, FirstName, LastName, Company, Address, City, State, Country, PostalCode, Phone, Fax, Email, SupportRepId) VALUES (1, 'Luís', 'Gonçalves', 'Embraer - Empresa Brasileira de Aeronáutica S.A.', 'Av. Brigadeiro Faria Lima, 2170', 'São José dos Campos', 'SP', 'Brazil', '12227-000', '+55 (12) 3923-5555', '+55 (12) 3923-5566', 'luisg@embraer.com.br', 3);
+
+/*-----*/
+
+create or replace type new_employee_info 
+as object(EmployeeId number, LastName VARCHAR2(20), FirstName VARCHAR2(20), Title VARCHAR2(30), ReportsTo NUMBER);
+
+create or replace type newest_employee_log as table of new_employee_info;
+
+select * from Employee;
+
+create or replace procedure add_new_employee_to_log_Pro(e_id in number,var_log out newest_employee_log) as
+begin
+    select new_employee_info(EmployeeId, LastName, FirstName, Title, ReportsTo) bulk collect
+    into var_log from Employee where employeeid = e_id;
+end;
+/
+
+create or replace function add_new_employee_to_log_Func(e_id number)
+return newest_employee_log
+as var_log newest_employee_log;
+begin
+    select new_employee_info(EmployeeId, LastName, FirstName, Title, ReportsTo) bulk collect
+    into var_log from Employee where employeeid = e_id;
+    return var_log;
+end;
+/
+
+
+/*7.0 Joins*/
+/*7.1 Inner*/
+select * from CUSTOMER;
+select * from Invoice;
+
+Select Concat(Concat(Cust.Firstname,' '), Cust.lastname) as FullName, Inv.Invoiceid 
+from Customer Cust inner join Invoice Inv 
+on Inv.customerid = Cust.customerid;
+
+/*7.2 Outer- primary key responsive*/
+Select Cust.Customerid, Cust.Firstname, Cust.lastname, Inv.Invoiceid, Inv.Total
+from Customer Cust left join Invoice Inv
+on Inv.customerid = Cust.customerid;/*goes by customer id of customer table*/
+
+Select Cust.Customerid, Cust.Firstname, Cust.lastname, Inv.Invoiceid, Inv.Total
+from Customer Cust right join Invoice Inv
+on Inv.customerid = Cust.customerid;/*goes by invoiceid of invoice table*/
+
+/*7.3 Right*/
+
+Select ar.name, al.title, al.albumid
+from Album al right join Artist ar
+on ar.artistid = al.artistid;
+/*
+Select ar.name, al.title, al.albumid
+from Album al left join Artist ar
+on ar.artistid = al.artistid;
+*/
+/*7.4 Cross*/
+Select ar.name, al.title, al.albumid
+from Album al cross join Artist ar
+order by ar.name asc;
+
+/*7.5 Self*/
+select * from employee e1 join employee e2
+on e1.employeeid = e2.reportsto;
+
+/*7.6 Complicated Join Assignment*/
+Select e.Employeeid
+from Employee e inner join Customer c inner join Invoice i inner Join Department
+on c.customerid = i.customerid;
+
+/*9.0 Administration*/
+/*create .bak file, backup/restore file*/
