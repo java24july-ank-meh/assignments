@@ -1,5 +1,7 @@
 package com.revature.dao;
 
+import java.sql.SQLException;
+
 import com.revature.domain.User;
 import com.revature.exception.OverdraftException;
 import com.revature.exception.SQLStatementFailedException;
@@ -15,7 +17,7 @@ public interface BankingDAO {
 	public User checkLogin(String username, String password);
 	public void checkUsernameAvail(String username) throws UsernameTakenException;
 	//update
-	public void updateAccount(String accname, double amount, User u) throws SQLStatementFailedException, OverdraftException;
+	public double updateAccount(String accname, double amount, User u) throws OverdraftException, SQLException;
 	public void updateUser(String user, String newUser, String newPass) throws SQLStatementFailedException;
 	//delete
 	public void deleteAccount(String accname, User u) throws SQLStatementFailedException;

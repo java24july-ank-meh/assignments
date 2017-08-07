@@ -1,7 +1,11 @@
 package com.revature.dao;
 
+import java.sql.SQLException;
+
 import org.junit.Test;
 
+import com.revature.domain.User;
+import com.revature.exception.OverdraftException;
 import com.revature.exception.SQLStatementFailedException;
 import com.revature.exception.UsernameTakenException;
 public class BankingDAOImplTest {
@@ -22,5 +26,11 @@ public class BankingDAOImplTest {
 	public final void updatingNonExistentUserThrowsException() throws SQLStatementFailedException {
 		BankingDAOImpl dao = new BankingDAOImpl();
 		dao.updateUser("lol", "lolol", "lolololol");
+	}
+	
+	@Test(expected = SQLException.class)
+	public final void updatingAccountWithNonExistentAccountThrowsException() throws SQLStatementFailedException, OverdraftException, SQLException {
+		BankingDAOImpl dao = new BankingDAOImpl();
+		dao.updateAccount("lol", 20, new User("Lol","lol",1111));
 	}
 }

@@ -85,7 +85,7 @@ public class BankingDAOImpl implements BankingDAO {
 	}
 
 	@Override
-	public void updateAccount(String accname, double amount, User u) throws SQLStatementFailedException, OverdraftException {
+	public double updateAccount(String accname, double amount, User u) throws OverdraftException, SQLException {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn.prepareStatement("SELECT TOTAL FROM BANKACCOUNT WHERE BANKACCOUNTNAME = ? AND USERID = ?");
 			pstmt.setString(1, accname);
@@ -94,22 +94,21 @@ public class BankingDAOImpl implements BankingDAO {
 			if (rs.next())
 				if (rs.getDouble("TOTAL") + amount < 0)
 					throw new OverdraftException("Insufficient funds, withdraw canceled.");
-			CallableStatement cstmt = conn.prepareCall("{CALL SP_UPDATEACCOUNT(?, ?, ?)}");
+			CallableStatement cstmt = conn.prepareCall("{CALL SP_UPDATEACCOUNT(?, ?, ?, ?)}");
 			cstmt.setString(1, accname);
 			cstmt.setDouble(2, amount);
 			cstmt.setInt(3, u.getUserid());
-			int result = cstmt.executeUpdate();
-			cstmt.
-			System.out.println(result);
-			if (result < 1)
-				throw new SQLStatementFailedException("Error accessing account. Was it spelled correctly?");
-		} catch (SQLStatementFailedException e) {
+			cstmt.registerOutParameter(4, java.sql.Types.DECIMAL);
+			cstmt.executeUpdate();
+			return cstmt.getDouble(4);
+		} catch(SQLException e) {
 			throw e;
 		} catch (OverdraftException e) {
 			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return amount;
 	}
 
 	@Override
