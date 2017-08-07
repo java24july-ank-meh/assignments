@@ -57,7 +57,7 @@ public class Account {
 	
 	@Override
 	public String toString() {
-		return accountType + " account " + id + " held by user " 
-				+ bankUser.getUsername(); 
+		return bankUser.getUsername()+ "'s " +accountType + " account has id " + id +
+				" and balance " + balance;
 	}
 }

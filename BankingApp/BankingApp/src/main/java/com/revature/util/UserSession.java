@@ -54,7 +54,7 @@ public class UserSession {
 		}
 		System.out.println("You are now logged in!");
 		loop:while(true) {
-			System.out.println("Type next command");
+			System.out.println("\nType next command");
 			String input = s.nextLine();
 			if(input.equalsIgnoreCase("logout")) {
 				bankdao.logout(user);
@@ -68,7 +68,13 @@ public class UserSession {
 				newAccount();
 			}else if(input.equalsIgnoreCase("delete")) {
 				deleteAccount();
-			}else if(input.equalsIgnoreCase("delete user")) {
+			}else if(input.equalsIgnoreCase("my accounts")) {
+				List<Account> myAccounts = bankdao.viewMyAccounts(user);
+				for(Account a : myAccounts) {
+					System.out.println(a);
+				}
+			}
+			else if(input.equalsIgnoreCase("delete user")) {
 				if(!(user instanceof SuperUser)) {
 					System.out.println("Must be superuser to perform this command"); 
 					continue loop;
@@ -134,6 +140,8 @@ public class UserSession {
 				System.out.println("Type new value");
 				String newValue = s.nextLine();
 				bankdao.updateUserField(toDelete, field, newValue);
+			}else {
+				System.out.println("Unrecognized command");
 			}
 		}
 	}
@@ -147,14 +155,14 @@ public class UserSession {
 		for(Account a : user.getAccounts()) {
 			System.out.println(a);
 		}
-		int id = s.nextInt();
+		int id = Integer.parseInt(s.nextLine());
 		Account a = user.getAccountFromId(id);
 		double balance = bankdao.viewBalance(user, a);
 		System.out.println("Current balance is " + balance);
 		System.out.print("Enter amount to ");
 		if(deposit) {System.out.println("deposit");}
 		else {System.out.println("withdraw");}
-		double amt = s.nextDouble();
+		double amt = Double.parseDouble(s.nextLine());
 		if(!deposit) {amt = -amt;}
 		bankdao.transaction(user, a, amt);
 	}
@@ -163,9 +171,9 @@ public class UserSession {
 		System.out.println("Account Type?");
 		String accountType = s.nextLine().toUpperCase();
 		System.out.println("Interest Rate?");
-		double interestRate = s.nextDouble();
+		double interestRate = Double.parseDouble(s.nextLine());
 		System.out.println("Initial Balance?");
-		double initialBalance = s.nextDouble();
+		double initialBalance = Double.parseDouble(s.nextLine());
 		
 		Account newAcct = new Account(user, initialBalance, accountType, interestRate);
 		bankdao.createAccount(user, newAcct);
@@ -179,7 +187,7 @@ public class UserSession {
 		for(Account a : user.getAccounts()) {
 			System.out.println(a);
 		}
-		int id = s.nextInt();
+		int id = Integer.parseInt(s.nextLine());
 		Account a = user.getAccountFromId(id);
 		if(bankdao.viewBalance(user, a)>0.0) {
 			System.out.println("Account balance must be 0.0. Try again."); return;

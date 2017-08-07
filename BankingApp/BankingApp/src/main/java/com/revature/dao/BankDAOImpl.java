@@ -124,6 +124,7 @@ public class BankDAOImpl implements BankDAO{
 			System.out.println("Insufficient funds");
 			return;
 		}
+		a.setBalance(newBalance);
 		try(Connection conn = ConnectionUtil.getConnection()){
 			String sql = "UPDATE ACCOUNTS SET BALANCE=? WHERE ACCOUNTID=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
