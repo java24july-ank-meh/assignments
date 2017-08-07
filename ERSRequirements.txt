@@ -1,4 +1,7 @@
 ﻿Expense Reimbursement System (ERS) - Presentations starting wednesday - 8/16/2017 
+Work in pairs with one partner. Sprint (Week) 1 divide the workload between frontend and backend. 
+Then for the second sprint/week trade roles. 
+Everyone should have experience with both roles by project's end.
 
 
 -An Employee can login
