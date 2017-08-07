@@ -25,4 +25,6 @@ public interface BankDAO {
 	public boolean isLoggedIn(BankUser b);
 	public void populateAccountTypes();
 	public void updateUserField(BankUser b, String field, String value);
+	public int userCount();
+	public int accountCount();
 }

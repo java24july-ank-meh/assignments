@@ -140,8 +140,14 @@ public class UserSession {
 				System.out.println("Type new value");
 				String newValue = s.nextLine();
 				bankdao.updateUserField(toDelete, field, newValue);
-			}else {
-				System.out.println("Unrecognized command");
+			}else if(input.equalsIgnoreCase("help")) {
+				System.out.println("deposit: add money to an existing account");
+				System.out.println("withdraw: withdraw money from an existing account");
+				System.out.println("create: create a new account");
+				System.out.println("my accounts: view existing accounts, account ids, and balances");
+			}
+			else {
+				System.out.println("Unrecognized command. Type \"help\" for a list of commands");
 			}
 		}
 	}

@@ -1,10 +1,12 @@
 package com.revature.dao;
 
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +65,7 @@ public class BankDAOImpl implements BankDAO{
 		
 		PreparedStatement pstmt = null;
 		
-		try(Connection conn = ConnectionUtil.getConnection()){
+		try(Connection conn = ConnectionUtil.getConnectionProp()){
 		
 			String sql = "INSERT INTO ACCOUNTS (ACCOUNTTYPE,USERID,BALANCE,INTERESTRATE) VALUES(?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -82,9 +84,11 @@ public class BankDAOImpl implements BankDAO{
 			
 			a.setId(cs.getInt(1));
 			
+		}catch(IOException e) {
+			e.printStackTrace();
 		}catch(SQLException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 	
 	public void deleteAccount(BankUser b, Account a) {
@@ -362,5 +366,42 @@ public class BankDAOImpl implements BankDAO{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public int userCount() {
+		Statement stmt = null;
+		try(Connection conn = ConnectionUtil.getConnectionProp()){
+			String sql = "SELECT COUNT(*) FROM BANKUSERS";
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				return rs.getInt(1);
+			}
+		}catch(IOException e) {
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public int accountCount() {
+		
+		Statement stmt = null;
+		try(Connection conn = ConnectionUtil.getConnectionProp()){
+			String sql = "SELECT COUNT(*) FROM ACCOUNTS";
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				return rs.getInt(1);
+			}
+		}catch(IOException e) {
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	
 	}
 }
