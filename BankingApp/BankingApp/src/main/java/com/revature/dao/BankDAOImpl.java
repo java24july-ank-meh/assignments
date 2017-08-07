@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.revature.domain.Account;
 import com.revature.domain.AccountTypes;
@@ -54,7 +56,6 @@ public class BankDAOImpl implements BankDAO{
 			System.out.println("Failed to create user");
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
@@ -99,10 +100,20 @@ public class BankDAOImpl implements BankDAO{
 		}
 	}
 
+	//Make existing user a super user, or forfeit superUser priveleges
 	@Override
-	public void createSuperUser(BankUser b) {
-		// TODO Auto-generated method stub
-		
+	public void createSuperUser(BankUser b, boolean forfeit) {
+		PreparedStatement pstmt = null;
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "UPDATE BANKUSERS SET ISSUPER=? WHERE USERID=?";
+			pstmt = conn.prepareStatement(sql);
+			if(forfeit) {pstmt.setString(1, "0");}
+			else {pstmt.setString(1, "1");}
+			pstmt.setInt(2, b.getId());
+			pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	@Override
@@ -123,7 +134,6 @@ public class BankDAOImpl implements BankDAO{
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
@@ -143,16 +153,25 @@ public class BankDAOImpl implements BankDAO{
 	}
 
 	@Override
-	public void deleteBankUser(SuperUser su) {
-		// TODO Auto-generated method stub
+	public void deleteBankUser(SuperUser su, BankUser b) {
+		PreparedStatement pstmt = null;
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "DELETE FROM BANKUSERS WHERE USERID=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, b.getId());
+			int rowsChanged = pstmt.executeUpdate();
+			System.out.println(rowsChanged + " user(s) deleted");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
-	public List<BankUser> viewAllUsers() {
+	public Map<Integer, BankUser> viewAllUsers() {
 		
 		PreparedStatement pstmt = null;
-		List<BankUser> allUsers = new ArrayList<>();
+		Map<Integer, BankUser> allUsers = new HashMap<>();
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 			String sql = "SELECT * FROM BANKUSERS";
@@ -160,10 +179,19 @@ public class BankDAOImpl implements BankDAO{
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				BankUser nextUser = new BankUser(rs.getString("USERNAME"), rs.getString("PASS"),
-						rs.getString("FIRSTNAME"), rs.getString("LASTNAME"));
+				boolean isSuper = rs.getString("ISSUPER").equals("1");
+				BankUser nextUser = null;
+				if(isSuper) {
+					nextUser = SuperUser.createSuperUser(rs.getString("USERNAME"), 
+							rs.getString("PASS"), rs.getString("FIRSTNAME"), 
+							rs.getString("LASTNAME"));
+				}
+				else {
+					nextUser = new BankUser(rs.getString("USERNAME"), rs.getString("PASS"),
+							rs.getString("FIRSTNAME"), rs.getString("LASTNAME"));
+				}
 				nextUser.setId(rs.getInt("USERID"));
-				allUsers.add(nextUser);
+				allUsers.put(nextUser.getId(), nextUser);
 			}
 			
 		}catch(SQLException e) {
@@ -307,5 +335,31 @@ public class BankDAOImpl implements BankDAO{
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void updateUserField(BankUser b, String field, String value) {
+		PreparedStatement pstmt = null;
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "";
+			if(field.equalsIgnoreCase("firstname")) {
+				sql = "UPDATE BANKUSERS SET FIRSTNAME=? WHERE USERID=?";
+			}else if(field.equalsIgnoreCase("lastname")) {
+				sql = "UPDATE BANKUSERS SET LASTNAME=? WHERE USERID=?"; 
+			}else if(field.equalsIgnoreCase("username")) {
+				sql = "UPDATE BANKUSERS SET USERNAME=? WHERE USERID=?";
+			}else if(field.equalsIgnoreCase("password")) {
+				sql = "UPDATE BANKUSER SET PASSWORD=? WHERE USERID=?";
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, value);
+			pstmt.setInt(2, b.getId());
+			
+			int rowsChanged = pstmt.executeUpdate();
+			System.out.println(rowsChanged + " users changed");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

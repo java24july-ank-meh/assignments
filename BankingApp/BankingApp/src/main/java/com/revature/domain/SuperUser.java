@@ -18,6 +18,17 @@ public class SuperUser extends BankUser{
 		return superUser;
 	}
 	
+	public static SuperUser createSuperUser(BankUser b) {
+		synchronized(lock) {
+			if(superUser==null) {
+				superUser = new SuperUser(b.getUsername(), b.getPass(), b.getFirstname(),
+						b.getLastname());
+				superUser.setId(b.getId());
+			}
+		}
+		return superUser;
+	}
+	
 	public void DeleteBankUser(BankUser b) {
 		
 	}

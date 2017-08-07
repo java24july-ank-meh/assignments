@@ -71,6 +71,7 @@ public class Main {
 		System.out.println("Enter your password");
 		String pass = s.nextLine();
 		BankUser oldUser = bankdao.getUserFromInfo(username, pass);
+		
 		bankdao.login(oldUser);
 		us = UserSession.startUserSession(oldUser);
 		us.sessionLoop();

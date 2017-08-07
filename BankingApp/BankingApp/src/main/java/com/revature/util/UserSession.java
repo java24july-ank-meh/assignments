@@ -1,12 +1,17 @@
 package com.revature.util;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.revature.dao.BankDAO;
 import com.revature.dao.BankDAOImpl;
 import com.revature.domain.Account;
 import com.revature.domain.AccountTypes;
 import com.revature.domain.BankUser;
+import com.revature.domain.SuperUser;
 
 public class UserSession {
 
@@ -48,13 +53,13 @@ public class UserSession {
 			return;
 		}
 		System.out.println("You are now logged in!");
-		sessionLoop:while(true) {
+		loop:while(true) {
 			System.out.println("Type next command");
 			String input = s.nextLine();
 			if(input.equalsIgnoreCase("logout")) {
 				bankdao.logout(user);
 				System.out.println("\nCome again soon!\n");
-				break sessionLoop;
+				break loop;
 			}else if(input.equalsIgnoreCase("deposit")) {
 				transactionLoop(true);
 			}else if(input.equalsIgnoreCase("withdraw")) {
@@ -63,8 +68,73 @@ public class UserSession {
 				newAccount();
 			}else if(input.equalsIgnoreCase("delete")) {
 				deleteAccount();
+			}else if(input.equalsIgnoreCase("delete user")) {
+				if(!(user instanceof SuperUser)) {
+					System.out.println("Must be superuser to perform this command"); 
+					continue loop;
+				}
+				Map<Integer, BankUser> allUsers = bankdao.viewAllUsers();
+				allUsers.remove(user.getId());
+				Set<Map.Entry<Integer, BankUser>> userEntries = allUsers.entrySet();
+				System.out.println("Choose a user id");
+				for(Map.Entry<Integer, BankUser> cur : userEntries) {
+					System.out.println(cur.getValue());
+				}
+				int id = s.nextInt();
+				if(id == user.getId()) {
+					System.out.println("stop deletin urself"); continue loop;
+				}
+				bankdao.deleteBankUser((SuperUser)user, allUsers.get(id));
+				/*the cast to SuperUser is ok because we already checked that user is an 
+				 * instance of SuperUser in the preceding if statement.
+				*/
+			}else if(input.equalsIgnoreCase("view all users")) {
+				if(!(user instanceof SuperUser)) {
+					System.out.println("Must be superuser to perform this command"); 
+					continue loop;
+				}
+				Map<Integer, BankUser> all = bankdao.viewAllUsers();
+				Collection<BankUser> allBankUsers = all.values();
+				for(BankUser b : allBankUsers) {
+					System.out.println(b);
+				}
+				
+			}else if(input.equalsIgnoreCase("create user")) {
+				if(!(user instanceof SuperUser)) {
+					System.out.println("Must be superuser to perform this command"); 
+					continue loop;
+				}
+				System.out.println("Username?");
+				String username = s.nextLine();
+				System.out.println("Password");
+				String pass = s.nextLine();
+				System.out.println("First name?");
+				String first = s.nextLine();
+				System.out.println("Last name?");
+				String last = s.nextLine();
+				
+				BankUser created = new BankUser(username, pass, first, last);
+				bankdao.createBankUser(created);
+				
+			}else if(input.equalsIgnoreCase("update user field")) {
+				if(!(user instanceof SuperUser)) {
+					System.out.println("Must be superuser to perform this command"); 
+					continue loop;
+				}
+				System.out.println("Choose a User id.");
+				Map<Integer, BankUser> all = bankdao.viewAllUsers();
+				Collection<BankUser> allBankUsers = all.values();
+				for(BankUser b : allBankUsers) {
+					System.out.println(b);
+				}
+				int id = Integer.parseInt(s.nextLine());
+				BankUser toDelete = all.get(id);
+				System.out.println("Choose a field (username, password, firstname, lastname)");
+				String field = s.nextLine();
+				System.out.println("Type new value");
+				String newValue = s.nextLine();
+				bankdao.updateUserField(toDelete, field, newValue);
 			}
-			
 		}
 	}
 	
@@ -87,8 +157,6 @@ public class UserSession {
 		double amt = s.nextDouble();
 		if(!deposit) {amt = -amt;}
 		bankdao.transaction(user, a, amt);
-		System.out.println("success");
-		
 	}
 	
 	public void newAccount() {
