@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+
+/*nav bar's min-height is 50 so padding on body 50, to be atleast below its min*/
+body {
+    padding-top: 10%/*50px*/;
+}
+
+/*.(dot) for class*/
+/*class="starter-template"*/
+.starter-template {
+    /*padding: 40px 15px;*/
+    text-align: center;
+}
