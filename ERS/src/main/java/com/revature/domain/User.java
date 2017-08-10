@@ -1,5 +1,7 @@
 package com.revature.domain;
 
+import java.util.ArrayList;
+
 public class User {
 	private int id;
 	private String username;
@@ -8,6 +10,23 @@ public class User {
 	private String lastname;
 	private String email;
 	private String role;
+	
+	private ArrayList<Reimbursement> pendingReimbursements;
+	private ArrayList<Reimbursement> resolvedReimbursements;
+	
+	
+	public ArrayList<Reimbursement> getPendingReimbursements() {
+		return pendingReimbursements;
+	}
+	public void addPendingReimbursements(Reimbursement pendingReimbursement) {
+		this.pendingReimbursements.add(pendingReimbursement);
+	}
+	public ArrayList<Reimbursement> getResolvedReimbursements() {
+		return resolvedReimbursements;
+	}
+	public void addResolvedReimbursements(Reimbursement resolvedReimbursement) {
+		this.resolvedReimbursements.add(resolvedReimbursement);
+	}
 	public User(int id, String username, String password, String firstname, String lastname, String email,
 			String role) {
 		super();

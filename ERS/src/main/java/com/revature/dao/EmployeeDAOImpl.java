@@ -25,19 +25,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				System.out.println(rs.toString());
 				u = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), rs.getString(9));
-				//return u;
+				return u;
 			} else
 				throw new InvalidLoginException("Whoa nelly. Wrong username and password combo, pal");
-			
-			if (u != null) {
-				pstmt = conn.prepareStatement("SELECT * FROM ERS_REIMBURSEMENTS WHERE U_ID = ? AND RT_STATUS = 1");
-				pstmt.setInt(1, u.getId());
-				rs= pstmt.executeQuery();
-				
-				while(rs.next()) {
-					
-				}
-			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,15 +46,27 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public ArrayList<Reimbursement> viewPending() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ArrayList<Reimbursement> viewReimbursements(User u, int type) {
+		ArrayList<Reimbursement> reimbursements = new ArrayList<>();
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement pstmt = conn
+					.prepareStatement("SELECT * FROM ERS_REIMBURSEMENTS WHERE U_ID = ? AND RT_STATUS = ?");
+			pstmt.setInt(1, u.getId());
+			pstmt.setInt(2, type);
+			ResultSet rs = pstmt.executeQuery();
 
-	@Override
-	public ArrayList<Reimbursement> viewResolved() {
-		// TODO Auto-generated method stub
-		return null;
+			while (rs.next()) {
+				reimbursements.add(new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getDate(4), u,
+						rs.getString(6), rs.getString(7)));
+			}
+			return reimbursements;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return reimbursements;
 	}
 
 	@Override
