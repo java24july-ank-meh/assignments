@@ -17,14 +17,14 @@ public class ERSDAOImpl implements ERSDAO {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn.prepareStatement(
-					"SELECT * FROM ERS_USERS LEFT JOIN ERS_USER_ROLES ON ERS_USERS.UR_ID = ERS_USER_ROLES.UR_ID WHERE U_USERNAME = ? AND U_PASSWORD = ?");
+					"SELECT * FROM ERS_USERS WHERE U_USERNAME = ? AND U_PASSWORD = ?");
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				System.out.println(rs.toString());
 				u = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6), rs.getString(9));
+						rs.getString(6), rs.getInt(7));
 				return u;
 			} else
 				throw new InvalidLoginException("Whoa nelly. Wrong username and password combo, pal");
@@ -130,8 +130,23 @@ public class ERSDAOImpl implements ERSDAO {
 
 	@Override
 	public ArrayList<User> viewAllEmployees() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<User> users = new ArrayList<>();
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM ERS_USERS");
+
+			while (rs.next()) {
+				users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getInt(7)));
+			}
+			return users;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return users;
 	}
 
 	@Override

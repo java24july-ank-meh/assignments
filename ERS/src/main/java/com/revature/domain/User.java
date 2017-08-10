@@ -9,7 +9,7 @@ public class User {
 	private String firstname;
 	private String lastname;
 	private String email;
-	private String role;
+	private int role;
 	
 	private ArrayList<Reimbursement> pendingReimbursements;
 	private ArrayList<Reimbursement> resolvedReimbursements;
@@ -32,7 +32,7 @@ public class User {
 		this.id = id;
 	}
 	public User(int id, String username, String password, String firstname, String lastname, String email,
-			String role) {
+			int role) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -60,7 +60,7 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
-	public String getRole() {
+	public int getRole() {
 		return role;
 	}
 	@Override
