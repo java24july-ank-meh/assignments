@@ -14,6 +14,6 @@ public interface ERSDAO {
 	public ArrayList<Reimbursement> viewAllReimb(int type);
 	public ArrayList<User> viewAllEmployees();
 	public User viewEmployee(int uid);
-	public void updateReimbursement();
+	public boolean updateReimbursement(Reimbursement reimb);
 	
 }
