@@ -14,7 +14,7 @@ import com.revature.exception.InvalidLoginException;
 
 public class LoginServlet extends HttpServlet{
 	
-	EmployeeDAO empdao = new EmployeeDAOImpl();
+	ERSDAO empdao = new ERSDAOImpl();
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("username");

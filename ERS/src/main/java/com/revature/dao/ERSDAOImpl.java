@@ -9,7 +9,7 @@ import com.revature.domain.User;
 import com.revature.exception.InvalidLoginException;
 import com.revature.util.ConnectionUtil;
 
-public class EmployeeDAOImpl implements EmployeeDAO {
+public class ERSDAOImpl implements ERSDAO {
 
 	@Override
 	public User employeeLogin(String username, String password) throws InvalidLoginException {
@@ -103,6 +103,36 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			e1.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public ArrayList<Reimbursement> viewPending() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Reimbursement> viewResolved() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> viewAllEmployees() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User viewEmployee() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateReimbursement() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

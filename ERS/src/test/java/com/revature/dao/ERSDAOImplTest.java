@@ -7,10 +7,10 @@ import static org.junit.Assert.*;
 import com.revature.domain.User;
 import com.revature.exception.InvalidLoginException;
 
-public class EmployeeDAOImplTest {
+public class ERSDAOImplTest {
 	@Test
 	public final void successfulLoginReturnsValidUser() throws InvalidLoginException {
-		EmployeeDAO dao = new EmployeeDAOImpl();
+		ERSDAO dao = new ERSDAOImpl();
 		User u = dao.employeeLogin("dummy", "dummy");
 		System.out.println(u.toString());
 		assertEquals("dummy", u.getUsername());
