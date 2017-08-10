@@ -13,7 +13,7 @@ public interface ERSDAO {
 	//manager methods
 	public ArrayList<Reimbursement> viewAllReimb(int type);
 	public ArrayList<User> viewAllEmployees();
-	public User viewEmployee();
+	public User viewEmployee(int uid);
 	public void updateReimbursement();
 	
 }

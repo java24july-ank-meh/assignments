@@ -150,9 +150,25 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public User viewEmployee() {
-		// TODO Auto-generated method stub
-		return null;
+	public User viewEmployee(int uid) {
+		User u = null;
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM ERS_USERS WHERE U_ID = ?");
+			pstmt.setInt(1, uid);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				u = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getInt(7));	
+			return u;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return u;
 	}
 
 	@Override
