@@ -23,9 +23,10 @@ Connect admin/sysADMIN;
 */
 Create table Web_Users (
     User_ID Number,
-    User_Name Varchar2(10),
+    User_Name Varchar2(21),
 	Pass_Word Varchar2(10),
 	First_Name Varchar2(10),
+	M_Intial Varchar2(1),
 	Last_Name Varchar2(10),
 	Email Varchar2(25),
 	Ur_ID Number,	/*FK to User Roles table Ur_ID*/
@@ -75,12 +76,12 @@ Insert into UserRoles values(1, 'Manager');
 Insert into UserRoles values(2, 'Employee');
 
 
-Insert into Web_Users (User_Name, Pass_Word, First_Name, Last_Name, Email, Ur_ID) values ( 'kayM', '', 'Kay', 'Moore', '', 1);
-Insert into Web_Users (User_Name, Pass_Word, First_Name, Last_Name, Email, Ur_ID) values ( 'ameliaC', '', 'Amelia', 'Chavez', '', 2);
-Insert into Web_Users (User_Name, Pass_Word, First_Name, Last_Name, Email, Ur_ID) values ( 'ernestoB', '', 'Ernesto	', 'Bass', '', 2);
-Insert into Web_Users (User_Name, Pass_Word, First_Name, Last_Name, Email, Ur_ID) values ( 'jessicaP', '', 'Jessica', 'Pearson', '', 1);
-Insert into Web_Users (User_Name, Pass_Word, First_Name, Last_Name, Email, Ur_ID) values ( 'tyroneH', '', 'Tyrone', 'Hawkins', '', 2);
-Insert into Web_Users (User_Name, Pass_Word, First_Name, Last_Name, Email, Ur_ID) values ( 'AnneM', '', 'Anne', 'Mason', '', 2);
+Insert into Web_Users ( Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( '', 'Kay', '', 'Moore', '', 1);
+Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'ameliaC', '', 'Amelia', '', 'Chavez', '', 2);
+Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'ernestoB', '', 'Ernesto', '', 'Bass', '', 2);
+Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'jessicaP', '', 'Jessica', '', 'Pearson', '', 1);
+Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'tyroneH', '', 'Tyrone', '', 'Hawkins', '', 2);
+Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'AnneM', '', 'Anne', '', 'Mason', '', 2);
 
 
 Insert into ReStatus values(1, 'pending');
@@ -125,5 +126,40 @@ Begin
     Select SQ_PK_Reimbursements.NEXTVAL into :NEW.R_ID from DUAL;
 End;
 /
+
+Create or Replace Trigger TR_BInsert_Users_Usernames
+before Insert on Web_Users
+For each row
+declare
+    fn Varchar2(10);
+    mi Varchar2(1);
+    ln Varchar2(10);
+Begin
+    fn := :new.first_Name;
+    mi := :new.m_Intial;
+    ln := :new.last_name;
+    :new.User_Name := createUserNames(fn,mi,ln);
+End;
+/
+
+/*functions*/
+
+create or replace
+function createUserNames(fname Varchar2, mi Varchar2, lname Varchar2) return Varchar2
+as un_var Varchar2(25);
+begin
+    un_var := concat(concat(fname,mi),lname);
+    return un_var;
+end;
+/
+/*tested function*/
+declare
+    var2 varchar2(25);
+begin
+    var2 := createUserNames('Kelvin','I','Lane');
+    dbms_output.put_line(var2);
+end;
+
+
 
 
