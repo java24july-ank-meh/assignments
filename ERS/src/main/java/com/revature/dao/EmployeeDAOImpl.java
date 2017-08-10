@@ -40,9 +40,23 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public void updateEmployee(User u) {
-		// TODO Auto-generated method stub
-
+	public boolean updateEmployee(User u) {
+		try(Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement("UPDATE ERS_USERS SET U_PASSWORD = ?, U_FIRSTNAME = ?, U_LASTNAME = ?, U_EMAIL = ? WHERE U_ID = ?");
+			pstmt.setString(1, u.getPassword());
+			pstmt.setString(2, u.getFirstname());
+			pstmt.setString(3, u.getLastname());
+			pstmt.setString(4, u.getEmail());
+			pstmt.setInt(5, u.getId());
+			return pstmt.executeUpdate() == 1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
@@ -57,7 +71,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 			while (rs.next()) {
 				reimbursements.add(new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getDate(4), u,
-						rs.getString(6), rs.getString(7)));
+						rs.getInt(6), rs.getInt(7)));
 			}
 			return reimbursements;
 		} catch (SQLException e) {
@@ -70,9 +84,25 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public void submitReimbursement() {
-		// TODO Auto-generated method stub
-
+	public boolean submitReimbursement(Reimbursement re) {
+		try(Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ERS_REIMBURSEMENTS VALUES (?, ?, ?, ?, ?, ?, ?)");
+			pstmt.setInt(1, re.getId());
+			pstmt.setDouble(2, re.getAmount());
+			pstmt.setString(3, re.getDescription());
+			pstmt.setDate(4, re.getSubmitted());
+			pstmt.setInt(5, re.getAuthor().getId());
+			pstmt.setInt(6, re.getType());
+			pstmt.setInt(7, re.getStatus());
+			return pstmt.executeUpdate() == 1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return false;
 	}
 
 }

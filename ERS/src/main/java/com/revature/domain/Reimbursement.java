@@ -11,12 +11,12 @@ public class Reimbursement {
 	private Date resolved;
 	private User author;
 	private User resolver;
-	private String type;
-	private String status;
+	private int type;
+	private int status;
 	
 	
-	public Reimbursement(int id, double amount, String description, Date date, User author, String type,
-			String status) {
+	public Reimbursement(int id, double amount, String description, Date date, User author, int type,
+			int status) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -25,6 +25,51 @@ public class Reimbursement {
 		this.author = author;
 		this.type = type;
 		this.status = status;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public double getAmount() {
+		return amount;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public Date getSubmitted() {
+		return submitted;
+	}
+
+
+	public Date getResolved() {
+		return resolved;
+	}
+
+
+	public User getAuthor() {
+		return author;
+	}
+
+
+	public User getResolver() {
+		return resolver;
+	}
+
+
+	public int getType() {
+		return type;
+	}
+
+
+	public int getStatus() {
+		return status;
 	}
 	
 	
