@@ -27,6 +27,10 @@ public class User {
 	public void addResolvedReimbursements(Reimbursement resolvedReimbursement) {
 		this.resolvedReimbursements.add(resolvedReimbursement);
 	}
+	public User(int id) {
+		super();
+		this.id = id;
+	}
 	public User(int id, String username, String password, String firstname, String lastname, String email,
 			String role) {
 		super();

@@ -60,7 +60,7 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public ArrayList<Reimbursement> viewReimbursements(User u, int type) {
+	public ArrayList<Reimbursement> viewUserReimb(User u, int type) {
 		ArrayList<Reimbursement> reimbursements = new ArrayList<>();
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn
@@ -106,15 +106,26 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public ArrayList<Reimbursement> viewPending() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ArrayList<Reimbursement> viewAllReimb(int type) {
+		ArrayList<Reimbursement> reimbursements = new ArrayList<>();
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement pstmt = conn
+					.prepareStatement("SELECT * FROM ERS_REIMBURSEMENTS WHERE RT_STATUS = ?");
+			pstmt.setInt(1, type);
+			ResultSet rs = pstmt.executeQuery();
 
-	@Override
-	public ArrayList<Reimbursement> viewResolved() {
-		// TODO Auto-generated method stub
-		return null;
+			while (rs.next()) {
+				reimbursements.add(new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getDate(4), new User(rs.getInt(5)),
+						rs.getInt(6), rs.getInt(7)));
+			}
+			return reimbursements;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return reimbursements;
 	}
 
 	@Override

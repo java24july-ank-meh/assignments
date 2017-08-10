@@ -9,10 +9,9 @@ public interface ERSDAO {
 	public User employeeLogin(String username, String password) throws InvalidLoginException;
 	public boolean updateEmployee(User u);
 	public boolean submitReimbursement(Reimbursement re);
-	ArrayList<Reimbursement> viewReimbursements(User u, int type);
+	ArrayList<Reimbursement> viewUserReimb(User u, int type);
 	//manager methods
-	public ArrayList<Reimbursement> viewPending();
-	public ArrayList<Reimbursement> viewResolved();
+	public ArrayList<Reimbursement> viewAllReimb(int type);
 	public ArrayList<User> viewAllEmployees();
 	public User viewEmployee();
 	public void updateReimbursement();
