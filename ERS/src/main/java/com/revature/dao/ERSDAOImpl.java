@@ -21,13 +21,16 @@ public class ERSDAOImpl implements ERSDAO {
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
+
+			System.out.println("hello?");
 			if (rs.next()) {
-				System.out.println(rs.toString());
 				u = newUserFromRS(rs);
 				return u;
 			} else  
 				throw new InvalidLoginException("Whoa nelly. Wrong username and password combo, pal");
 
+		} catch (InvalidLoginException e) {
+			throw e;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

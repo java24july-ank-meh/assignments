@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet{
 		try {
 			currUser = empdao.empLogin(username, password);
 			req.getSession().setAttribute("user", currUser);
-			out.println("We in here, doin servlet shizz");
+			out.println(currUser.getFirstname());
 		} catch (InvalidLoginException e) {
 			//display error on page
 			out.println("<p>" + e.getMessage() + "</p>");
