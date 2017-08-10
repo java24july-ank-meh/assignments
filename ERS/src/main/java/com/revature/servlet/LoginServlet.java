@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet{
 		PrintWriter out = resp.getWriter();	
 		User currUser;
 		try {
-			currUser = empdao.employeeLogin(username, password);
+			currUser = empdao.empLogin(username, password);
 			req.getSession().setAttribute("user", currUser);
 			out.println("We in here, doin servlet shizz");
 		} catch (InvalidLoginException e) {

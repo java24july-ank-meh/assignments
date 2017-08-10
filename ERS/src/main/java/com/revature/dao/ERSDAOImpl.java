@@ -12,7 +12,7 @@ import com.revature.util.ConnectionUtil;
 public class ERSDAOImpl implements ERSDAO {
 
 	@Override
-	public User employeeLogin(String username, String password) throws InvalidLoginException {
+	public User empLogin(String username, String password) throws InvalidLoginException {
 		User u;
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
@@ -39,7 +39,7 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public boolean updateEmployee(User u) {
+	public boolean updateEmp(User u) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn.prepareStatement(
 					"UPDATE ERS_USERS SET U_PASSWORD = ?, U_FIRSTNAME = ?, U_LASTNAME = ?, U_EMAIL = ? WHERE U_ID = ?");
@@ -83,7 +83,7 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public boolean submitReimbursement(Reimbursement re) {
+	public boolean submitReimb(Reimbursement re) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn
 					.prepareStatement("INSERT INTO ERS_REIMBURSEMENTS VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -127,7 +127,7 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public ArrayList<User> viewAllEmployees() {
+	public ArrayList<User> viewAllEmps() {
 		ArrayList<User> users = new ArrayList<>();
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			Statement stmt = conn.createStatement();
@@ -147,7 +147,7 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public User viewEmployee(int uid) {
+	public User viewEmp(int uid) {
 		User u = null;
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM ERS_USERS WHERE U_ID = ?");
@@ -168,7 +168,7 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public boolean updateReimbursement(Reimbursement r) { //JSUT ALLOW MANAGERS TO APPROVE OR DENY A REIMB
+	public boolean updateReimb(Reimbursement r) { //JSUT ALLOW MANAGERS TO APPROVE OR DENY A REIMB
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn.prepareStatement(
 					"UPDATE ERS_REIMBURSEMENTS SET R_RESOLVED = ?, U_ID_RESOLVER = ?, RT_STATUS = ?");
