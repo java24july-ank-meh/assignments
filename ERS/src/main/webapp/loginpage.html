@@ -7,7 +7,7 @@
     <!-- The viewpoint or viewport is the user screen, content = "width="width means the width of the screen 
 			the  initital-scale= 1 will make it zoom in naturally-->
     <meta name="viewpoint" content="width=width=device-width, initial-scale=1">
-    <meta charset="utf-16">
+    <meta charset="utf-8">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
@@ -36,20 +36,19 @@
 
                     <!--body-->
                     <div class="modal-body">
-                        <form role="form">
+                        <form role="form" action="login" method ="post">
                             <div class="form-group">
-                                <input type="username" class="form-control" placeholder="username">
+                                <input type="text" class="form-control" placeholder="username">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password">
-
-                            </div>
+                                <input type="text" class="form-control" placeholder="password">
+                             </div>
+                             <div class="modal-footer">
+                        <button class="btn btn-primary btn-block">Log In</button>
+                    </div>
                         </form>
                     </div>
                     <!--footer for button-->
-                    <div class="modal-footer">
-                        <button class="btn btn-primary btn-block">Log In</button>
-                    </div>
 
                 </div>
             </div>
