@@ -1,2 +1,4 @@
 pom.properties
 Project 1\Team DK Project\target\m2e-wtp\web-resources\META-INF\maven\com.revature.teamdk\ReimbursementSite\pom.properties
+*.MF
+*.properties
