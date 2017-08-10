@@ -6,6 +6,7 @@ public class User {
 	private String userName;
 	private String password;
 	private String firstName;
+	private String middleInitial;
 	private String lastName;
 	private String email;
 	private int roleID;		//or UserRoles role
@@ -79,6 +80,14 @@ public class User {
 
 	public void setManager(boolean manager) {
 		this.manager = manager;
+	}
+
+	public String getMiddleInitial() {
+		return middleInitial;
+	}
+
+	public void setMiddleInitial(String middleInitital) {
+		this.middleInitial = middleInitital;
 	}
 
 }

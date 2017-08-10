@@ -18,7 +18,8 @@ public interface UserDao {
 	
 	public void createUser(User u);
 	
-	public void	 updateUser(User u);
+	public void	 updateUserL(User u);
+	public void	 updateUserI(User u);
 	
 	//public void deleteUser(User u);
 	public void deleteUser(int uID);
