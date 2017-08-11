@@ -17,17 +17,17 @@ public class MainDaoTesting {
 //		p.setPhotoID();
 //		p.updatePhotoD();
 //		try {
-//			ConnectionUtil.getConectionProperties();
+//			
 //			ConnectionUtil.getConection();
 //		} catch (/*IOException |*/  SQLException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 //	
-		
-		UserDaoImpl user = new UserDaoImpl();
-		User u = new User(1,"json","password", "Jack","d", "aniels","j@yahpp.com",1);
-		user.createUser(u);
+//		
+//		UserDaoImpl user = new UserDaoImpl();
+//		User u = new User(1,"json","password", "Jack","d", "aniels","j@yahpp.com",1);
+//		user.createUser(u);
 		
 	}
 

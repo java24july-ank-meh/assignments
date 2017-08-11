@@ -15,7 +15,7 @@ import oracle.jdbc.driver.OracleDriver;
 
 public class ConnectionUtil {
 	public static Connection getConection() throws SQLException{
-		String url = "project1-dk.cbavkfkfpppe.us-east-2.rds.amazonaws.com:1521:orcl";
+		String url = "jdbc:oracle:thin:@project1-dk.cbavkfkfpppe.us-east-2.rds.amazonaws.com:1521:orcl";
 		String username = "dbsystem";
 		String password = "oracleSE217";
 
@@ -26,7 +26,8 @@ public class ConnectionUtil {
 
 	public static Connection getConectionProperties() throws IOException, SQLException{
 		Properties prop = new Properties();
-		InputStream in = new FileInputStream("connection.properties");//conn.prop
+		InputStream in = new FileInputStream("connection.properties");
+
 		prop.load(in);
 
 		String url = prop.getProperty("url");

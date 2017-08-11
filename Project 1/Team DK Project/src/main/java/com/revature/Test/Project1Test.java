@@ -11,10 +11,10 @@ import com.revature.utilities.ConnectionUtil;
 
 public class Project1Test {
 
-//	@Test
-//	public final void testConnection() throws IOException, SQLException {
-//		ConnectionUtil.getConectionProperties();
-//	}
+	@Test
+	public final void testConnection() throws IOException, SQLException {
+		ConnectionUtil.getConectionProperties();
+	}
 	
 	@Test 
 	public final void testuserDAOimpl() {
