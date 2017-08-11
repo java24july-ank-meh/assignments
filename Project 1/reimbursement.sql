@@ -1,26 +1,19 @@
+Drop User dbsystem Cascade;
 
-/*
-aws.amazon.com
-master 
-username: dbsystem
-password: oracleSE217
-
-Drop User admin Cascade;
-
-Create user admin
-Identified by sysADMIN
+Create user dbsystem
+Identified by oracleSE217
 Default tablespace users
 Temporary tablespace temp
 Quota 10m on users;
 
-Grant connect to admin;
-Grant resource to admin;
-Grant create session to admin;
-Grant create table to admin;
-Grant create view to admin;
+Grant connect to dbsystem;
+Grant resource to dbsystem;
+Grant create session to dbsystem;
+Grant create table to dbsystem;
+Grant create view to dbsystem;
 
-Connect admin/sysADMIN;
-*/
+Connect dbsystem/sysADMIN;
+
 Create table Web_Users (
     User_ID Number,
     User_Name Varchar2(21),
@@ -39,24 +32,24 @@ Create table UserRoles (
     User_Role Varchar2(10),
 	Constraint PK_BALogin Primary key (Ur_ID)
 );
-	
+
 Create table Reimburstments (
     R_ID Number Primary key,
 	R_Amount Number(22,2),
-    R_Description Varchar2(30),
-	R_Receipt Blob,
+    R_Description Varchar2(30) default null,
+	R_Receipt Blob default null,
 	R_Submitted Timestamp,
-	R_Resolved Timestamp,
+	R_Resolved Timestamp null,
 	U_ID_Author Number,	/*FK to Web_Users table User_ID*/
 	U_ID_Resolver Number,	/*FK to Web_Users table User_ID*/
-	RT_Type Number, /*FK to ReType table Rt_ID */
-	RT_Status Number,	/*FK to ReStatus table Rs_ID */
+	RT_Type Number default 0, /*FK to ReType table Rt_ID */
+	RT_Status Number default 1,	/*FK to ReStatus table Rs_ID */
 	Constraint FK_Reimburstment_Author Foreign key (U_ID_Author) references Web_Users(User_ID),
 	Constraint FK_Reimburstment_Resolver Foreign key (U_ID_Resolver) references Web_Users(User_ID),
 	Constraint FK_Reimburstment_Type Foreign key (RT_Type) references ReType(Rt_ID),
 	Constraint FK_Reimburstment_Status Foreign key (RT_Status) references ReStatus(Rs_ID)
 );
-	
+
 Create table ReStatus (
     Rs_ID Number Primary key,
     Rs_Status Varchar2(8)
@@ -66,35 +59,6 @@ Create table ReType (
     Rt_ID Number Primary key,
     Rt_Type Varchar2(8)
 );
-
-
-
-/*Inserts*/
-
-Insert into UserRoles values(0, 'Admin');
-Insert into UserRoles values(1, 'Manager');
-Insert into UserRoles values(2, 'Employee');
-
-
-Insert into Web_Users ( Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( '', 'Kay', '', 'Moore', '', 1);
-Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'ameliaC', '', 'Amelia', '', 'Chavez', '', 2);
-Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'ernestoB', '', 'Ernesto', '', 'Bass', '', 2);
-Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'jessicaP', '', 'Jessica', '', 'Pearson', '', 1);
-Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'tyroneH', '', 'Tyrone', '', 'Hawkins', '', 2);
-Insert into Web_Users (Pass_Word, First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'AnneM', '', 'Anne', '', 'Mason', '', 2);
-
-
-Insert into ReStatus values(1, 'pending');
-Insert into ReStatus values(0, 'denied');
-Insert into ReStatus values(2, 'approved');
-
-
-/*https://www.zanebenefits.com/blog/3-types-of-employee-reimbursement*/
-Insert into ReType values(1, 'Business');
-Insert into ReType values(2, 'Travel');
-Insert into ReType values(3, 'Medical');
-
-
 
 /*sequences*/
 
@@ -107,7 +71,6 @@ create sequence SQ_PK_Reimbursements
 start with 100000
 increment by 1;
 /
-
 
 /*triggers*/
 
@@ -160,6 +123,35 @@ begin
     dbms_output.put_line(var2);
 end;
 
+/*Inserts*/
 
+Insert into UserRoles values(0, 'Admin');
+Insert into UserRoles values(1, 'Manager');
+Insert into UserRoles values(2, 'Employee');
 
+Insert into Web_Users (First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'Kay', 'L', 'Moore', 'klm@mail.com', 1);
+/*100000*/
+Insert into Web_Users (First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'Amelia', 'S', 'Chavez', 'asc@mail.com', 2);
+/*100001*/
+Insert into Web_Users (First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'Ernesto', 'C', 'Bass', 'ecb@mail.com', 2);
+/*100002*/
+Insert into Web_Users (First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'Jessica', 'X', 'Pearson', 'jep@mail.com', 1);
+/*100003*/
+Insert into Web_Users (First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'Tyrone', 'E', 'Hawkins', 'teh@mail.com', 2);
+/*100004*/
+Insert into Web_Users (First_Name, M_Intial, Last_Name, Email, Ur_ID) values ( 'Anne', 'Y', 'Mason', 'aym@mail.com', 2);
+/*100005*/
 
+Insert into ReStatus values(1, 'pending');
+Insert into ReStatus values(0, 'denied');
+Insert into ReStatus values(2, 'approved');
+
+/*https://www.zanebenefits.com/blog/3-types-of-employee-reimbursement*/
+Insert into ReType values(1, 'Business');
+Insert into ReType values(2, 'Travel');
+Insert into ReType values(3, 'Medical');
+
+Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(90.50, "", current_timestamp, 100001, 1, 1);
+Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(60.50, "", current_timestamp, 100004, 1, 1);
+Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(240.50, "", current_timestamp, 100002, 1, 2);
+Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(120.50, "", current_timestamp, 100005, 1, 3);

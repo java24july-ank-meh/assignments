@@ -3,7 +3,9 @@ package com.revature.Test;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import com.revature.dao.UserDaoImpl;
 import com.revature.domain.Photo;
+import com.revature.domain.User;
 import com.revature.utilities.ConnectionUtil;
 
 public class MainDaoTesting {
@@ -14,13 +16,18 @@ public class MainDaoTesting {
 //		Photo p = new Photo();
 //		p.setPhotoID();
 //		p.updatePhotoD();
-		try {
+//		try {
 //			ConnectionUtil.getConectionProperties();
-			ConnectionUtil.getConection();
-		} catch (/*IOException |*/  SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//			ConnectionUtil.getConection();
+//		} catch (/*IOException |*/  SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	
+		
+		UserDaoImpl user = new UserDaoImpl();
+		User u = new User(1,"json","password", "Jack","d", "aniels","j@yahpp.com",1);
+		user.createUser(u);
 		
 	}
 
