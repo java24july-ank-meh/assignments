@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Expense Reimbursement System </title>
+    <link rel="stylesheet" href=".css/ersStyle.css">
+    <!-- The viewpoint or viewport is the user screen, content = "width="width means the width of the screen 
+			the  initital-scale= 1 will make it zoom in naturally-->
+    <meta name="viewpoint" content="width=width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <hl>Expense Reimbursement System</hl>
+        <p>Where You get your money back!!</p>
+    </div>
+    <div class="container">
+        <h3> Log In </h3>
+        <!-- to make into a type id then add the # sign to the name you want to tag an idea-->
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#popwindow">Open Log in Window</button>
+        <div class="modal fade" id="popwindow">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!--header-->
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 align="center" class="model-title">Log In
+                            <h3>
+                    </div>
+
+                    <!--body-->
+                    <div class="modal-body">
+                        <form role="form" action="login" method ="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="username">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="password">
+                             </div>
+                             <div class="modal-footer">
+                        <button class="btn btn-primary btn-block">Log In</button>
+                    </div>
+                        </form>
+                    </div>
+                    <!--footer for button-->
+
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js "></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js "></script>
+        <script scr=js.loginscript.js></script>
+</body>
+
+</html>
