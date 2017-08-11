@@ -24,9 +24,9 @@ Connect admin/sysADMIN;
 Create table Web_Users (
     User_ID Number,
     User_Name Varchar2(21),
-	Pass_Word Varchar2(10),
+	Pass_Word Varchar2(10) default 'password',
 	First_Name Varchar2(10),
-	M_Intial Varchar2(1),
+	M_Intial Varchar2(1) default '_',
 	Last_Name Varchar2(10),
 	Email Varchar2(25),
 	Ur_ID Number,	/*FK to User Roles table Ur_ID*/
