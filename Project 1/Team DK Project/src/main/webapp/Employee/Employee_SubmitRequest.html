@@ -23,12 +23,12 @@
             <li><a href="#">Home</a></li>
             <li><a href="Employee_reimb.html">Reimbursements</a>
                 <ul id="ddown" class="dropdown">
-                    <dl><a href="#">Requests</a></dl>
-                    <dl><a href="Employee_approval.html">Approvals</a></dl>
+                    <dl> <a href="#">Requests</a> </dl>
+                    <dl><a href="Employee_ApprovedRequest.html">Approvals</a></dl>
 
                 </ul>
             </li>
-
+		</ul>
             <li><a href="#">Information</a>
                 <ul class="dropdown" style="margin-right: 20%">
                     <dl><a href="Employee_Information.html">Account Information</a></dl>
@@ -48,20 +48,21 @@
         <hr>
         <!--This will be user information  -->
         <div class="jumbotron" style="width: 70%; margin-left: 10%">
-            <div id="uploads">        </div>
-            <div class="dropzone" id="dropzone">Drop File here</div>
+            
+            
 
-            <div style="margin-left: 50%">
+            <div style="margin-left: 45%">
                 <p>
-                    <div class="col" style="width: 50%">
+                    <div class="col" style="width: 80%">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                            
-                             <button class="btn btn-default btn-md" type="button" >Browse</button> 
-                            
-                        </span>
+                            <label class ="input-group-btn">
+                            <span class="btn btn-default">"Browse..."
+                            <input type="file" style="display: none;"multiple>
+                            </span>
+                            </label>
+                            <input type="text" class="form-control" readonly>
                         </div>
+                        
                         <!-- /input-group -->
                     </div>
                     <!-- /.col-lg-6 -->
@@ -69,7 +70,7 @@
                 <p>
                     <div class="form-group">
                         <label for="comment">Comment:</label>
-                        <textarea class="form-control" rows="5" id="comment" style="width: 50%"></textarea>
+                        <textarea class="form-control" rows="5" id="comment" style="width: 80%"></textarea>
 
                     </div>
                     <p>
@@ -95,38 +96,6 @@
             document.getElementById("main").style.marginLeft = "0";
         }
 
-        (function(){
-            var upload = function(files){
-                var formData = new FormData(),
-                xhr = new XMLHttpRequest,
-                x;
-
-                for(x=0; x< files.length; x= x+1){
-                    formData.append('file[]',files[x]);
-                    
-                }
-
-                xhr.open('post', 'upload.php');
-                xhr.send(form);
-            }
-
-            var dropzone = document.getElementById('dropzone');
-
-            dropzone.ondrop = function(e){
-                e.preventDefault();
-                this.className = 'dropzone';
-                 upload(e.dataTransfer.files);
-            }
-
-             dropzone.ondragover = function(){
-                 this.className = 'dropzone dragover'
-                 return false;
-             }
-                dropzone.ondragleave = function(){
-                    this.className = 'dropzone';
-                    return false;
-                }
-        }());
    
     </script>
 
