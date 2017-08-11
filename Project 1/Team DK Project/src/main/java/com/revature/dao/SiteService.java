@@ -3,6 +3,8 @@ package com.revature.dao;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.revature.domain.User;
+
 public class SiteService {
 	ExtraDao eD;
 	UserDao uD;
@@ -72,9 +74,11 @@ public class SiteService {
 		return false;
 	}
 	
-	public void changePassword(int uID, String npwd) {
-		
-//		uD.updateUser();
+	public void changePassword(int uID, String pwd) {
+		User u = new User();
+		u.setuID(uID);
+		u.setPassword(pwd);
+		uD.updateUserL(u);
 	}
 		//---------------------------------------------------------
 		// //user roles
