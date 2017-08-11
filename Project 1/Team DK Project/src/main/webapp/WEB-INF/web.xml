@@ -19,4 +19,15 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
+  
+  
+    <servlet>
+  	<servlet-name>Employee</servlet-name>
+  	<servlet-class>com.revature.servlets.FirstServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>Employee</servlet-name>
+  	<url-pattern>/Employee</url-pattern>
+  </servlet-mapping>
 </web-app>
