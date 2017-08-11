@@ -214,7 +214,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 
 		try (Connection conn = ConnectionUtil.getConectionProperties()) {
 
-			String sql1 = "Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values()";
+			String sql1 = "Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status, R_Reciept) Values(?, ?, ?, ?, ?, ?, ?)";
 
 			pStmt1 = conn.prepareStatement(sql1);
 			
@@ -224,6 +224,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 			pStmt1.setInt(4, r.getStatus());
 			pStmt1.setTimestamp(5, r.getSubmitted());
 			pStmt1.setInt(6, r.getType());
+			pStmt1.setBlob(7, r.getReceipt());
 			
 			pStmt1.executeQuery();
 
@@ -255,7 +256,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 
 		try (Connection conn = ConnectionUtil.getConectionProperties()) {
 
-			String sql1 = "Update Reimbursements Set R_Amount=?, R_Description=?, R_Submitted=?, U_ID_Author=?, RT_Type=?, RT_Status=? Where R_ID=?"; 
+			String sql1 = "Update Reimbursements Set R_Amount=?, R_Description=?, R_Submitted=?, U_ID_Author=?, RT_Type=?, RT_Status=?, R_Reciept=? Where R_ID=?"; 
 
 			pStmt1 = conn.prepareStatement(sql1);
 			
@@ -265,8 +266,9 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 			pStmt1.setInt(4, r.getStatus());
 			pStmt1.setTimestamp(5, r.getSubmitted());
 			pStmt1.setInt(6, r.getType());
+			pStmt1.setBlob(7, r.getReceipt());
 			
-			pStmt1.setInt(7, r.getrID());
+			pStmt1.setInt(8, r.getrID());
 			
 			pStmt1.executeQuery();
 

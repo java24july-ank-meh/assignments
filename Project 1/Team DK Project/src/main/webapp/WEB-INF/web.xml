@@ -19,7 +19,7 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
-<<<<<<< HEAD
+
   <servlet>
     <description></description>
     <display-name>PhototHelper</display-name>
@@ -29,10 +29,9 @@
   <servlet-mapping>
     <servlet-name>PhototHelper</servlet-name>
     <url-pattern>/PhototHelper</url-pattern>
-=======
+  </servlet-mapping>
   
-  
-    <servlet>
+  <servlet>
   	<servlet-name>Employee</servlet-name>
   	<servlet-class>com.revature.servlets.FirstServlet</servlet-class>
   </servlet>
@@ -40,6 +39,5 @@
   <servlet-mapping>
   	<servlet-name>Employee</servlet-name>
   	<url-pattern>/Employee</url-pattern>
->>>>>>> 7c6c9890aede5771c9398766ce389a6e843a8679
   </servlet-mapping>
 </web-app>

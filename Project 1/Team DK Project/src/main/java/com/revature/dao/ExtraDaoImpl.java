@@ -1,6 +1,9 @@
 package com.revature.dao;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -147,27 +150,69 @@ public class ExtraDaoImpl implements ExtraDao {
 	//--------------------------------
 	@Override
 	public void addPhoto(int rid,byte[] pdata) {
-		//  SqlParameter photo=new SqlParameter("reciept", SqlDbType.VarBinary);
-//		   photo.Value=p.PhotoData;
+	
 
 		PreparedStatement pStmt1 = null;
 		String sql1 = "Update Reimbursements Set R_Reciept=? Where R_ID=?";
-	
 		
 		try (Connection conn = ConnectionUtil.getConectionProperties()) {
 
 		pStmt1 = conn.prepareStatement(sql1);
 		
+		InputStream is = new ByteArrayInputStream(pdata);
+		pStmt1.setBlob(1, is);
+		
+		pStmt1.setInt(2, rid);
+		
+		pStmt1.execute();
+		
 		}catch(SQLException se) {
 			se.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			if (pStmt1 != null) {
+				try {
+					pStmt1.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		
-	
-	
 	
 	}
 
+	public void addPhoto(int rid,Blob pdata) {
+		//  SqlParameter photo=new SqlParameter("reciept", SqlDbType.VarBinary);
+//		   photo.Value=p.PhotoData;
+
+		PreparedStatement pStmt1 = null;
+		String sql1 = "Update Reimbursements Set R_Reciept=? Where R_ID=?";
+		
+		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+
+		pStmt1 = conn.prepareStatement(sql1);
+		
+		pStmt1.setBlob(1, pdata);
+
+		pStmt1.setInt(2, rid);
+		
+		pStmt1.executeUpdate();
+		
+		}catch(SQLException se) {
+			se.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if (pStmt1 != null) {
+				try {
+					pStmt1.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	
+	}
+	
 }
