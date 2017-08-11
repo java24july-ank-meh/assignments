@@ -10,20 +10,11 @@ import com.revature.domain.User;
 import com.revature.exception.InvalidLoginException;
 import com.revature.util.ConnectionUtil;
 
-import oracle.jdbc.OracleDriver;
-
 public class ERSDAOImpl implements ERSDAO {
 
 	@Override
 	public User empLogin(String username, String password) throws InvalidLoginException {
 		User u;
-		/*OracleDriver driver = new OracleDriver();
-        try {
-			DriverManager.registerDriver(driver);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn
 					.prepareStatement("SELECT * FROM ERS_USERS WHERE U_USERNAME = ? AND U_PASSWORD = ?");

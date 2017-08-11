@@ -21,7 +21,6 @@ public class LoginServlet extends HttpServlet{
 		String password = req.getParameter("password");
 		PrintWriter out = resp.getWriter();
 
-		out.println(username+password);
 		User currUser;
 		try {
 			currUser = empdao.empLogin(username, password);
@@ -30,6 +29,9 @@ public class LoginServlet extends HttpServlet{
 		} catch (InvalidLoginException e) {
 			//display error on page
 			out.println("<p>" + e.getMessage() + "</p>");
+			out.println("<a href=\"loginpage.html\">Go Back</a>");
+			req.getSession().setAttribute("errorMessage", e.getMessage());
+			resp.sendRedirect("loginpage.html");
 		}
 	}
 }
