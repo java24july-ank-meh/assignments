@@ -35,7 +35,7 @@ public class UserServlet extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		//UserDao uD = new UserDao
-		List<User> allUsers = new ArrayList<>();
+		List<User> allUsers = new ArrayList<>();//UserDao uD = new USerDAoImpl(); and so allUSers=uD.readAllUsers()
 
 		//convert arraylist to json, below
 		Gson gson = new Gson();
@@ -47,8 +47,7 @@ public class UserServlet extends HttpServlet {
 		
 		//send response in json format
 		PrintWriter out = response.getWriter();
-		out.write(rJSON);	
-		
+		out.write(rJSON);
 	}
 
 	/**

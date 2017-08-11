@@ -1,19 +1,10 @@
 Drop User dbsystem Cascade;
 
-Create user dbsystem
-Identified by oracleSE217
-Default tablespace users
-Temporary tablespace temp
-Quota 10m on users;
-
-Grant connect to dbsystem;
-Grant resource to dbsystem;
-Grant create session to dbsystem;
-Grant create table to dbsystem;
-Grant create view to dbsystem;
-
-Connect dbsystem/sysADMIN;
-
+Create table UserRoles (
+    Ur_ID Number,
+    User_Role Varchar2(10),
+	Constraint PK_BALogin Primary key (Ur_ID)
+);
 Create table Web_Users (
     User_ID Number,
     User_Name Varchar2(21),
@@ -27,13 +18,17 @@ Create table Web_Users (
 	Constraint FK_Users_Role Foreign key (Ur_ID) references UserRoles(Ur_ID)
 );
 
-Create table UserRoles (
-    Ur_ID Number,
-    User_Role Varchar2(10),
-	Constraint PK_BALogin Primary key (Ur_ID)
+Create table ReStatus (
+    Rs_ID Number Primary key,
+    Rs_Status Varchar2(8)
 );
 
-Create table Reimburstments (
+Create table ReType (
+    Rt_ID Number Primary key,
+    Rt_Type Varchar2(8)
+);
+
+Create table Reimbursements (
     R_ID Number Primary key,
 	R_Amount Number(22,2),
     R_Description Varchar2(30) default null,
@@ -44,20 +39,10 @@ Create table Reimburstments (
 	U_ID_Resolver Number,	/*FK to Web_Users table User_ID*/
 	RT_Type Number default 0, /*FK to ReType table Rt_ID */
 	RT_Status Number default 1,	/*FK to ReStatus table Rs_ID */
-	Constraint FK_Reimburstment_Author Foreign key (U_ID_Author) references Web_Users(User_ID),
-	Constraint FK_Reimburstment_Resolver Foreign key (U_ID_Resolver) references Web_Users(User_ID),
-	Constraint FK_Reimburstment_Type Foreign key (RT_Type) references ReType(Rt_ID),
-	Constraint FK_Reimburstment_Status Foreign key (RT_Status) references ReStatus(Rs_ID)
-);
-
-Create table ReStatus (
-    Rs_ID Number Primary key,
-    Rs_Status Varchar2(8)
-);
-
-Create table ReType (
-    Rt_ID Number Primary key,
-    Rt_Type Varchar2(8)
+	Constraint FK_Reimbursement_Author Foreign key (U_ID_Author) references Web_Users(User_ID),
+	Constraint FK_Reimbursement_Resolver Foreign key (U_ID_Resolver) references Web_Users(User_ID),
+	Constraint FK_Reimbursement_Type Foreign key (RT_Type) references ReType(Rt_ID),
+	Constraint FK_Reimbursement_Status Foreign key (RT_Status) references ReStatus(Rs_ID)
 );
 
 /*sequences*/
@@ -83,11 +68,23 @@ End;
 /
 
 Create or Replace Trigger TR_BInsert_Reimbursements_Id
-Before Insert on Reimburstments
+Before Insert on Reimbursements
 For each row
 Begin
     Select SQ_PK_Reimbursements.NEXTVAL into :NEW.R_ID from DUAL;
 End;
+/
+
+
+/*functions*/
+
+create or replace
+function createUserNames(fname Varchar2, mi Varchar2, lname Varchar2) return Varchar2
+as un_var Varchar2(25);
+begin
+    un_var := concat(concat(fname,mi),lname);
+    return un_var;
+end;
 /
 
 Create or Replace Trigger TR_BInsert_Users_Usernames
@@ -105,16 +102,7 @@ Begin
 End;
 /
 
-/*functions*/
 
-create or replace
-function createUserNames(fname Varchar2, mi Varchar2, lname Varchar2) return Varchar2
-as un_var Varchar2(25);
-begin
-    un_var := concat(concat(fname,mi),lname);
-    return un_var;
-end;
-/
 /*tested function*/
 declare
     var2 varchar2(25);
@@ -151,7 +139,10 @@ Insert into ReType values(1, 'Business');
 Insert into ReType values(2, 'Travel');
 Insert into ReType values(3, 'Medical');
 
-Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(90.50, "", current_timestamp, 100001, 1, 1);
-Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(60.50, "", current_timestamp, 100004, 1, 1);
-Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(240.50, "", current_timestamp, 100002, 1, 2);
-Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(120.50, "", current_timestamp, 100005, 1, 3);
+select * from Web_Users;
+select * from Reimbursements;
+
+Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(90.50, 'Lunch Outing', current_timestamp, 100001, 1, 1);
+Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(60.50, 'More supplies', current_timestamp, 100004, 1, 1);
+Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(240.50, 'Florida Visit', current_timestamp, 100002, 2, 1);
+Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status) Values(120.50, 'Testing', current_timestamp, 100005, 3, 1);
