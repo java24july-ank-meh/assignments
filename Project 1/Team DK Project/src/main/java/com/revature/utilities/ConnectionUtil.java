@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class ConnectionUtil {
 	public static Connection getConection() throws SQLException{
-		String url = "project1-dk.cbavkfkfpppe.us-east-2.rds.amazonaws.com:1521:ORCL";
+		String url = "project1-dk.cbavkfkfpppe.us-east-2.rds.amazonaws.com/1521:ORCL";
 		String username = "dbsystem";
 		String password = "oracleSE217";
 		
