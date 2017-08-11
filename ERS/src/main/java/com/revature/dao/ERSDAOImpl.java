@@ -24,7 +24,7 @@ public class ERSDAOImpl implements ERSDAO {
 			if (rs.next()) {
 				u = newUserFromRS(rs);
 				return u;
-			} else  
+			} else
 				throw new InvalidLoginException("L2type noob");
 
 		} catch (InvalidLoginException e) {
@@ -86,8 +86,8 @@ public class ERSDAOImpl implements ERSDAO {
 	@Override
 	public boolean submitReimb(Reimbursement re) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			PreparedStatement pstmt = conn
-					.prepareStatement("INSERT INTO ERS_REIMBURSEMENTS VALUES (?, ?, ?, ?, ?, ?)");
+			PreparedStatement pstmt = conn.prepareStatement(
+					"INSERT INTO ERS_REIMBURSEMENTS(R_AMOUNT, R_DESCRIPTION, R_SUBMITTED, U_ID_AUTHOR, RT_TYPE, RT_STATUS) VALUES (?, ?, ?, ?, ?, ?)");
 			pstmt.setDouble(1, re.getAmount());
 			pstmt.setString(2, re.getDescription());
 			pstmt.setDate(3, re.getSubmitted());
@@ -168,10 +168,10 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public boolean updateReimb(Reimbursement r) { //JSUT ALLOW MANAGERS TO APPROVE OR DENY A REIMB
+	public boolean updateReimb(Reimbursement r) { // JSUT ALLOW MANAGERS TO APPROVE OR DENY A REIMB
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			PreparedStatement pstmt = conn.prepareStatement(
-					"UPDATE ERS_REIMBURSEMENTS SET R_RESOLVED = ?, U_ID_RESOLVER = ?, RT_STATUS = ?");
+			PreparedStatement pstmt = conn
+					.prepareStatement("UPDATE ERS_REIMBURSEMENTS SET R_RESOLVED = ?, U_ID_RESOLVER = ?, RT_STATUS = ?");
 			pstmt.setDate(1, r.getResolved());
 			pstmt.setInt(2, r.getResolver());
 			pstmt.setInt(3, r.getStatus());
@@ -193,8 +193,8 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	private Reimbursement newReimbFromRS(ResultSet rs) throws SQLException {
-		return new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getString(3),rs.getBlob(4), rs.getDate(5), rs.getDate(6), rs.getInt(7),
-				rs.getInt(8), rs.getInt(9),rs.getInt(10));
+		return new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getBlob(4), rs.getDate(5),
+				rs.getDate(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10));
 	}
 
 }

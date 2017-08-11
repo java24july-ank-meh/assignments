@@ -12,7 +12,7 @@ import oracle.jdbc.OracleDriver;
 public class ConnectionUtil {
 	public static Connection getConnection() throws IOException, SQLException {
 		/*Properties prop = new Properties();
-		prop.load( new FileInputStream("src/main/resources/connection.properties"));
+		prop.load( new FileInputStream("src/main/resources/connection.pro	perties"));
 		
 		String url = prop.getProperty("url");
 		String user = prop.getProperty("user");
