@@ -14,6 +14,13 @@ public class ConnectionUtil {
 		String username = "dbsystem";
 		String password = "oracleSE217";
 		
+		try {
+			Class.forName("JDBCDriver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return DriverManager.getConnection(url, username, password);		
 	}
 	
