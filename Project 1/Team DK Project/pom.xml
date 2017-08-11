@@ -34,6 +34,7 @@
 			<version>2.8.1</version>
 		</dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 		<dependency>
             <groupId>com.oracle.jdbc</groupId>
@@ -51,6 +52,8 @@
 
 		
 =======
+=======
+>>>>>>> 0b1c191f7b891dbde67841f6b1bdd804b2cf43e8
 
 
 		<dependency>
@@ -67,6 +70,9 @@
 		</dependency>
 
 
+<<<<<<< HEAD
+>>>>>>> 0b1c191f7b891dbde67841f6b1bdd804b2cf43e8
+=======
 >>>>>>> 0b1c191f7b891dbde67841f6b1bdd804b2cf43e8
 	</dependencies>
 
