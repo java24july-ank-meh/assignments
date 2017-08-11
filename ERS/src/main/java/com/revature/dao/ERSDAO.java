@@ -7,7 +7,7 @@ import com.revature.domain.*;
 import com.revature.exception.*;
 
 public interface ERSDAO {
-	public User empLogin(String username, String password, PrintWriter out) throws InvalidLoginException;
+	public User empLogin(String username, String password) throws InvalidLoginException;
 	public boolean updateEmp(User u);
 	public boolean submitReimb(Reimbursement re);
 	ArrayList<Reimbursement> viewUserReimb(User u, int type);
