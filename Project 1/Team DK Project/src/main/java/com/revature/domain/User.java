@@ -72,6 +72,11 @@ public class User {
 
 	public void setRoleID(int roleID) {
 		this.roleID = roleID;
+		if(roleID==1) {
+			this.manager = true;
+		}else {
+			this.manager = false;
+		}
 	}
 
 	public boolean isManager() {

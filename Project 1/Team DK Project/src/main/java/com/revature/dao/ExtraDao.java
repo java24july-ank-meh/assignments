@@ -3,9 +3,6 @@ package com.revature.dao;
 import java.util.Map;
 
 public interface ExtraDao {
-	///**/ in cervice dao
-	//login
-	public Map<String, String> returnLogins();	//username, password
 	
 	//user roles
 	public Map<String, Integer> returnUserRoles();	//role, id
