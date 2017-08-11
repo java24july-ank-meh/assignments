@@ -25,7 +25,7 @@ public class ERSDAOImpl implements ERSDAO {
 				u = newUserFromRS(rs);
 				return u;
 			} else  
-				throw new InvalidLoginException("Whoa nelly. Wrong username and password combo, pal");
+				throw new InvalidLoginException("L2type noob");
 
 		} catch (InvalidLoginException e) {
 			throw e;
@@ -87,14 +87,13 @@ public class ERSDAOImpl implements ERSDAO {
 	public boolean submitReimb(Reimbursement re) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn
-					.prepareStatement("INSERT INTO ERS_REIMBURSEMENTS VALUES (?, ?, ?, ?, ?, ?, ?)");
-			pstmt.setInt(1, re.getId());
-			pstmt.setDouble(2, re.getAmount());
-			pstmt.setString(3, re.getDescription());
-			pstmt.setDate(4, re.getSubmitted());
-			pstmt.setInt(5, re.getAuthor());
-			pstmt.setInt(6, re.getType());
-			pstmt.setInt(7, re.getStatus());
+					.prepareStatement("INSERT INTO ERS_REIMBURSEMENTS VALUES (?, ?, ?, ?, ?, ?)");
+			pstmt.setDouble(1, re.getAmount());
+			pstmt.setString(2, re.getDescription());
+			pstmt.setDate(3, re.getSubmitted());
+			pstmt.setInt(4, re.getAuthor());
+			pstmt.setInt(5, re.getType());
+			pstmt.setInt(6, re.getStatus());
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
