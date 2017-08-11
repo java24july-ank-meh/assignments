@@ -12,7 +12,7 @@ import com.doubletrouble.util.ConnectionUtil;
 public interface ERSDao {
 	
 	public User login(String username, String password) throws IOException, SQLException;
-
+	public Reimbursements[] viewPending(int urid, int status);
 	public void test() throws IOException;
 	
 }

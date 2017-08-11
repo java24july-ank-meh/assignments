@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.doubletrouble.domain.Reimbursements;
 import com.doubletrouble.domain.User;
 import com.doubletrouble.util.ConnectionUtil;
+import com.revature.domain.Cave;
 
 public class ERSDaoImpl implements ERSDao {
 
@@ -80,4 +82,54 @@ public class ERSDaoImpl implements ERSDao {
 		}
 		return u;
 		}
+	
+	public Reimbursements[] viewPending(int urid, int status) {
+		CallableStatement cs = null;
+		int r_number;
+		String r_description;
+		String r_submitted;
+		int r_type;
+		List<Reimbursements> pending;
+		
+		try {
+			Connection conn = ConnectionUtil.getConnectionProp();
+			String sql = "{CALL GET VIEW_PENDING_REIMBURSEMENTS(?,?,?,?,?,?,?)}";
+			cs = conn.prepareCall(sql);
+			cs.setInt(1, urid);
+			cs.setInt(2, status);
+			cs.registerOutParameter(3, java.sql.Types.NUMERIC);
+			cs.registerOutParameter(4, java.sql.Types.VARCHAR);
+			cs.registerOutParameter(5, java.sql.Types.VARCHAR);
+			cs.registerOutParameter(6, java.sql.Types.NUMERIC);
+			
+			ResultSet reimb = cs.getResultSet();
+			
+			while(reimb.next()) {
+				int id = reimb.getInt("CAVE_ID");
+				String name = reimb.getString("CAVE_NAME");
+				int maxBears = reimb.getInt("MAX_BEARS");
+				
+				r_id = cs.getInt(3);
+				r_number = cs.getInt(4);
+				r_description = cs.getString(5);
+				r_submitted = cs.getString(6);
+				r_type = cs.getInt(7);
+				
+				Reimbursements c = new Reimbursements(r_number, r);
+				pending.add(c);
+			}
+			
+			
+			
+			cs.close();
+			return pending;
+			
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
+		
+}
