@@ -12,6 +12,21 @@ public class User {
 	private int roleID;		//or UserRoles role
 	private boolean manager;
 
+	
+	public User(int uID, String userName, String password, String firstName, String middleInitial, String lastName,
+			String email, int roleID) {
+		super();
+		this.uID = uID;
+		this.userName = userName;
+		this.password = password;
+		this.firstName = firstName;
+		this.middleInitial = middleInitial;
+		this.lastName = lastName;
+		this.email = email;
+		this.roleID = roleID;
+		
+	}
+
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
