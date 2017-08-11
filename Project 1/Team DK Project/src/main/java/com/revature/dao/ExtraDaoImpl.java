@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -157,7 +158,12 @@ public class ExtraDaoImpl implements ExtraDao {
 
 		pStmt1 = conn.prepareStatement(sql1);
 		
-		}catch(SQLException SE)
+		}catch(SQLException se) {
+			se.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	
 	
