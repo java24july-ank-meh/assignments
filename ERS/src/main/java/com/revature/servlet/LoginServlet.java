@@ -19,12 +19,14 @@ public class LoginServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-		PrintWriter out = resp.getWriter();	
+		PrintWriter out = resp.getWriter();
+
+		out.println(username+password);
 		User currUser;
 		try {
-			currUser = empdao.empLogin(username, password);
+			currUser = empdao.empLogin(username, password, out);
+			out.println(currUser.toString());
 			req.getSession().setAttribute("user", currUser);
-			out.println(currUser.getFirstname());
 		} catch (InvalidLoginException e) {
 			//display error on page
 			out.println("<p>" + e.getMessage() + "</p>");

@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -9,21 +10,31 @@ import com.revature.domain.User;
 import com.revature.exception.InvalidLoginException;
 import com.revature.util.ConnectionUtil;
 
+import oracle.jdbc.OracleDriver;
+
 public class ERSDAOImpl implements ERSDAO {
 
 	@Override
-	public User empLogin(String username, String password) throws InvalidLoginException {
+	public User empLogin(String username, String password, PrintWriter out) throws InvalidLoginException {
 		User u;
-
+		out.println("test 1");
+		/*OracleDriver driver = new OracleDriver();
+        try {
+			DriverManager.registerDriver(driver);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
 		try (Connection conn = ConnectionUtil.getConnection()) {
+			out.println("test 2");
 			PreparedStatement pstmt = conn
 					.prepareStatement("SELECT * FROM ERS_USERS WHERE U_USERNAME = ? AND U_PASSWORD = ?");
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
-
-			System.out.println("hello?");
+			out.println("test 3");
 			if (rs.next()) {
+				out.println("test 4");
 				u = newUserFromRS(rs);
 				return u;
 			} else  
@@ -38,7 +49,7 @@ public class ERSDAOImpl implements ERSDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return new User(0);
 	}
 
 	@Override
