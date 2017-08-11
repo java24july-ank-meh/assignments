@@ -19,4 +19,14 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PhototHelper</display-name>
+    <servlet-name>PhototHelper</servlet-name>
+    <servlet-class>com.revature.servlets.PhototHelper</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PhototHelper</servlet-name>
+    <url-pattern>/PhototHelper</url-pattern>
+  </servlet-mapping>
 </web-app>

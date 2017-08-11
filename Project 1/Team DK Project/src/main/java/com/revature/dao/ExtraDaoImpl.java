@@ -143,5 +143,25 @@ public class ExtraDaoImpl implements ExtraDao {
 		
 		return status;
 	}
+	//--------------------------------
+	@Override
+	public void addPhoto(int rid,byte[] pdata) {
+		//  SqlParameter photo=new SqlParameter("reciept", SqlDbType.VarBinary);
+//		   photo.Value=p.PhotoData;
+
+		PreparedStatement pStmt1 = null;
+		String sql1 = "Update Reimbursements Set R_Reciept=? Where R_ID=?";
+	
+		
+		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+
+		pStmt1 = conn.prepareStatement(sql1);
+		
+		}catch(SQLException SE)
+		
+	
+	
+	
+	}
 
 }

@@ -13,4 +13,7 @@ public interface ExtraDao {
 	//reimbursement status
 	public Map<String, Integer> returnReimbursementStatus();	//status, id
 
+	//recipt in reimbursments
+	public void addPhoto(int rid,byte[] pdata);
+	
 }
