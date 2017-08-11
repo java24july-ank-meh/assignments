@@ -55,16 +55,17 @@
                 <form class="form-horizontal" action="reimburse" method="post">
                     <div class="form-group">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Type <span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Travel</a></li>
-                                <li><a href="#">Medical</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
+                            <div class="form-group">
+							  <label for="sel1">Select list:</label>
+							  <select class="form-control" id="sel1" name="type">
+							    <option value="1">medical</option>
+							    <option value="2">travel</option>
+							    <option value="3">business</option>
+							    <option value="4">family</option>
+							  </select>
+							</div>
                         </div>
+                        
                         <label for="Amount-remimburse" class=" col-sm-2 control-label"> Amount</label>
                         <input number="text" class="form-control" name="amount" placeholder="Enter the amount">
                         <label for "Additional text" class="col-sm-2 control-label">Description</label>
