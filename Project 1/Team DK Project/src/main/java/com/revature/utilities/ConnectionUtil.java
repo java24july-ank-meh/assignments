@@ -19,7 +19,7 @@ public class ConnectionUtil {
 	
 	public static Connection getConectionProperties() throws IOException, SQLException{
 		Properties prop = new Properties();
-		InputStream in = new FileInputStream("conn.prop");
+		InputStream in = new FileInputStream("connection.properties");//conn.prop
 		prop.load(in);
 		
 		String url = prop.getProperty("url");
