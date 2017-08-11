@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 public class Reimbursement {
 	//http://javaonlineguide.net/2014/06/java-sql-timestamp-in-java-example-convert-java-util-date-to-java-sql-timestamp.html
 	private int rID;
-	private double amount;
+	private int amount;
 	private String description;
 	private Blob receipt;
 	private Timestamp submitted;
@@ -20,6 +20,7 @@ public class Reimbursement {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	//------------------------------------------------------
 	
 	public int getrID() {
@@ -30,11 +31,11 @@ public class Reimbursement {
 		this.rID = rID;
 	}
 
-	public double getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
