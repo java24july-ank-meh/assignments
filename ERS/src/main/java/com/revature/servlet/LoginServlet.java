@@ -21,7 +21,6 @@ public class LoginServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		PrintWriter out = resp.getWriter();
-		BufferedReader reader = req.getReader();
 		String[] str = req.getReader().readLine().split(":");
 		
 		String username = str[0];

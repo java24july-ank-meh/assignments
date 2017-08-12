@@ -19,6 +19,6 @@
   
   <servlet-mapping>
   	<servlet-name>reimburse</servlet-name>
-  	<url-pattern>/reimburse</url-pattern>
+  	<url-pattern>/ReimbServlet</url-pattern>
   </servlet-mapping>
 </web-app>
