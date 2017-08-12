@@ -79,6 +79,8 @@
 						<p class="help-block">Input the photo name</p>
 						<div class="modal-footer">
 							<input type="submit" value="Submit" onclick="submitReimb()" class="btn btn-primary btn-block">
+							<br/>
+							<p id=submitresult> </p>
 						</div>
 					</div>
 				<!-- </form>-->
@@ -110,7 +112,7 @@
 			xhttp.onreadystatechange = function() {
 				console.log(this.readyState);
 				if (xhttp.readyState === 4 && xhttp.status === 200) {
-					console.log(xhttp.responseText);
+					document.getElementById("submitresult").innerHTML = xhttp.responseText;
 				}
 			}
 			var a = document.getElementById("amount").value;
