@@ -14,7 +14,7 @@
 	<div>
 		<div ng-controller="loginCtrl">
 			<div>
-				<button ng-click="getAUserFromServer()">Fetch user from	server</button>
+				<button ng-click="getAUserFromServerPost()">Fetch user from	server</button>
 				<p>Id : {{person.uID}}</p>
 				<p>First Name : {{person.firstName}}</p>
 				<p>Last Name : {{person.lastName}}</p>
@@ -23,6 +23,27 @@
 				<p>Manager : {{person.manager}}</p>
 			</div>
 
+<br/>
+			<div>
+			
+			<form name="updateForm" ng-submit="updateUserToServer()">
+			
+				<label>New Name</label>
+				<input type="text" id="inputName" class="form-control" ng-model="newUser.name" required/>
+				<br/>
+				<br/>
+				<label>New Age</label>
+				<input type="text" id="inputAge" class="form-control" ng-model="newUser.age"/>
+				<br/>
+				<br/>
+				<label>New State</label>
+				<input type="text" id="inputState" class="form-control" ng-model="newUser.state"/>
+				<br/>
+				<br/>
+				<button ng-disabled="updateForm.$invalid" class="btn btn-primary">Update</button>
+			</form>
+			
+			</div>
 
 		</div>
 	</div>

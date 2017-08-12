@@ -27,7 +27,7 @@ public class TestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	UserDao uD = new UserDaoImpl();
+		UserDao uD = new UserDaoImpl();
         User personData = uD.readUser(100000);
         System.out.println(personData.toString());
         String json = new Gson().toJson(personData);
@@ -40,8 +40,13 @@ public class TestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		UserDao uD = new UserDaoImpl();
+        User personData = uD.readUser(100000);
+        System.out.println(personData.toString());
+        String json = new Gson().toJson(personData);
+        System.out.println("json string-- "+json);
+        response.setContentType("application/json");
+        response.getWriter().write(json);
 	}
 
 }
