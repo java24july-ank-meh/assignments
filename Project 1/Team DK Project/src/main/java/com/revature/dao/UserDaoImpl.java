@@ -72,7 +72,7 @@ public class UserDaoImpl implements UserDao {
 
 		List<User> users = new ArrayList<User>();
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 			String sql1 = "Select * From Web_Users";
 
 			pStmt1 = conn.prepareStatement(sql1);
@@ -81,12 +81,14 @@ public class UserDaoImpl implements UserDao {
 
 			while (rs.next()) {
 				User u = new User();
+				int uid = rs.getInt("User_ID");
 				String f = rs.getString("First_Name");
 				String m = rs.getString("M_Intial");
 				String l = rs.getString("Last_Name");
 				String e = rs.getString("Email");
 				int ur = rs.getInt("Ur_ID");
 
+				u.setuID(uid);
 				u.setFirstName(f);
 				u.setMiddleInitial(m);
 				u.setLastName(l);
@@ -124,7 +126,7 @@ public class UserDaoImpl implements UserDao {
 		User u = new User();
 		u.setuID(uID);
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 			String sql1 = "Select * From Web_Users Where User_ID = ?";
 
 			pStmt1 = conn.prepareStatement(sql1);

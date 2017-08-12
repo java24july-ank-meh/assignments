@@ -3,49 +3,46 @@
   <display-name>ReimbursementSite</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <!-- Servlets -->
-  
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>UserServlet</display-name>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>com.revature.servlets.UserServlet</servlet-class>
   </servlet>
-  
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>PhototHelper</display-name>
     <servlet-name>PhototHelper</servlet-name>
     <servlet-class>com.revature.servlets.PhototHelper</servlet-class>
   </servlet>
-  
-    <servlet>
-  	<servlet-name>Login</servlet-name>
-  	<servlet-class>com.revature.servlets.LoginServlet</servlet-class>
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>com.revature.servlets.LoginServlet</servlet-class>
   </servlet>
   
-  <!-- Servlet Mappings -->
- 
+   <servlet>
+    <description></description>
+    <display-name>TestServlet</display-name>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>com.revature.servlets.TestServlet</servlet-class>
+  </servlet> 
+  
   <servlet-mapping>
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/User</url-pattern>
   </servlet-mapping>
-
   <servlet-mapping>
     <servlet-name>PhototHelper</servlet-name>
     <url-pattern>/PhototHelper</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
-  	<servlet-name>Login</servlet-name>
-  	<url-pattern>/Login</url-pattern>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/loginCorrect?</url-pattern>
   </servlet-mapping>
-  
+
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/test</url-pattern>
+  </servlet-mapping>
 </web-app>

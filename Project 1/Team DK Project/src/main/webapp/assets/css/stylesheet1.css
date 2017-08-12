@@ -39,6 +39,7 @@ border-radius: 16px;
 }
 #loginButtonGroup {
   float: left;
+  display: inline-block;
 }
 #registerButton {
     float: right;

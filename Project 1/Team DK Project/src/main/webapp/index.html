@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="rWebSite">
 <head>
 <meta charset="ISO-8859-1">
 <title>Index of Website</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+
+<script src="./assets/javascript/angular1.js"></script>
+
 </head>
 <body>
 
+	<div>
+		<div ng-controller="loginCtrl">
+			<div>
+				<button ng-click="getAUserFromServer()">Fetch user from	server</button>
+				<p>Id : {{person.uID}}</p>
+				<p>First Name : {{person.firstName}}</p>
+				<p>Last Name : {{person.lastName}}</p>
+				<p>Email : {{person.email}}</p>
+				<p>Role id : {{person.roleID}}</p>
+				<p>Manager : {{person.manager}}</p>
+			</div>
 
+
+		</div>
+	</div>
 
 
 </body>
