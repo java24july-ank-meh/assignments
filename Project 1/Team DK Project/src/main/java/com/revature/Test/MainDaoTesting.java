@@ -13,22 +13,30 @@ public class MainDaoTesting {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-//		Photo p = new Photo();
-//		p.setPhotoID();
-//		p.updatePhotoD();
-//		try {
-//			
-//			ConnectionUtil.getConection();
-//		} catch (/*IOException |*/  SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	
-//		
-//		UserDaoImpl user = new UserDaoImpl();
-//		User u = new User(1,"json","password", "Jack","d", "aniels","j@yahpp.com",1);
-//		user.createUser(u);
-		
+		//		Photo p = new Photo();
+		//		p.setPhotoID();
+		//		p.updatePhotoD();
+		try {
+
+			ConnectionUtil.getConection();
+		} catch (/*IOException |*/  SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+
+			ConnectionUtil.getConectionProperties();
+		} catch (IOException |  SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//	
+		//		
+		UserDaoImpl userD = new UserDaoImpl();
+		//		User u = new User(1,"json","password", "Jack","d", "aniels","j@yahpp.com",1);
+		//		user.createUser(u);
+		userD.readAllUsers();
+
 	}
 
 }

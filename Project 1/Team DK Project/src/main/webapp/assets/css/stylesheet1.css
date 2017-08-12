@@ -1,0 +1,45 @@
+@charset "ISO-8859-1";
+
+/*nav bar's min-height is 50 so padding on body 50, to be atleast below its min*/
+body {
+    /*padding-top: 10%/*50px*/;
+}
+
+/*.(dot) for class*/
+/*class="starter-template"*/
+.starter-template {
+    /*padding: 40px 15px;*/
+    text-align: center;
+}
+#header {
+  margin-top: -10px;
+  padding-top: 0;
+  padding-bottom: 75px;
+}
+#company {
+  margin-left: auto;
+}
+
+/*login page css*/
+#loginMain {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+#loginJumbotron {
+	padding-top: 30px;
+	padding-left: 30px;/*or 15px*/
+	padding-right: 30px;
+	padding-bottom: 50px;
+border-radius: 16px;
+	text-align: center;
+	background-color: rgba(0,0,0,.5);/*#ccc or #9d9d9d*/
+}
+#loginTitle {
+  font-weight: bold;
+}
+#loginButtonGroup {
+  float: left;
+}
+#registerButton {
+    float: right;
+}

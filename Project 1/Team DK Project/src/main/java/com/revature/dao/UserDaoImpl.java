@@ -92,6 +92,7 @@ public class UserDaoImpl implements UserDao {
 				u.setLastName(l);
 				u.setEmail(e);
 				u.setRoleID(ur);
+				System.out.println(users.size()+": "+u.toString());
 				users.add(u);
 			}
 		} catch (Exception e) {
