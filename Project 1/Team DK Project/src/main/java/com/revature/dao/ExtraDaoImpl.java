@@ -118,7 +118,7 @@ public class ExtraDaoImpl implements ExtraDao {
 			rs = pStmt1.executeQuery();
 
 			while (rs.next()) {
-				String t = rs.getString("Rs_Type");
+				String t = rs.getString("Rs_status");
 				int s = rs.getInt("Rs_ID");
 
 				status.put(t, s);

@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
 		List<User> users = new ArrayList<User>();
 
 		try (Connection conn = ConnectionUtil.getConectionProperties()) {
-			String sql1 = "Select * From Web_Users Where Role_ID=?";
+			String sql1 = "Select * From Web_Users Where UR_ID=?";
 
 			pStmt1 = conn.prepareStatement(sql1);
 			pStmt1.setInt(1, rid);
@@ -31,8 +31,8 @@ public class UserDaoImpl implements UserDao {
 
 			while (rs.next()) {
 				User u = new User();
-				String f = rs.getString("First_Name");
-				String m = rs.getString("M_Initial");
+				String f = rs.getString("FIRST_NAME");
+				String m = rs.getString("M_INTIAL");
 				String l = rs.getString("Last_Name");
 				String e = rs.getString("Email");
 
@@ -82,7 +82,7 @@ public class UserDaoImpl implements UserDao {
 			while (rs.next()) {
 				User u = new User();
 				String f = rs.getString("First_Name");
-				String m = rs.getString("M_Initial");
+				String m = rs.getString("M_Intial");
 				String l = rs.getString("Last_Name");
 				String e = rs.getString("Email");
 				int ur = rs.getInt("Ur_ID");
@@ -124,7 +124,7 @@ public class UserDaoImpl implements UserDao {
 		u.setuID(uID);
 
 		try (Connection conn = ConnectionUtil.getConectionProperties()) {
-			String sql1 = "Select * From Web_Users Where MyUser_ID = ?";
+			String sql1 = "Select * From Web_Users Where User_ID = ?";
 
 			pStmt1 = conn.prepareStatement(sql1);
 			pStmt1.setInt(1, uID);
@@ -133,7 +133,7 @@ public class UserDaoImpl implements UserDao {
 
 			while (rs.next()) {
 				String f = rs.getString("First_Name");
-				String m = rs.getString("M_Initial");
+				String m = rs.getString("M_Intial");
 				String l = rs.getString("Last_Name");
 				String e = rs.getString("Email");
 				int ur = rs.getInt("Ur_ID");
