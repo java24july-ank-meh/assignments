@@ -12,45 +12,83 @@
     <link rel="stylesheet" href="employeehomestyle.css">
 </head>
 
-<body>
+<body onload="loadEmp();">
     <div class="jumbotron">
         <p>Update Profile</p>
     </div>
     <div class="container">
         <div class="row">
             <section class="col lg-12">
-                <form class="form-horizontal" action="update" method="post">
                     <div class=" form-group ">
                         <label for="Email " class="col-sm-2 control-label ">Password</label>
                         <div class="col-sm-10 ">
-                            <input type="password" class="form-control " id="password " placeholder="password " name="password ">
+                            <input type="password" class="form-control " id="password" placeholder="password " name="password ">
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="Password " class="col-sm-2 control-label ">First Name</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control " id="firstname " placeholder="First Name " name="firstname ">
+                            <input type="text" class="form-control " id="firstname" placeholder="First Name " name="firstname ">
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="Password " class="col-sm-2 control-label ">Last Name</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control " id="lastname " placeholder="Last Name " name="lastname ">
+                            <input type="text" class="form-control " id="lastname" placeholder="Last Name " name="lastname ">
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="Password " class="col-sm-2 control-label ">Email</label>
                         <div class="col-sm-10 ">
-                            <input type="email" class="form-control " id="inputPassword3 " placeholder="Email " name="email ">
+                            <input type="email" class="form-control " id="email" placeholder="Email " name="email ">
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-sm-offset-2 col-sm-10 ">
-                            <button type="submit" class="btn btn-default center ">Update Info</button>
+                            <button onclick="updateEmp()" class="btn btn-default center ">Update Info</button>
                         </div>
                     </div>
-                </form>
+                    <p id="updateresult"></p>
             </section>
         </div>
     </div>
+    <script>
+    function updateEmp() {
+    	let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			console.log(this.readyState);
+			if (xhttp.readyState === 4 && xhttp.status === 200) {
+				document.getElementById("updateresult").innerHTML = xhttp.responseText;
+				
+			}
+		}
+		let p = document.getElementById("password").value;
+		let f = document.getElementById("firstname").value;
+		let l = document.getElementById("lastname").value;
+		let e = document.getElementById("email").value;
+		xhttp.open("POST", "EmpUpdateServlet", true);
+		xhttp.send(p+":"+f+":"+l+":"+e);
+    }
+    
+    function loadEmp() {
+    	let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			console.log(this.readyState);
+			if (xhttp.readyState === 4 && xhttp.status === 200) {
+				if (xhttp.responseText === "fail") {
+
+					window.location = "loginpage.html";
+				}
+				let arr = xhttp.responseText.split(":");
+				document.getElementById("password").value = arr[0];
+				document.getElementById("firstname").value = arr[1];
+				document.getElementById("lastname").value = arr[2];
+				document.getElementById("email").value = arr[3];
+			}
+		}
+		xhttp.open("POST", "AuthenticationServlet", true);
+		xhttp.send();
+    }
+    
+    </script>
 </body>

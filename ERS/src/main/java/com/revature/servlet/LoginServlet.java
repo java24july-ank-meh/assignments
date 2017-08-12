@@ -30,7 +30,10 @@ public class LoginServlet extends HttpServlet{
 		try {
 			currUser = empdao.empLogin(username, password);
 			req.getSession().setAttribute("user", currUser);
-			out.write("success");
+			if(currUser.getRole() == 1)
+				out.write("employee");
+			else if(currUser.getRole() == 2)
+				out.write("manager");
 		} catch (InvalidLoginException e) {
 			//display error on page
 

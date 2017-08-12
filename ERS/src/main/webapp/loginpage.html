@@ -69,8 +69,10 @@
 			xhttp.onreadystatechange = function() {
 				console.log(this.readyState);
 				if (xhttp.readyState === 4 && xhttp.status === 200) {
-					if (xhttp.responseText === 'success') {
+					if (xhttp.responseText === 'employee') {
 						window.location = "employeehome.html";
+					} else if(xhttp.responseText === 'manager') {
+						window.location = "managerhome.html";
 					} else {
 						document.getElementById("error").innerHTML = xhttp.responseText;
 					}

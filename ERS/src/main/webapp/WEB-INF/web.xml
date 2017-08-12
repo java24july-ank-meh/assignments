@@ -21,4 +21,24 @@
   	<servlet-name>reimburse</servlet-name>
   	<url-pattern>/ReimbServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>empupdate</servlet-name>
+  	<servlet-class>com.revature.servlet.EmpUpdateServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>empupdate</servlet-name>
+  	<url-pattern>/EmpUpdateServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>authenticate</servlet-name>
+  	<servlet-class>com.revature.servlet.AuthenticationServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>authenticate</servlet-name>
+  	<url-pattern>/AuthenticationServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

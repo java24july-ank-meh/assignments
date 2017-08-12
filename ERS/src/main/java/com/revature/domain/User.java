@@ -15,6 +15,33 @@ public class User {
 	private ArrayList<Reimbursement> resolvedReimbursements;
 	
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setRole(int role) {
+		this.role = role;
+	}
+	public void setPendingReimbursements(ArrayList<Reimbursement> pendingReimbursements) {
+		this.pendingReimbursements = pendingReimbursements;
+	}
+	public void setResolvedReimbursements(ArrayList<Reimbursement> resolvedReimbursements) {
+		this.resolvedReimbursements = resolvedReimbursements;
+	}
 	public ArrayList<Reimbursement> getPendingReimbursements() {
 		return pendingReimbursements;
 	}
