@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Expense Reimbursement System </title>
+    <meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/employeehomestyle.css">
+</head>
+
+<body onload="loadEmp()">
+    <!--Main menu bar-->
+    <nav class="navbar navbar-default navabar-fixed top">
+        <!-- Container to take the width of the screen -->
+        <div class=" content container">
+            <!-- Logo -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle Naviagtion</span>
+                    <span class "icon bar"></span>
+                    <span class "icon bar"></span>
+                    <span class "icon bar"></span>
+                </button>
+                <a href='#' class="navbar-brand"> The Re-Up Company
+				<!--<img alt ="Brand" src = "" > -->
+				</a>
+            </div>
+            <div class="collapse navbar-collapse" id="collapse" aria-expanded="false" style="height: 1px;">
+                <!-- Meun Items-->
+                <ul class="nav navbar-nav ">
+                    <li><a href="# ">Reimbursement History</a<</li>
+				<li><a href ="updateemployee.html ">Update Info</a></li>
+
+                    <!--Drop Down meun -->
+                    <li class="dropdown ">
+                        <a href="# " class="dropdown-toggle " data-toggle="dropdown "> My Profile <span class="caret "></span></a>
+                        <ul class="dropdown-menu ">
+                            <li><a href=" ">Update Info</a></li>
+                            <li><a href="# ">Photos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right " role="search ">
+                    <div class="form-group ">
+                        <p class="navbar-text ">Employee Name</p>
+                    </div>
+                    <button type="submit " class="btn btn-default navbar-btn ">Log Out</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="services container ">
+        <div class="row ">
+            <section class="col-md-6 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>The Reimbursement Processing</h3>
+                        <p>Here is where you can upload your for your Reimbursement.</p>
+                    </div>
+                    <div class="panel-body">
+                        <form action="reimburse " method="post ">
+                            <div class="form-group ">
+                                <label for="Type ">Type of Reimbursement</label>
+                                <select class="form-control " id="type ">
+                            <option value ="1">Medical</option>
+                            <option value ="2">Business</option>
+                            <option value ="3">Travel</option>
+                            <option value ="4">Family</option>
+                        </select>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Amount-remimburse " class=" col-xs-2 control-label ">Amount</label>
+                                <input type="text " class="form-control " placeholder="Enter the amount ">
+                            </div>
+                            <div class="form-group ">
+                                <label for="Additional text " class="col-sm-2 control-label ">Description</label>
+                                <textarea class="form-control " rows="3 "></textarea>
+                            </div>
+                            <div class="form group ">
+                                <label for="InputFile ">Upload Photo</label>
+                                <input type="file " id="InputFile">
+                                <p class="help-block ">Input the photo name</p>
+                            </div>
+                            <button type="submit " value="Submit" onclick="submitReimn()" class="btn btn-primary btn-block ">Submit</button>
+                            <br />
+                            <p id=submitresult></p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section class="col-md-6 ">
+                <!--<img class=" img-rounded img-responsive center-block " src="img/clockupdate.svg " alt="Icon "> -->
+                <h3>Reimbursement Update</h3>
+                <p>Where to see if your reimbursement was approved or not.</p>
+            </section>
+
+            <!--  <div class="clearfix visible-sm-block "></div> -->
+        </div>
+        <!-- row -->
+    </div>
+    <!-- content container -->
+    <script src="js/employeehomescript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js "></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js "></script>
+
+</body>
+
+</html>
