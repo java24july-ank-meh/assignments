@@ -25,8 +25,7 @@ public class CHERSDaoImpl implements CHERSDao {
 		int u_id_author;
 		List<Reimbursements> pending = new ArrayList<Reimbursements>();
 		ResultSet reimb = null;
-		try {
-			Connection conn = ConnectionUtil.getConnectionProp();
+		try (Connection conn = ConnectionUtil.getConnectionProp()){
 			String sql = "SELECT * FROM GET_PENDING_REIMBS";
 			cs = conn.prepareStatement(sql);
 			reimb = cs.executeQuery();
@@ -44,6 +43,8 @@ public class CHERSDaoImpl implements CHERSDao {
 
 			}
 			cs.close();
+			conn.close();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -51,57 +52,6 @@ public class CHERSDaoImpl implements CHERSDao {
 		} finally {
 			return pending;
 		}
-//		CallableStatement cs = null;
-//		int r_id;
-//		double r_amount;
-//		String r_description;
-//		String r_submitted;
-//		int r_type;
-//		int u_id_author;
-//		List<Reimbursements> pending = new ArrayList<Reimbursements>();
-//		ResultSet reimb = null;
-//		try {
-//			Connection conn = ConnectionUtil.getConnectionProp();
-//			String sql = "{CALL VIEW_PENDING_REIMBS(?,?,?,?,?,?)}";
-//			cs = conn.prepareCall(sql);
-//
-//			// Set the arguments
-//			cs.registerOutParameter(1, java.sql.Types.NUMERIC);
-//			cs.registerOutParameter(2, java.sql.Types.NUMERIC);
-//			cs.registerOutParameter(3, java.sql.Types.VARCHAR);
-//			cs.registerOutParameter(4, java.sql.Types.VARCHAR);
-//			cs.registerOutParameter(5, java.sql.Types.NUMERIC);
-//			cs.registerOutParameter(6, java.sql.Types.VARCHAR);
-//			
-//			boolean hadResults = cs.execute();
-//			System.out.println(hadResults);
-//			
-//			
-//		    while (hadResults) {
-//		    	reimb=cs.executeQuery();
-//				while (reimb.next()) {
-//					r_id = reimb.getInt("RID");
-//					r_amount = reimb.getDouble("RAMOUNT");
-//					r_description = reimb.getString("RDESCRIPTION");
-//					r_submitted = reimb.getString("RSUBMITTED");
-//					r_type = reimb.getInt("RTTYPE");
-//					u_id_author = reimb.getInt("AUTHOR");
-//	
-//					Reimbursements c = new Reimbursements(r_id, r_amount, r_description, r_submitted, u_id_author);
-//					System.out.println(c);
-//					pending.add(c);
-//				}
-//		        hadResults = cs.getMoreResults();
-//		    }
-////			
-//			cs.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} finally {
-//			return pending;
-//		}
 	}
 
 	public List<Reimbursements> viewResolved() {
@@ -116,8 +66,7 @@ public class CHERSDaoImpl implements CHERSDao {
 		int ru_resolver;
 		List<Reimbursements> pending = new ArrayList<Reimbursements>();
 		ResultSet reimb = null;
-		try {
-			Connection conn = ConnectionUtil.getConnectionProp();
+		try (Connection conn = ConnectionUtil.getConnectionProp()){
 			String sql = "SELECT * FROM GET_RESOLVED_REIMBS";
 			cs = conn.prepareStatement(sql);
 			reimb = cs.executeQuery();
@@ -140,6 +89,8 @@ public class CHERSDaoImpl implements CHERSDao {
 
 			}
 			cs.close();
+			conn.close();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -167,6 +118,7 @@ public class CHERSDaoImpl implements CHERSDao {
 			byteStream = cs.getString(2);
 
 			cs.close();
+			conn.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -191,6 +143,8 @@ public class CHERSDaoImpl implements CHERSDao {
 			cs.setInt(2, setState);
 			cs.setInt(3, resolverID);
 			cs.execute();
+			cs.close();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -213,14 +167,12 @@ public class CHERSDaoImpl implements CHERSDao {
 		int u_id;
 		String username;
 		String password;
-		int role;
 		
 		PreparedStatement cs = null;
 		
 		List<User> users = new ArrayList<User>();
 		ResultSet reimb = null;
-		try {
-			Connection conn = ConnectionUtil.getConnectionProp();
+		try (Connection conn = ConnectionUtil.getConnectionProp()){
 			String sql = "SELECT * FROM ERS_USERS WHERE U_ID = ?";
 			cs = conn.prepareStatement(sql);
 			reimb = cs.executeQuery();
@@ -229,13 +181,13 @@ public class CHERSDaoImpl implements CHERSDao {
 				u_id = reimb.getInt("U_ID");
 				username=reimb.getString("U_USERNAME");
 				password = reimb.getString("U_PASSWORD");
-				role = reimb.getInt("UR_ROLE");
 				
-				User c = new User(u_id, username, password, role);
+				User c = new User(u_id, username, password, "employee");
 				users.add(c);
 
 			}
 			cs.close();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -260,8 +212,7 @@ public class CHERSDaoImpl implements CHERSDao {
 		ResultSet reimb;
 		List<Reimbursements> empReimbs = new ArrayList<Reimbursements>();
 
-		try {
-			Connection conn = ConnectionUtil.getConnectionProp();
+		try(Connection conn = ConnectionUtil.getConnectionProp()){
 //			String sql = "{CALL GET_EMPLOYEE_REIMBS(?,?,?,?,?,?,?,?,?)}";
 			String sql = "SELECT * FROM ERS_REIMBURSEMENTS WHERE U_ID_AUTHOR = ?";
 //			cs = conn.prepareCall(sql);
@@ -287,6 +238,8 @@ public class CHERSDaoImpl implements CHERSDao {
 			empReimbs.add(c);
 			}
 			cs.close();
+			conn.close();
+
 			} catch (SQLException e) {
 			e.printStackTrace();
 			} catch (IOException e) {

@@ -1,37 +1,37 @@
 package com.doubletrouble.domain;
 
-import java.awt.Image;
-import java.util.Date;
-
 public class Reimbursements {
 
 	private int id;
 	private double amount;
 	private String description;
-	private Image reciept;
+	private String reciept;
 	private String submitted;
 	private String resolved;
 	private int author;
 	private int resolver;
+	private String resolverName;
 	private int type;
 	private int status;
 	
 	public Reimbursements() {
 	}
 
-	public Reimbursements(int id, double amount, String description, int author) {
+	public Reimbursements(int id, double amount, String description, String submitted, int author) {
 		super();
 		this.id = id;
 		this.amount = amount;
 		this.description = description;
+		this.submitted = submitted;
 		this.author = author;
 	}
+
 	
-	public Reimbursements(double amount, String description, int author) {
-		super();
-		this.amount = amount;
-		this.description = description;
-		this.author = author;
+	@Override
+	public String toString() {
+		return "Reimbursements [id=" + id + ", amount=" + amount + ", description=" + description + ", reciept="
+				+ reciept + ", submitted=" + submitted + ", resolved=" + resolved + ", author=" + author + ", resolver="
+				+ resolver + ", resolverName=" + resolverName + ", type=" + type + ", status=" + status + "]";
 	}
 
 	public int getId() {
@@ -58,11 +58,19 @@ public class Reimbursements {
 		this.description = description;
 	}
 
-	public Image getReciept() {
+	public String getReciept() {
 		return reciept;
 	}
 
-	public void setReciept(Image reciept) {
+	public String getResolverName() {
+		return resolverName;
+	}
+
+	public void setResolverName(String resolverName) {
+		this.resolverName = resolverName;
+	}
+
+	public void setReciept(String reciept) {
 		this.reciept = reciept;
 	}
 
