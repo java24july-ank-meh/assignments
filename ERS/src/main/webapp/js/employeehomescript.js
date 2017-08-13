@@ -25,5 +25,5 @@ function loadEmp() {
         }
     }
     xhttp.open("POST", "AuthenticationServlet", true);
-    xhttp.send();
+    xhttp.send("1");
 }
