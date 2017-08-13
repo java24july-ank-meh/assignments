@@ -4,6 +4,7 @@ public class User {
 	private int id;
 	private String username;
 	private String password;
+	private int role;
 
 	public int getId() {
 		return id;
@@ -29,15 +30,15 @@ public class User {
 		this.password = password;
 	}
 
-	public String getRole() {
+	public int getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 
-	public User(int id, String username, String password, String role) {
+	public User(int id, String username, String password, int role) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -54,7 +55,6 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
 	}
 
-	private String role;
 	}
 
 
