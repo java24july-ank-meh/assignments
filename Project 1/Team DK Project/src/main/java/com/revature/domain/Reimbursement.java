@@ -20,9 +20,16 @@ public class Reimbursement {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "Reimbursement [rID=" + rID + ", amount=" + amount + ", description=" + description + ", receipt="
+				+ receipt + ", submitted=" + submitted + ", resolved=" + resolved + ", authorID=" + authorID
+				+ ", resolverID=" + resolverID + ", type=" + type + ", status=" + status + "]";
+	}
 	
 	//------------------------------------------------------
-	
+
+
 	public int getrID() {
 		return rID;
 	}

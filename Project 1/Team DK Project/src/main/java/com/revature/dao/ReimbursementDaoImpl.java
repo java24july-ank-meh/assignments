@@ -151,7 +151,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 		ResultSet rs = null;
 		Reimbursement reim = new Reimbursement();
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			String sql1 = "Select * from Reimbursements where R_ID=?";
 			pStmt1 = conn.prepareStatement(sql1);

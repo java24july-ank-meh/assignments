@@ -20,13 +20,19 @@
     <servlet-name>Login</servlet-name>
     <servlet-class>com.revature.servlets.LoginServlet</servlet-class>
   </servlet>
-  
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>TestServlet</display-name>
     <servlet-name>TestServlet</servlet-name>
     <servlet-class>com.revature.servlets.TestServlet</servlet-class>
-  </servlet> 
+  </servlet>
+  
+    <servlet>
+    <description></description>
+    <display-name>ReimbursementsView</display-name>
+    <servlet-name>ReimbursementsView</servlet-name>
+    <servlet-class>com.revature.servlets.ReimbursementsView</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>UserServlet</servlet-name>
@@ -40,9 +46,13 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/loginCorrect?</url-pattern>
   </servlet-mapping>
-
   <servlet-mapping>
     <servlet-name>TestServlet</servlet-name>
     <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ReimbursementsView</servlet-name>
+    <url-pattern>/reimb</url-pattern>
   </servlet-mapping>
 </web-app>

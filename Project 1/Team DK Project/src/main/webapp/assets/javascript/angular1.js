@@ -29,7 +29,7 @@ myWebApp.controller('loginPart', function loginPart($scope) {
 });
 
 
-var loginController = myWebApp.controller('loginCtrl', function loginCtrl($scope,$http) {
+myWebApp.controller('loginCtrl', function loginCtrl($scope,$http) {
 
 	$scope.getAUserFromServerGet = function() {
 		$http({
@@ -71,7 +71,7 @@ var loginController = myWebApp.controller('loginCtrl', function loginCtrl($scope
 
 });
 
-let photoController = myWebApp.controller('photoCtrl',	function loginCtrl($scope, $http) {
+myWebApp.controller('photoCtrl',	function photoCtrl($scope, $http) {
 
 	$scope.imageUpload;
 
@@ -124,7 +124,7 @@ let photoController = myWebApp.controller('photoCtrl',	function loginCtrl($scope
 	
 });
 
-let photofileDirective = myWebApp.directive("photoin", [ function() {
+myWebApp.directive("photoin", [ function() {
 	return {
 		scope: {
 			photoin: "="
@@ -143,3 +143,33 @@ let photofileDirective = myWebApp.directive("photoin", [ function() {
 		}
 	}
 }]);
+
+
+
+myWebApp.controller('viewReimbCtrl', function viewReimbCtrl($scope,$http) {
+
+	$scope.getAReimbFromServerGet = function() {
+		$http({
+			method : 'POST',
+			url : 'reimb'
+		}).success(function(data, status, headers, config) {
+			$scope.reimb = data;
+		}).error(function(data, status, headers, config) {
+
+		});
+	};
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
