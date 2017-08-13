@@ -11,8 +11,8 @@ public class User {
 	private String email;
 	private int role;
 	
-	private ArrayList<Reimbursement> pendingReimbursements;
-	private ArrayList<Reimbursement> resolvedReimbursements;
+	private Reimbursement[] pendingReimbs;
+	private Reimbursement[] resolvedReimbs;
 	
 	
 	public void setId(int id) {
@@ -36,23 +36,17 @@ public class User {
 	public void setRole(int role) {
 		this.role = role;
 	}
-	public void setPendingReimbursements(ArrayList<Reimbursement> pendingReimbursements) {
-		this.pendingReimbursements = pendingReimbursements;
+	public void setPendingReimbursements(Reimbursement[] pendingReimbursements) {
+		this.pendingReimbs = pendingReimbursements;
 	}
-	public void setResolvedReimbursements(ArrayList<Reimbursement> resolvedReimbursements) {
-		this.resolvedReimbursements = resolvedReimbursements;
+	public void setResolvedReimbursements(Reimbursement[] resolvedReimbursements) {
+		this.resolvedReimbs = resolvedReimbursements;
 	}
-	public ArrayList<Reimbursement> getPendingReimbursements() {
-		return pendingReimbursements;
+	public Reimbursement[] getPendingReimbursements() {
+		return pendingReimbs;
 	}
-	public void addPendingReimbursements(Reimbursement pendingReimbursement) {
-		this.pendingReimbursements.add(pendingReimbursement);
-	}
-	public ArrayList<Reimbursement> getResolvedReimbursements() {
-		return resolvedReimbursements;
-	}
-	public void addResolvedReimbursements(Reimbursement resolvedReimbursement) {
-		this.resolvedReimbursements.add(resolvedReimbursement);
+	public Reimbursement[] getResolvedReimbursements() {
+		return resolvedReimbs;
 	}
 	public User(int id) {
 		super();

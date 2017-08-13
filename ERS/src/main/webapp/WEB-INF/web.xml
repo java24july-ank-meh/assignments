@@ -41,4 +41,14 @@
   	<servlet-name>authenticate</servlet-name>
   	<url-pattern>/AuthenticationServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>manager</servlet-name>
+  	<servlet-class>com.revature.servlet.ManagerServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>manager</servlet-name>
+  	<url-pattern>/ManagerServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
