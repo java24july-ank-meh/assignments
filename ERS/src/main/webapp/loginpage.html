@@ -2,72 +2,93 @@
 <html lang="en">
 
 <head>
-    <title> Expense Reimbursement System </title>
-
-    <!-- The viewpoint or viewport is the user screen, content = "width="width means the width of the screen 
+<title>Expense Reimbursement System</title>
+<!-- <link rel="stylesheet" href=".css/ersStyle.css">  -->
+<!-- The viewpoint or viewport is the user screen, content = "width="width means the width of the screen 
 			the  initital-scale= 1 will make it zoom in naturally-->
-    <meta name="viewpoint" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/loginstyle.css">
+<meta name="viewpoint"
+	content="width=width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
 </head>
 
 <body>
-    <div class="bg"></div>
-    <div class="jumbotron text-center">
-        <div class="container">
-            <h1 class="center-block">Expense Reimbursement System</h1>
-            <p class="lead">Where you get your dues</p>
-        </div>
-    </div>
-    <div class="container">
-        <section id="showcase">
-            <div class="page-header">
-                <h1>Reimburse!!</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Log In</p>
-            </div>
-        </section>
+	<div class="jumbotron text-center">
+		<h1>Expense Reimbursement System</h1>
+		<p>Where You get your money back!!</p>
+	</div>
+	<div class="container">
+		<h3>Log In</h3>
+		<!-- to make into a type id then add the # sign to the name you want to tag an idea-->
+		<button type="button" class="btn btn-success" data-toggle="modal"
+			data-target="#popwindow">Open Log in Window</button>
+		<div class="modal fade" id="popwindow">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!--header-->
+					<div class="modal-body">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h3 align="center" class="model-title">Log In</h3>
+					</div>
 
-        <!-- to make into a type id then add the # sign to the name you want to tag an idea-->
-        <button type="button" class="btn btn-success center-block" data-toggle="modal" data-target="#popwindow">Click Here To Log In</button>
-        <div class="modal fade" id="popwindow">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!--header-->
-                    <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 align="center" class="model-title">Log In
-                            <h3>
-                    </div>
+					<!--body-->
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="text" class="form-control" id="username">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" id="password">
+						</div>
+						<div class="modal-footer">
+							<button onclick="login()" class="btn btn-primary btn-block">Log
+								In</button>
+							<p id="error"></p>
+						</div>
+					</div>
+					<!--footer for button-->
 
-                    <!--body-->
-                    <div class="modal-body">
-                        <form role="form" action>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" name="username">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password" name="password">
-                            </div>
-                            <div class=" modal-footer ">
-                                <input onclick="login()" type="submit " value="Log In " class="btn btn-primary btn-block "> Log In
-                                <p id="error"> </p>
-                            </div>
-                        </form>
-                    </div>
-                    <!--footer for button-->
-                </div>
-            </div>
-        </div>
+				</div>
+			</div>
+		</div>
 
+	</div>
+	<script>
+		function login() {
+			let xhttp = new XMLHttpRequest();
+			xhttp.responseType = "text";
+			xhttp.onreadystatechange = function() {
+				console.log(this.readyState);
+				if (xhttp.readyState === 4 && xhttp.status === 200) {
+					if (xhttp.responseText === 'employee') {
+						window.location = "employeehome.html";
+					} else if(xhttp.responseText === 'manager') {
+						window.location = "managerhome.html";
+					} else {
+						document.getElementById("error").innerHTML = xhttp.responseText;
+					}
+				}
+			}
+			var username = document.getElementById("username").value
+			var password = document.getElementById("password").value
+			xhttp.open("POST", "LoginServlet", true);
+			xhttp.send(username + ":" + password);
+		}
+	</script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js "></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js "></script>
-        <script src="js/loginscript.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js "></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js "></script>
 </body>
 
 </html>
