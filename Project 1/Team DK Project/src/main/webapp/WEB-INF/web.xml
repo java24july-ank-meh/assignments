@@ -12,9 +12,9 @@
   </servlet>
   <servlet>
     <description></description>
-    <display-name>PhototHelper</display-name>
-    <servlet-name>PhototHelper</servlet-name>
-    <servlet-class>com.revature.servlets.PhototHelper</servlet-class>
+    <display-name>PhotoServlet</display-name>
+    <servlet-name>PhotoServlet</servlet-name>
+    <servlet-class>com.revature.servlets.PhotoServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>Login</servlet-name>
@@ -33,8 +33,8 @@
     <url-pattern>/user</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>PhototHelper</servlet-name>
-    <url-pattern>/PhototHelper</url-pattern>
+    <servlet-name>PhotoServlet</servlet-name>
+    <url-pattern>/photo</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Login</servlet-name>

@@ -3,50 +3,69 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Index of Website</title>
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
 
 <script src="./assets/javascript/angular1.js"></script>
 
 </head>
 <body>
 
-	<div>
-		<div ng-controller="loginCtrl">
-			<div>
-				<button ng-click="getAUserFromServerPost()">Fetch user from	server</button>
-				<p>Id : {{person.uID}}</p>
-				<p>First Name : {{person.firstName}}</p>
-				<p>Last Name : {{person.lastName}}</p>
-				<p>Email : {{person.email}}</p>
-				<p>Role id : {{person.roleID}}</p>
-				<p>Manager : {{person.manager}}</p>
-			</div>
+	<div ng-controller="loginCtrl">
+		<div>
+			<button ng-click="getAUserFromServerPost()">Fetch user from
+				server</button>
+			<p>Id : {{person.uID}}</p>
+			<p>First Name : {{person.firstName}}</p>
+			<p>Last Name : {{person.lastName}}</p>
+			<p>Email : {{person.email}}</p>
+			<p>Role id : {{person.roleID}}</p>
+			<p>Manager : {{person.manager}}</p>
+		</div>
+		<br />
+		<div>
 
-<br/>
-			<div>
-			
 			<form name="updateForm" ng-submit="updateUserToServer()">
-			
-				<label>New Name</label>
-				<input type="text" id="inputName" class="form-control" ng-model="newUser.name" required/>
-				<br/>
-				<br/>
-				<label>New Age</label>
-				<input type="text" id="inputAge" class="form-control" ng-model="newUser.age"/>
-				<br/>
-				<br/>
-				<label>New State</label>
-				<input type="text" id="inputState" class="form-control" ng-model="newUser.state"/>
-				<br/>
-				<br/>
+
+				<label>New Name</label> <input type="text" id="inputName"
+					class="form-control" ng-model="newUser.name" required /> <br /> <br />
+				<label>New Age</label> <input type="text" id="inputAge"
+					class="form-control" ng-model="newUser.age" /> <br /> <br /> <label>New
+					State</label> <input type="text" id="inputState" class="form-control"
+					ng-model="newUser.state" /> <br /> <br />
 				<button ng-disabled="updateForm.$invalid" class="btn btn-primary">Update</button>
+
 			</form>
-			
-			</div>
 
 		</div>
+		<br />
 	</div>
+
+	<div class="form-group" ng-controller="photoCtrl">
+
+		<label for="exampleInputFile">File input</label><br />
+		<br /> <input type="file" photoin="imageUpload" ><br />
+		<!-- will only accept images, 
+		class="form-control-file btn-primary"
+			photoin="imageUpload" accept="image/*"
+			aria-describedby="inputFileHelp"
+			
+				<small id="inputFileHelp" class="form-text text-muted">This is
+			some placeholder block-level help text for the above input. It's a
+			bit lighter and easily wraps to a new line.</small> <br /> <br /> <br /> 
+			-->
+	
+			<img src="{{imageUpload}}" width="100" height="50" alt="Image preview..."><br />
+		<p>
+			Image dataURI: 
+		</p>
+		<pre>{{imageUpload}}</pre>
+		<br />
+			<button ng-click="uploadPhoto()" class="btn btn-primary">Upload</button>
+			<br />
+		</div>
 
 
 </body>

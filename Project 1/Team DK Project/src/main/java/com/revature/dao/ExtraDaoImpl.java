@@ -215,4 +215,37 @@ public class ExtraDaoImpl implements ExtraDao {
 	
 	}
 	
+	//--------------------------------------------------
+
+	@Override
+	public void uploadReciept(InputStream is, int rid) {
+
+	    	PreparedStatement pStmt1 = null;
+			String sql1 = "Update Reimbursements Set R_RECEIPT=? Where R_ID=?";
+			
+			try (Connection conn = ConnectionUtil.getConection()) {
+
+			pStmt1 = conn.prepareStatement(sql1);
+			
+			pStmt1.setBlob(1, is);
+			pStmt1.setInt(2, rid);
+			
+			pStmt1.executeUpdate();
+			
+			}catch(SQLException se) {
+				se.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+			}finally {
+				if (pStmt1 != null) {
+					try {
+						pStmt1.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		
+	}
+	
 }

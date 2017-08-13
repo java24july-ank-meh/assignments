@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.io.InputStream;
 import java.util.Map;
 
 public interface ExtraDao {
@@ -16,4 +17,6 @@ public interface ExtraDao {
 	//recipt in reimbursments
 	public void addPhoto(int rid,byte[] pdata);
 	
+	//read reciept
+	public void uploadReciept(InputStream is, int rid);
 }
