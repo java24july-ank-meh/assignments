@@ -34,7 +34,8 @@ public class Reimbursement {
 		this.status = status;
 	}
 
-	public Reimbursement(Date resolved, int resolver, int status) {
+	public Reimbursement(int id, Date resolved, int resolver, int status) {
+		this.id = id;
 		this.resolved = resolved;
 		this.resolver = resolver;
 		this.status = status;

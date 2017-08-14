@@ -36,10 +36,10 @@ public class User {
 	public void setRole(int role) {
 		this.role = role;
 	}
-	public void setPendingReimbursements(Reimbursement[] pendingReimbursements) {
+	public void setPendReimbs(Reimbursement[] pendingReimbursements) {
 		this.pendingReimbs = pendingReimbursements;
 	}
-	public void setResolvedReimbursements(Reimbursement[] resolvedReimbursements) {
+	public void setResReimbs(Reimbursement[] resolvedReimbursements) {
 		this.resolvedReimbs = resolvedReimbursements;
 	}
 	public Reimbursement[] getPendingReimbursements() {

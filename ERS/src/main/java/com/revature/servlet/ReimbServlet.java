@@ -15,12 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.revature.dao.ERSDAO;
 import com.revature.dao.ERSDAOImpl;
 import com.revature.domain.*;
 
 public class ReimbServlet extends HttpServlet{
-	ERSDAO empdao = new ERSDAOImpl();
+	ERSDAO ersdao = new ERSDAOImpl();
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
@@ -37,7 +38,7 @@ public class ReimbServlet extends HttpServlet{
 			int type = Integer.parseInt(str[2]);
 			int status = 1;
 	
-			if (empdao.submitReimb(
+			if (ersdao.submitReimb(
 				new Reimbursement(0, amount, description, file, submitted, null, author, 0, type, status))) {
 				//req.getRequestDispatcher("/employeehome.html").forward(req, resp);
 				out.write("Request submitted. Hooplah!");
@@ -51,5 +52,21 @@ public class ReimbServlet extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+	}
+	
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		PrintWriter out = resp.getWriter();
+		User u =((User) req.getSession().getAttribute("user"));
+		u.setPendReimbs(ersdao.viewUserReimb(u, 1));
+		u.setResReimbs(ersdao.viewUserReimb(u, 2));
+		Gson gson = new Gson();
+		String rJSON = gson.toJson(u);
+		
+		//Set up response body for json
+		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
+		
+		//send response in json format
+		out.write(rJSON);
 	}
 }

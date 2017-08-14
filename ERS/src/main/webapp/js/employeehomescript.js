@@ -1,3 +1,5 @@
+window.onload = loadPendReimbs;
+
 function submitReimb() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -29,4 +31,33 @@ function loadEmp() {
     }
     xhttp.open("POST", "AuthenticationServlet", true);
     xhttp.send("1");
+}
+
+function loadPendReimbs() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        console.log(this.readyState);
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+        	displayPendReimbTable(JSON.parse(xhttp.responseText));
+        }
+    }
+    xhttp.open("GET", "ReimbServlet", true);
+    xhttp.send();
+
+}
+
+
+function displayPendReimbTable(rJSON) {
+	let pend = rJSON.pendingReimbs;
+	for (let i = 0; i < pend.length; i++) {
+        table = document.getElementById("reimbtable");
+        row = table.insertRow();
+        cell = row.insertCell();
+        cell.innerHTML = pend.description;
+        cell = row.insertCell();
+        cell.innerHTML = typeType(pend.type);
+        cell = row.insertCell();
+        cell.innerHTML = "pending";
+        cell = row.insertCell();
+	}
 }

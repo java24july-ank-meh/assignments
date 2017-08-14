@@ -171,10 +171,11 @@ public class ERSDAOImpl implements ERSDAO {
 	public boolean updateReimb(Reimbursement r) { // JSUT ALLOW MANAGERS TO APPROVE OR DENY A REIMB
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement pstmt = conn
-					.prepareStatement("UPDATE ERS_REIMBURSEMENTS SET R_RESOLVED = ?, U_ID_RESOLVER = ?, RT_STATUS = ?");
+					.prepareStatement("UPDATE ERS_REIMBURSEMENTS SET R_RESOLVED = ?, U_ID_RESOLVER = ?, RT_STATUS = ? WHERE R_ID = ?");
 			pstmt.setDate(1, r.getResolved());
 			pstmt.setInt(2, r.getResolver());
 			pstmt.setInt(3, r.getStatus());
+			pstmt.setInt(4, r.getId());
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
