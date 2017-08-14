@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import java.io.InputStream;
+import java.sql.Blob;
 import java.util.Map;
 
 public interface ExtraDao {
@@ -18,5 +19,9 @@ public interface ExtraDao {
 	public void addPhoto(int rid,byte[] pdata);
 	
 	//read reciept
-	public void uploadReciept(InputStream is, int rid);
+	public void uploadReceipt(InputStream is, int rid);
+	
+	public byte[] downloadReceipt(int rid);
+
+	Blob downloadReceiptB(int rid);
 }

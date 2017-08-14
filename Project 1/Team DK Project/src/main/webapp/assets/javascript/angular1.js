@@ -7,7 +7,7 @@ if (window.File && window.FileReader && window.Blob) {
 }
 
 
-var myWebApp = angular.module('rWebSite', []); // Empty brackets for
+var myWebApp = angular.module('rWebSite', [/*'angularFileUpload'*/]); // Empty brackets for
 //dependencies
 
 myWebApp.controller('loginPart', function loginPart($scope) {
@@ -71,19 +71,32 @@ myWebApp.controller('loginCtrl', function loginCtrl($scope,$http) {
 
 });
 
-myWebApp.controller('photoCtrl',	function photoCtrl($scope, $http) {
-
+myWebApp.controller('photoCtrl',	function photoCtrl($scope, $http/*, FileUploader*/) {
+	$scope.inputtedNumber;
 	$scope.imageUpload;
 
-	$scope.uploadPhoto = function(f) {
+	
+//	 $scope.uploader = new FileUploader();
+	
+	//doesnt work
+	$scope.uploadPhotoF = function() {
 		var fd = new FormData();
-		var imageBlob = dataURItoBlob($scope.imageUpload);
-
+//		var imageBlob = dataURItoBlob($scope.imageUpload);
+		let image = $scope.imageUpload;
 //		fd.append('image',imageBlob);
-//		fd.append('id', "100000");
+		//fd.append('id', "100002");
 //		fd.append('name', "image");
-		fd.append('file',imageBlob);
+		fd.append('file',image);
 
+
+		let numberRID = $scope.inputtedNumber; 
+	
+		let rData = {"reimb_id":numberRID}
+		alert(rData);
+		alert(JSON.stringify(rData));
+		//fd.append('rid', numberRID);
+		//fd.append('rData',rData);
+		fd.append('rDataStringify',JSON.stringify(rData));
 
 //		$http({
 //		method : 'Post',
@@ -94,8 +107,9 @@ myWebApp.controller('photoCtrl',	function photoCtrl($scope, $http) {
 //		}).error(function(status, error) {
 //		alert(status + "/ " + error);
 //		});
+		alert("fd "+fd);
 
-		$http.post('photo', fd, {
+		$http.post('uploadPhoto', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
 		}).success(function(status,response) {
@@ -109,6 +123,7 @@ myWebApp.controller('photoCtrl',	function photoCtrl($scope, $http) {
 	};
 	
 	function dataURItoBlob(dataURI) {
+
 		let binary = atob(dataURI.split(',')[1]);
 		let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 		let array = [];
@@ -118,7 +133,6 @@ myWebApp.controller('photoCtrl',	function photoCtrl($scope, $http) {
 		return new Blob([new Uint8Array(array)], {
 			type: mimeString
 		});
-
 
 	};
 	
@@ -147,29 +161,43 @@ myWebApp.directive("photoin", [ function() {
 
 
 myWebApp.controller('viewReimbCtrl', function viewReimbCtrl($scope,$http) {
-
+	
+	$scope.downloadedImage;
+	
 	$scope.getAReimbFromServerGet = function() {
+//		$http({
+//			method : 'GET',
+//			url : 'reimb'
+//		}).success(function(data, status, headers, config) {
+//			$scope.reimb = data;
+//		}).error(function(data, status, headers, config) {
+//
+//		});
+		
 		$http({
-			method : 'POST',
-			url : 'reimb'
-		}).success(function(data, status, headers, config) {
-			$scope.reimb = data;
+			method : 'GET',
+			url : 'photo'
+		}).success(function(data, headers) {
+			alert("sucess");
+//			alert("headers "+headers);
+//			alert("data "+data);
+		
+			$scope.re = data;
+//			alert("re "+$scope.re.receipt);
+			
+			$scope.downloadedImage = "data:image/png;base64,"+ $scope.re.receipt;
+//			var blob = new Blob([data]);
+//			var blobURL = URL.createObjectURL(blob);
+//			$scope.receipt = $sce.trustAsResourceUrl(blobURL);
+			//$scope.receipt = data;
 		}).error(function(data, status, headers, config) {
-
+			alert("error");
 		});
+		
 	};
 
-
+	
 });
-
-
-
-
-
-
-
-
-
 
 
 

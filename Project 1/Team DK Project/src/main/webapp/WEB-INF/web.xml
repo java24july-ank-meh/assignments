@@ -26,14 +26,12 @@
     <servlet-name>TestServlet</servlet-name>
     <servlet-class>com.revature.servlets.TestServlet</servlet-class>
   </servlet>
-  
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>ReimbursementsView</display-name>
     <servlet-name>ReimbursementsView</servlet-name>
     <servlet-class>com.revature.servlets.ReimbursementsView</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/user</url-pattern>
@@ -50,9 +48,18 @@
     <servlet-name>TestServlet</servlet-name>
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
-
   <servlet-mapping>
     <servlet-name>ReimbursementsView</servlet-name>
     <url-pattern>/reimb</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UploadServlet</display-name>
+    <servlet-name>UploadServlet</servlet-name>
+    <servlet-class>com.revature.servlets.UploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadServlet</servlet-name>
+    <url-pattern>/uploadPhoto</url-pattern>
   </servlet-mapping>
 </web-app>

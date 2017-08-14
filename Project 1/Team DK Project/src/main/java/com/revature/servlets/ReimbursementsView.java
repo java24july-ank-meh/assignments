@@ -1,12 +1,16 @@
 package com.revature.servlets;
 
 import java.io.IOException;
+import java.sql.Blob;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.revature.dao.*;
 import com.revature.domain.*;
 
@@ -31,6 +35,7 @@ public class ReimbursementsView extends HttpServlet {
 		// TODO Auto-generated method stub
 		ReimbursementDao rD = new ReimbursementDaoImpl();
         Reimbursement r1 = rD.readReimb(100000);
+        r1.setReceipt(null);
         System.out.println(r1.toString());
         String json = new Gson().toJson(r1);
         System.out.println("json string-- "+json);
@@ -43,13 +48,17 @@ public class ReimbursementsView extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ReimbursementDao rD = new ReimbursementDaoImpl();
-        Reimbursement r1 = rD.readReimb(100000);
-        System.out.println(r1.toString());
-        String json = new Gson().toJson(r1);
-        System.out.println("json string-- "+json);
-        response.setContentType("application/json");
-        response.getWriter().write(json);
+//		ReimbursementDao rD = new ReimbursementDaoImpl();
+//        Reimbursement r1 = rD.readReimb(100000);
+//              
+//        r1.setReceipt(null);
+//        
+//        System.out.println(r1.toString());
+//        String json = new Gson().toJson(r1);
+//        
+//        System.out.println("json string-- "+json);
+//        response.setContentType("application/json");
+//        response.getWriter().write(json);
 	}
 
 }

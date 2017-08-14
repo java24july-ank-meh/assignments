@@ -218,7 +218,7 @@ public class ExtraDaoImpl implements ExtraDao {
 	//--------------------------------------------------
 
 	@Override
-	public void uploadReciept(InputStream is, int rid) {
+	public void uploadReceipt(InputStream is, int rid) {
 
 	    	PreparedStatement pStmt1 = null;
 			String sql1 = "Update Reimbursements Set R_RECEIPT=? Where R_ID=?";
@@ -246,6 +246,79 @@ public class ExtraDaoImpl implements ExtraDao {
 				}
 			}
 		
+	}
+
+	@Override
+	public byte[] downloadReceipt(int rid) {
+		
+		PreparedStatement pStmt1 = null;
+		ResultSet rs = null;
+		String sql1 = "Select R_Receipt from Reimbursements Where R_ID=?";
+		byte[] imageInBytes = null;
+		try (Connection conn = ConnectionUtil.getConection()) {
+
+		pStmt1 = conn.prepareStatement(sql1);
+		
+		pStmt1.setInt(1, rid);
+		
+		rs = pStmt1.executeQuery();
+		
+		while(rs.next()){
+			rs.getBlob("R_Receipt");
+			imageInBytes = rs.getBytes("R_Receipt");
+		}
+		
+		}catch(SQLException se) {
+			se.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+		}finally {
+			if (pStmt1 != null) {
+				try {
+					pStmt1.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	return imageInBytes;	
+	}
+	
+	@Override
+	public Blob downloadReceiptB(int rid) {
+		
+		PreparedStatement pStmt1 = null;
+		ResultSet rs = null;
+		String sql1 = "Select R_Receipt from Reimbursements Where R_ID=?";
+		Blob image = null;
+		try (Connection conn = ConnectionUtil.getConection()) {
+
+		pStmt1 = conn.prepareStatement(sql1);
+		
+		pStmt1.setInt(1, rid);
+		
+		rs = pStmt1.executeQuery();
+		
+		while(rs.next()){
+			image = rs.getBlob("R_Receipt");
+		}
+		
+		}catch(SQLException se) {
+			se.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+		}finally {
+			if (pStmt1 != null) {
+				try {
+					pStmt1.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	return image;	
 	}
 	
 }
