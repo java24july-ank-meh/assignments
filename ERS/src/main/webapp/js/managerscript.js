@@ -24,7 +24,7 @@ function displayTable(rJSON) {
             cell = row.insertCell();
             cell.innerHTML = rJSON[i].firstname + " " + rJSON[i].lastname;
             cell = row.insertCell();
-            cell.innerHTML = roleType(rJSON[i].role);
+            cell.innerHTML = statusType(rJSON[i].pendingReimbs[j].status);
             cell = row.insertCell();
             cell.innerHTML = "<select id=\"sel"+i+j+"\" class=\"form-control\"><option>Approve</option><option>Disapprove</option></select>";
             cell = row.insertCell();
@@ -54,7 +54,7 @@ function updateStatus(ij, id) {
     xhttp.send(val);
 }
 
-function roleType(num) {
+function statusType(num) {
     switch (num) {
         case 1:
             return "Medical";

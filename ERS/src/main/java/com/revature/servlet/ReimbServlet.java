@@ -1,8 +1,12 @@
 package com.revature.servlet;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Blob;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -20,17 +24,21 @@ public class ReimbServlet extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
-		String[] str = req.getReader().readLine().split(":");
+		String[] str = req.getReader().readLine().split(",");
 		try {
 			double amount = Double.parseDouble(str[0]);
 			String description = str[1];
+			System.out.println(str[3]);
+			Blob file = (Blob) new FileInputStream(str[3]);
+			OutputStream fileout= file.setBinaryStream(1);
+			//fileout.w
 			Date submitted = Date.valueOf(LocalDate.now());
 			int author = ((User) req.getSession().getAttribute("user")).getId();
 			int type = Integer.parseInt(str[2]);
 			int status = 1;
 	
 			if (empdao.submitReimb(
-				new Reimbursement(0, amount, description, null, submitted, null, author, 0, type, status))) {
+				new Reimbursement(0, amount, description, file, submitted, null, author, 0, type, status))) {
 				//req.getRequestDispatcher("/employeehome.html").forward(req, resp);
 				out.write("Request submitted. Hooplah!");
 			} else {
@@ -39,6 +47,9 @@ public class ReimbServlet extends HttpServlet{
 		}catch (NumberFormatException|NullPointerException e) {
 			//output invalid fields stufferonis
 			out.write("whoopsiedaisie");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} 
 	}
 }

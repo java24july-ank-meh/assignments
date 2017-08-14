@@ -9,8 +9,11 @@ function submitReimb() {
     var a = document.getElementById("amount").value;
     var d = document.getElementById("description").value;
     var t = document.getElementById("type").value;
+    var f = document.getElementById("fileinput").value;
+    var form = new FormData
+    console.log(f);
     xhttp.open("POST", "ReimbServlet", true);
-    xhttp.send(a + ":" + d + ":" + t);
+    xhttp.send(a + "," + d + "," + t+","+f);
 }
 
 function loadEmp() {
