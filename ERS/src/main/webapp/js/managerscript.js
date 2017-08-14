@@ -26,15 +26,32 @@ function displayTable(rJSON) {
             cell = row.insertCell();
             cell.innerHTML = roleType(rJSON[i].role);
             cell = row.insertCell();
-            cell.innerHTML = "<select class=\"form-control\"><option>Approve</option><option>Disapprove</option></select>";
+            cell.innerHTML = "<select id=\"sel"+i+j+"\" class=\"form-control\"><option>Approve</option><option>Disapprove</option></select>";
             cell = row.insertCell();
-            cell.innerHTML = "<button class=\"btn btn-default\" type=\"submit\">Submit</button>";
+            cell.innerHTML = "<button class=\"btn btn-default\" type=\"submit\" onclick=\"updateStatus("+i+j+", "+rJSON[i].pendingReimbs[j].id+")\">Submit</button>";
 
             row = table.insertRow();
             cell = row.insertCell();
             cell.innerHTML = "<div class=\"accordian-body collapse\" id=\"entry" + i + j + "\"><div class=\"col-md-8\"><p class=bg-info>" + rJSON[i].pendingReimbs[j].description + "</p></div></div>";
         }
     }
+}
+
+function updateStatus(ij, id) {
+    console.log("in stattus");
+    let val = document.getElementById("sel" + ij).value;
+
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        console.log(this.readyState);
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+            window.location = "managerhome.html";
+
+        }
+    }
+    xhttp.open("POST", "ManagerServlet", true);
+    xhttp.send(val);
 }
 
 function roleType(num) {
