@@ -25,13 +25,13 @@ import com.revature.dao.ExtraDaoImpl;
 /**
  * Servlet implementation class UploadServlet
  */
-public class UploadServlet extends HttpServlet {
+public class PhotoUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UploadServlet() {
+	public PhotoUploadServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

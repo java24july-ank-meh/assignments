@@ -102,6 +102,11 @@ public class User {
 	}
 
 	public boolean isManager() {
+		if(roleID==1) {
+			this.manager = true;
+		}else {
+			this.manager = false;
+		}
 		return manager;
 	}
 

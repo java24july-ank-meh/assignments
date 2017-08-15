@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
@@ -79,4 +80,75 @@
 		<servlet-name>EmployeeInfoServlet</servlet-name>
 		<url-pattern>/employee</url-pattern>
 	</servlet-mapping>
+=======
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>ReimbursementSite</display-name>
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+  </welcome-file-list>
+
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.revature.servlets.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/loginrequest</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>ReimbursementsListServlet</display-name>
+    <servlet-name>ReimbursementsListServlet</servlet-name>
+    <servlet-class>com.revature.servlets.ReimbursementsListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReimbursementsListServlet</servlet-name>
+    <url-pattern>/reimbursementList</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <description></description>
+    <display-name>PhotoViewServlet</display-name>
+    <servlet-name>PhotoViewServlet</servlet-name>
+    <servlet-class>com.revature.servlets.PhotoViewServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>PhotoViewServlet</servlet-name>
+    <url-pattern>/photoV</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>PhotoUploadServlet</display-name>
+    <servlet-name>PhotoUploadServlet</servlet-name>
+    <servlet-class>com.revature.servlets.PhotoUploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PhotoUploadServlet</servlet-name>
+    <url-pattern>/photoU</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>EmployeeListServlet</display-name>
+    <servlet-name>EmployeeListServlet</servlet-name>
+    <servlet-class>com.revature.servlets.EmployeeListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmployeeListServlet</servlet-name>
+    <url-pattern>/employeeList</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>UserReadServlet</display-name>
+    <servlet-name>UserReadServlet</servlet-name>
+    <servlet-class>com.revature.servlets.UserReadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserReadServlet</servlet-name>
+    <url-pattern>/userR</url-pattern>
+  </servlet-mapping>
+>>>>>>> ab79f61d2b553ebdf794da7c75ffb6f5943b3d31
 </web-app>
