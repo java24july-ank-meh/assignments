@@ -437,5 +437,65 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 	}
 	
 	
+	public Reimbursement readmyReimburse(int rID) {
+		PreparedStatement pStmt1 = null;
+		ResultSet rs = null;
+		Reimbursement reim = new Reimbursement();
+
+		try (Connection conn = ConnectionUtil.getConection()) {
+
+			String sql1 = "Select R_ID, R_AMOUNT, R_DESCRIPTION, R_SUBMITTED, R_RESOLVED, U_ID_RESOLVER, RT_TYPE,RT_STATUS from Reimbursements where R_ID=?";
+			pStmt1 = conn.prepareStatement(sql1);
+			
+			pStmt1.setInt(1, rID);
+			
+			rs = pStmt1.executeQuery();
+			
+			while (rs.next()) {
+				int r_id = rs.getInt("R_ID");
+				double a = rs.getDouble("R_Amount");
+				int aid = rs.getInt("U_ID_Author");
+				String de = rs.getString("R_Description");
+				Blob rec = rs.getBlob("R_Receipt");
+				Timestamp res = rs.getTimestamp("R_Resolved");
+				int rid = rs.getInt("U_ID_Resolver");
+				int st = rs.getInt("RT_Type");
+				Timestamp sub = rs.getTimestamp("R_Submitted");
+				int ty = rs.getInt("RT_Status");
+				
+				reim.setrID(r_id);
+				reim.setAmount(a);
+				reim.setAuthorID(aid);
+				reim.setDescription(de);
+				reim.setReceipt(rec);
+				reim.setResolved(res);
+				reim.setResolverID(rid);
+				reim.setStatus(st);
+				reim.setSubmitted(sub);
+				reim.setType(ty);
+			}		
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pStmt1 != null) {
+				try {
+					pStmt1.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return reim;
+	}
+	
 
 }
