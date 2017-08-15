@@ -42,7 +42,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
-    <url-pattern>/loginCorrect?</url-pattern>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>TestServlet</servlet-name>

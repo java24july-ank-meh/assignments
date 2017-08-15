@@ -23,7 +23,7 @@ public class ExtraDaoImpl implements ExtraDao {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
 
-		try(Connection conn = ConnectionUtil.getConectionProperties()){
+		try(Connection conn = ConnectionUtil.getConection()){
 			String sql1 = "Select * from UserRoles";
 
 			pStmt1 = conn.prepareStatement(sql1);
@@ -67,7 +67,7 @@ public class ExtraDaoImpl implements ExtraDao {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
 
-		try(Connection conn = ConnectionUtil.getConectionProperties()){
+		try(Connection conn = ConnectionUtil.getConection()){
 			String sql1 = "Select * from ReType";
 
 			pStmt1 = conn.prepareStatement(sql1);
@@ -111,7 +111,7 @@ public class ExtraDaoImpl implements ExtraDao {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
 
-		try(Connection conn = ConnectionUtil.getConectionProperties()){
+		try(Connection conn = ConnectionUtil.getConection()){
 			String sql1 = "Select * from ReStatus";
 
 			pStmt1 = conn.prepareStatement(sql1);
@@ -155,7 +155,7 @@ public class ExtraDaoImpl implements ExtraDao {
 		PreparedStatement pStmt1 = null;
 		String sql1 = "Update Reimbursements Set R_Reciept=? Where R_ID=?";
 		
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 		pStmt1 = conn.prepareStatement(sql1);
 		
@@ -168,8 +168,6 @@ public class ExtraDaoImpl implements ExtraDao {
 		
 		}catch(SQLException se) {
 			se.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}finally {
 			if (pStmt1 != null) {
 				try {
@@ -189,7 +187,7 @@ public class ExtraDaoImpl implements ExtraDao {
 		PreparedStatement pStmt1 = null;
 		String sql1 = "Update Reimbursements Set R_Reciept=? Where R_ID=?";
 		
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 		pStmt1 = conn.prepareStatement(sql1);
 		
@@ -201,8 +199,6 @@ public class ExtraDaoImpl implements ExtraDao {
 		
 		}catch(SQLException se) {
 			se.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}finally {
 			if (pStmt1 != null) {
 				try {

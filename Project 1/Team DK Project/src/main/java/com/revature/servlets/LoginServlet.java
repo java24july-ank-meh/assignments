@@ -40,17 +40,37 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		
-		request.getRequestDispatcher("info.html").include(request, response);
+//		request.getRequestDispatcher("info.html").include(request, response);
 		String un = request.getParameter("username");
+		System.out.println(un);
 		String pw = request.getParameter("password");
-		
+		System.out.println(pw);
 		boolean validate = new SiteService().validateFullLogin(un, pw);
 		
 		if(validate) {
+			int uid = new UserDaoImpl().loginReturnID(un,pw);
+			User u =  new UserDaoImpl().loginReturnPartial(un,pw);
+			out.print("Welcome, "+u.getFirstName()+" "+u.getLastName()+"..User "+uid);
 			
-			User u = new UserDaoImpl();
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("firstName", u.getFirstName());
+			session.setAttribute("lastName", u.getFirstName());
+			session.setAttribute("roleID", u.getRoleID());
+			session.setAttribute("user", u.getuID());
+			
+			if(u.isManager()) {
+				request.getRequestDispatcher("Manager/Manager_Homepage.html").include(request, response);
+			} else {
+				request.getRequestDispatcher("Employee_Homepage.html").include(request, response);
+			}
+			
+		}else {
+			out.print("Sorry, username or password error!");
+			request.getRequestDispatcher("login.html").include(request, response);
 		}
+		
+		out.close();
 		
 		/*//gets all users and sends them to html...ummm what
 		UserDao uD = new UserDaoImpl();

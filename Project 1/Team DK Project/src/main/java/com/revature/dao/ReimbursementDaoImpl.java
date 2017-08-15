@@ -22,7 +22,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 		List<Reimbursement> reims = new ArrayList<Reimbursement>();
 
 		String sql1 = "";
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 			sql1 = "Select * from Reimbursements";
 			pStmt1 = conn.prepareStatement(sql1);
 			
@@ -89,7 +89,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 			sql1 = "Select * from Reimbursements where U_ID_Resolver=?";
 		}
 		
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			pStmt1 = conn.prepareStatement(sql1);
 			
@@ -212,7 +212,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			String sql1 = "Insert into Reimbursements (R_Amount, R_Description, R_Submitted, U_ID_Author, RT_Type, RT_Status, R_Reciept) Values(?, ?, ?, ?, ?, ?, ?)";
 
@@ -254,7 +254,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			String sql1 = "Update Reimbursements Set R_Amount=?, R_Description=?, R_Submitted=?, U_ID_Author=?, RT_Type=?, RT_Status=?, R_Reciept=? Where R_ID=?"; 
 
@@ -298,7 +298,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			String sql1 = "Update Reimbursements Set U_ID_Resolver=?, R_Resolved=?, RT_Type=?, RT_Status=? Where R_ID=?"; 
 
@@ -340,7 +340,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			String sql1 = "Update Reimbursements Set R_Receipt=? Where R_ID=?"; 
 
@@ -377,7 +377,7 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			String sql1 = "Delete from Reimbursements Where R_ID=?"; 
 

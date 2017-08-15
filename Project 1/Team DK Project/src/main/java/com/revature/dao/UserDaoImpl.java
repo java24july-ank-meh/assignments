@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
 
 		List<User> users = new ArrayList<User>();
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 			String sql1 = "Select * From Web_Users Where UR_ID=?";
 
 			pStmt1 = conn.prepareStatement(sql1);
@@ -176,7 +176,7 @@ public class UserDaoImpl implements UserDao {
 
 		List<String> usernames = new ArrayList<String>();
 
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 			String sql1 = "Select * From Web_Users";
 
 			pStmt1 = conn.prepareStatement(sql1);
@@ -216,7 +216,7 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
 
-		try(Connection conn = ConnectionUtil.getConectionProperties()){
+		try(Connection conn = ConnectionUtil.getConection()){
 			String sql1 = "Select User_Name, Pass_Word, Ur_ID from Web_Users";
 
 			pStmt1 = conn.prepareStatement(sql1);
@@ -258,7 +258,7 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pStmt1 = null;
 
 		// opening new connection
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			// storing class fields
 			String p = u.getPassword();
@@ -307,7 +307,7 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pStmt1 = null;
 
 		// opening new connection
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			// storing class fields
 			String un = u.getUserName();
@@ -352,7 +352,7 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pStmt1 = null;
 
 		// opening new connection
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			// storing class fields
 			String f = u.getFirstName();
@@ -399,7 +399,7 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pStmt1 = null;
 
 		// opening new connection
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			// storing class fields
 			String un = u.getUserName();
@@ -453,7 +453,7 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pStmt1 = null;
 
 		// opening new connection
-		try (Connection conn = ConnectionUtil.getConectionProperties()) {
+		try (Connection conn = ConnectionUtil.getConection()) {
 
 			// declare sql statement + arguments
 			String sql1 = "Delete from Web_Users where User_ID=?;";
@@ -508,4 +508,47 @@ public class UserDaoImpl implements UserDao {
 		return message;
 	}
 
+	public int loginReturnID(String username, String password) {
+		int uid = 0;
+		try(Connection conn = ConnectionUtil.getConection()){
+			PreparedStatement pstmt = conn.prepareStatement("Select * FROM WEB_USERS WHERE USER_NAME = ? AND PASS_WORD = ?");
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				uid = rs.getInt("User_ID");
+			}
+						
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return uid;
+	}
+	
+	public User loginReturnPartial(String username, String password) {
+		User u = null;
+		try(Connection conn = ConnectionUtil.getConection()){
+			PreparedStatement pstmt = conn.prepareStatement("Select * FROM WEB_USERS WHERE USER_NAME = ? AND PASS_WORD = ?");
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				u.setuID(rs.getInt("User_ID"));
+				u.setFirstName(rs.getString("First_Name"));
+				u.setLastName(rs.getString("Last_Name"));
+				u.setRoleID(rs.getInt("Role_ID"));
+			}
+						
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return u;
+	}
+
+	
+	
 }
