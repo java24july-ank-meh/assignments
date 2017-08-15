@@ -27,6 +27,10 @@ public class Reimbursement {
 				+ ", resolverID=" + resolverID + ", type=" + type + ", status=" + status + "]";
 	}
 	
+	public String customString() {
+		return "{"+rID+""+ amount+ ""+ description + ""+ receipt +""+ submitted+""+resolved+""+authorID+""+ resolverID+""+type+ ""+status+"}";
+	}
+	
 	//------------------------------------------------------
 
 

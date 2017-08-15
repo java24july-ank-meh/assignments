@@ -1,25 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="">
 <head>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+	<script src="./assets/javascript/reimbursement.js"></script>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 	<center>
-		<div id="divId">
-			Username: <input type="text" name="username" id="username" /><br>
-			Password: <input type="password name=" password" id="password" /><br>
-			<button name="login" class="login">Login</button>
-		</div>
-		<div id="messageDiv" style="display: none;"></div>
+		<div id="divId" ng-controller="reimburseControll">
+
+<div ng-bind = "getAllReimbursements">
+<p>{{reimbursement.rID}} </p>
+<p>{{reimbursement.amount}} </p>
+<p>{{reimbursement.description}} </p>
+<p>{{reimbursement.receipt}} </p>
+<p>{{reimbursement.submitted}} </p>
+<p>{{reimbursement.resolved}} </p>
+<p>{{reimbursement.authorID}} </p>
+<p>{{reimbursement.resolverID}} </p>
+<p>{{reimbursement.type}} </p>
+<p>{{reimbursement.status}} </p>
+</div>
+</div>
 	</center>
 
 	<script>
-
+	riembursementApp.controller('reimburseControll', function(){
+		
+		$sope.getAllReimbursements = function(){
+			$http({
+			method: 'post',
+			url: 'ReimbursementsView'
+			}).success(function(data,status,headers,config){
+				$scope.reimbursement = data;
+			}).error(function(data,status,headers,config){
+				
+			});
+			
+		};
+	});
 	</script>
 </body>
 </html>

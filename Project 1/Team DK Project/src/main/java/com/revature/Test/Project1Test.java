@@ -40,9 +40,9 @@ public class Project1Test {
 //
 //	}
 	
-	@Test
-	public final void testRiembursementDao() {
-		ReimbursementDaoImpl rb = new ReimbursementDaoImpl();
+//	@Test
+//	public final void testRiembursementDao() {
+//		ReimbursementDaoImpl rb = new ReimbursementDaoImpl();
 		
 //		System.out.println(rb.readAllReimb());
 //		System.out.println(rb.readReimb(1));
