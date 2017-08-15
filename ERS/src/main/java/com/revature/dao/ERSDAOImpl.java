@@ -204,9 +204,14 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	private Reimbursement newReimbFromRS(ResultSet rs) throws SQLException, IOException {
-		byte[] blobval = Base64.getEncoder().encode(IOUtils.toByteArray(rs.getBlob(4).getBinaryStream()));
-		return new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getString(3), blobval, rs.getDate(5),
+		String blobval = Base64.getEncoder().encodeToString((IOUtils.toByteArray(rs.getBlob(4).getBinaryStream())));
+		System.out.println(blobval);
+		//byte[] blob = Base64.getEncoder().encode((IOUtils.toByteArray(rs.getBlob(4).getBinaryStream())));
+		Reimbursement reimb = new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getString(3), null, rs.getDate(5),
 				rs.getDate(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10));
+		reimb.setBlobString(blobval);
+		
+		return reimb;
 	}
 
 }

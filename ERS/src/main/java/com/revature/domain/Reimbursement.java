@@ -15,6 +15,15 @@ public class Reimbursement {
 	private int resolver;
 	private int type;
 	private int status;
+	private String blobString;
+
+	public String getBlobString() {
+		return blobString;
+	}
+
+	public void setBlobString(String blobString) {
+		this.blobString = blobString;
+	}
 
 	public byte[] getReceipt() {
 		return receipt;
