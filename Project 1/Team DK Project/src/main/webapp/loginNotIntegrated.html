@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="rWebSite">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatable" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+
+<!--<link rel="stylesheet" href="./cleansidebar.css">-->
+<link rel="stylesheet" href="./assets/css/stylesheet1.css">
+<script src="./assets/javascript/angular1.js"></script>
+
+
+</head>
+<body>
+
+	<div id="header">
+		<h1 id="company">"co" Company Name</h1>
+		<hr>
+	</div>
+
+	<div id="loginMain" ng-controller="loginPart">
+
+		<div id="loginJumbotron" class="jumbotron">
+
+			<h2 id="loginTitle">Login</h2>
+			
+			<br />
+			
+			<div style="float:left">
+
+<ul>
+	<li ng-repeat="u in user">{{u.userName}} {{u.passWord}}</li>
+	</ul>
+	
+	<p>{{loginInfo}}</p>
+
+</div>
+ <br />
+		 <br />	
+			 <br />
+			<form id="formLogin" class="has-danger">
+				<div class="form-inline col-md has-warning has-feedback">
+					<label for="inputUsername">Username: </label> <input type="text"
+						id="inputUsername" ng-model="userName"
+						class="form-control form-control-lg"
+						placeholder="enter your username..." required autofocus>
+					<p>{{userName}}</p>
+					<!--<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>-->
+				</div>
+				<br /> <br />
+				<div class="form-inline col-md has-error has-feedback">
+					<label for="inputPassword">Password: </label> <input
+						type="password" id="inputPassword" ng-model="passWord"
+						class="form-control form-control-lg"
+						placeholder="enter your password..." required>
+					<!--<span class="glyphicon glyphicon-remove form-control-feedback"></span>-->
+					<p>{{passWord}}</p>
+				</div>
+				<br /> <br />
+
+				<div id="loginButtonGroup" class="btn-group input-btn-group">
+					<input type="submit" class="btn btn-success form-control"
+						value="login" ng-model="loginInfo" form="formLogin"
+						formmethod="get" />
+					<button type="button" class="btn btn-success"
+						ng-click="login(userName, passWord)">Login1</button>
+
+					<button type="button" class="btn btn-success dropdown-toggle"
+						data-toggle="dropdown">
+						<span class="caret"></span> <span class="sr-only">Toggle
+							Dropdown</span>
+					</button>
+
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#">Email login</a></li>
+						<li><a href="#">User id login</a></li>
+					</ul>
+				</div>
+
+				<!--<div class="input-group">
+        <input type="submit" class="btn btn-success" value="login" action="login" />
+        <input id="emailLogin" type="submit" class="btn btn-warning" value="emaillogin" action="loginWithEmail" />
+        <input id="useridLogin" type="submit" class="btn btn-warning" value="useridlogin" action="loginWithID" />
+      </div>-->
+
+			</form>
+
+			<div id="registerButton">
+				<button type="button" class="btn btn-primary">Register</button>
+			</div>
+
+	
+
+		</div>
+
+	</div>
+
+	<div id="footer"></div>
+
+</body>
+</html>

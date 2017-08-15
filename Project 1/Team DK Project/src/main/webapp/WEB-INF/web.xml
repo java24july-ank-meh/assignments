@@ -62,4 +62,14 @@
     <servlet-name>UploadServlet</servlet-name>
     <url-pattern>/uploadPhoto</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EmployeeInfoServlet</display-name>
+    <servlet-name>EmployeeInfoServlet</servlet-name>
+    <servlet-class>com.revature.servlets.EmployeeInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmployeeInfoServlet</servlet-name>
+    <url-pattern>/employee</url-pattern>
+  </servlet-mapping>
 </web-app>

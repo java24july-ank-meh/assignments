@@ -21,25 +21,34 @@ body {
 }
 
 /*login page css*/
-#loginMain {
-  margin-left: 20%;
-  margin-right: 20%;
-}
-#loginJumbotron {
-	padding-top: 30px;
-	padding-left: 30px;/*or 15px*/
-	padding-right: 30px;
-	padding-bottom: 50px;
-border-radius: 16px;
+#loginContainer {
+	/*
+ 	min-height: 350px;
+ 	min-width: 300px;
+ 	max-height: 500px;
+ 	max-width: 450px;*/
+ 	height: 350px;/*50vh*/
+ 	width:	450px;/*50vw*/
+	
+	border-radius: 16px;
 	text-align: center;
 	background-color: rgba(0,0,0,.5);/*#ccc or #9d9d9d*/
 }
+#loginJumbotron {
+	/*background-image:url('images/car/car.jpg');    background-size: cover;	background: contain;*/
+ 	
+ 	 /*margin-left: 100px;/*or 20%*/	/*margin-right: 100px;/*or 20%*/
+	padding-left: 75px;/*or 15px*/	padding-right: 75px;	padding-top: 30px;	padding-bottom: 50px;*/
+	border-radius: 16px;
+	text-align: center;
+	
+}
+.loginLabels  {
+	color: #fff;
+}
 #loginTitle {
   font-weight: bold;
-}
-#loginButtonGroup {
-  float: left;
-  display: inline-block;
+  color: #fff;
 }
 #registerButton {
     float: right;

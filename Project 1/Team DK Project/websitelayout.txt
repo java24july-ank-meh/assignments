@@ -1,0 +1,21 @@
+1 WebsiteService
+  Servlet handles
+    checking login
+      if correct, then redirecting to correct place
+    loging out
+      and redirecting to login page
+
+2 Emp servlet handles
+   home page(With notifications?)
+   info page  or  info page(with update)
+   submit request and upload image(2 pages)
+      or  submit request with image
+   reimbursements list page
+
+3 Man servlet handles
+  home page(With notifications?)
+  info page  or  info page(with update)
+  employees list page
+  submit request and upload image(2 pages)
+     or  submit request with image
+  reimbursements list page

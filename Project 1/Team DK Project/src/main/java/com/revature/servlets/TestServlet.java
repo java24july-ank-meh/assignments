@@ -27,8 +27,15 @@ public class TestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String userID = request.getParameter("user");
+		System.out.println("User id: "+userID);
+		
+		userID = "100000";
+		System.out.println("User id: "+userID);
+	
 		UserDao uD = new UserDaoImpl();
-        User personData = uD.readUser(100000);
+        User personData = uD.readUser(Integer.parseInt(userID));
         System.out.println(personData.toString());
         String json = new Gson().toJson(personData);
         System.out.println("json string-- "+json);
@@ -40,8 +47,15 @@ public class TestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String userID = request.getParameter("user");
+		System.out.println("User id: "+userID);
+		
+		userID = "100000";
+		System.out.println("User id: "+userID);
+		
 		UserDao uD = new UserDaoImpl();
-        User personData = uD.readUser(100000);
+        User personData = uD.readUser(Integer.parseInt(userID));
         System.out.println(personData.toString());
         String json = new Gson().toJson(personData);
         System.out.println("json string-- "+json);
