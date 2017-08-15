@@ -482,5 +482,30 @@ public class UserDaoImpl implements UserDao {
 			}
 		}
 	}
+	
+	
+	public String loggingIn(String username, String password) {
+		String message = null;
+		try(Connection conn = ConnectionUtil.getConection()){
+			PreparedStatement pstmt = conn.prepareStatement("Select * FROM WEB_USERS WHERE USER_NAME = ? AND PASS_WORD = ?");
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				message = "Success!";
+			}else {
+				
+				message = "Fail!";
+			}
+						
+		}catch(Exception e) {
+			message = "Failed username/password";
+			e.printStackTrace();
+			
+		}
+		
+		return message;
+	}
 
 }

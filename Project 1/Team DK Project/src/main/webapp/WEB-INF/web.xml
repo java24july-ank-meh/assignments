@@ -48,10 +48,20 @@
     <servlet-name>TestServlet</servlet-name>
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ReimbursementsView</servlet-name>
-    <url-pattern>/reimb</url-pattern>
-  </servlet-mapping>
+
+
+<servlet>
+<servlet-name>loginRequest</servlet-name>
+<servlet-class>package com.revature.servlets.MyUserTest</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>loginRequest</servlet-name>
+<url-pattern>/loginRequest</url-pattern>
+</servlet-mapping>
+
+
+
   <servlet>
     <description></description>
     <display-name>UploadServlet</display-name>
