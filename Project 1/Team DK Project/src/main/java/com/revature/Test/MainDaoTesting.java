@@ -3,6 +3,7 @@ package com.revature.Test;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import com.revature.dao.ReimbursementDaoImpl;
 import com.revature.dao.UserDaoImpl;
 import com.revature.domain.Photo;
 import com.revature.domain.User;
@@ -32,11 +33,14 @@ public class MainDaoTesting {
 		}
 		//	
 		//		
-		UserDaoImpl userD = new UserDaoImpl();
+//		UserDaoImpl userD = new UserDaoImpl();
 		//		User u = new User(1,"json","password", "Jack","d", "aniels","j@yahpp.com",1);
 		//		user.createUser(u);
-		userD.readAllUsers();
+//		userD.readAllUsers();
 
+		
+		ReimbursementDaoImpl i = new ReimbursementDaoImpl();
+		System.out.println(i.readReimb(100000));
 	}
 
 }

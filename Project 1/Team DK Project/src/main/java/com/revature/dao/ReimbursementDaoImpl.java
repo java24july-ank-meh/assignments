@@ -406,5 +406,36 @@ public class ReimbursementDaoImpl implements ReimbursementDao {
 		}
 
 	}
+	
+	
+	public String resolvedReimbursement(int author, int mgId, int type, int status ) {
+		String message = null;
+		
+		PreparedStatement prep = null;
+		ResultSet rs = null;
+		try(Connection conn = ConnectionUtil.getConection()){
+			String sql = "UPDATE REIMBURSEMENTS SET U_ID_RESOLVER = ?, RT_TYPE = ?, RT_STATUS = ? WHERE U_ID_AUTHOR =? ";
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1, mgId);
+			prep.setInt(2,type);
+			prep.setInt(3, status);
+			prep.setInt(4, author);
+			rs = prep.executeQuery();
+			if(rs.next()) {
+				message = "File updated!";
+			} else {
+				message = "File not updated!";
+			}
+			
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		
+		return message;
+	}
+	
+	
 
 }
