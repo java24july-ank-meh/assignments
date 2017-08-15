@@ -90,20 +90,20 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("manager:"+u.isManager());
 //			out.print("Correct loading home now");
 			
-//			if(u.isManager()) {
-//				request.setAttribute("user", u.getFirstName());
-//				request.setAttribute("userid", u.getuID());
-//				RequestDispatcher rd = request.getRequestDispatcher("homepage.html");
-//				rd.forward(request, response);
+			if(u.isManager()) {
+				request.setAttribute("user", u.getFirstName());
+				request.setAttribute("userid", u.getuID());
+				RequestDispatcher rd = request.getRequestDispatcher("manhomepage.html");
+				rd.forward(request, response);
 
 //				response.sendRedirect("http://localhost:8181/ReimbursementSite/manager/homepage.html");
 				
 //				response.sendRedirect("http://localhost:9088/ReimbursementSite/manager/homepage.html");
 			
 //				request.getRequestDispatcher("manhomepage.html").include(request, response);  
-//			} else {
+			} else {
 //				request.getRequestDispatcher("Employee_Homepage.html").include(request, response);
-//			}
+			}
 
 		}else {
 			System.out.println("not valid");
