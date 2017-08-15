@@ -74,22 +74,23 @@
                             </div>
                             <div class="form-group ">
                                 <label for="Amount-remimburse " class=" col-xs-2 control-label ">Amount</label>
-                                <input id="amount" type="text" class="form-control " placeholder="Enter the amount ">
+                                <input id="amount" name="amount" type="text" class="form-control " placeholder="Enter the amount ">
                             </div>
                             <div class="form-group ">
                                 <label for="Additional text " class="col-sm-2 control-label ">Description</label>
-                                <textarea id="description" class="form-control " rows="3 "></textarea>
+                                <textarea id="description" name="description" class="form-control " rows="3 "></textarea>
                             </div>
                             <div class="fileupload fileupload-new" data-provides="fileupload">
                                 <label for="upload-file" class="col-sm-2 control-label">receipts</label>
                                 <span class="btn btn-primary btn-file"><span class="fileupload-new">Select file</span>
-                                <span class="fileupload-exists">Change</span> <input type="file" id="fileinput" /></span>
+                                <span class="fileupload-exists">Change</span> <input type="file" id="fileinput" name="fileinput"/></span>
                                 <span class="fileupload-preview"></span>
                                 <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
                             </div>
-                            <button type="submit " value="Submit" onclick="submitReimb()" class="btn btn-primary btn-block ">Submit</button>
+                            <button type="submit " value="Post" onclick="submitReimb()" class="btn btn-primary btn-block ">Submit</button>
                             <br />
                             <p id=submitresult></p>
+                            
                     </div>
                 </div>
             </section>

@@ -1,9 +1,13 @@
 package com.revature.dao;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
+
+import org.apache.commons.io.IOUtils;
 
 import com.revature.domain.Reimbursement;
 import com.revature.domain.User;
@@ -84,16 +88,20 @@ public class ERSDAOImpl implements ERSDAO {
 	}
 
 	@Override
-	public boolean submitReimb(Reimbursement re) {
+	public boolean submitReimb(Reimbursement re, InputStream fileContent) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
+			Blob blob = conn.createBlob();
+			OutputStream out = blob.setBinaryStream(0);
+			IOUtils.copy(fileContent, out);
 			PreparedStatement pstmt = conn.prepareStatement(
-					"INSERT INTO ERS_REIMBURSEMENTS(R_AMOUNT, R_DESCRIPTION, R_SUBMITTED, U_ID_AUTHOR, RT_TYPE, RT_STATUS) VALUES (?, ?, ?, ?, ?, ?)");
+					"INSERT INTO ERS_REIMBURSEMENTS(R_AMOUNT, R_DESCRIPTION, R_RECEIPT, R_SUBMITTED, U_ID_AUTHOR, RT_TYPE, RT_STATUS) VALUES (?, ?, ?, ?, ?, ?, ?)");
 			pstmt.setDouble(1, re.getAmount());
 			pstmt.setString(2, re.getDescription());
-			pstmt.setDate(3, re.getSubmitted());
-			pstmt.setInt(4, re.getAuthor());
-			pstmt.setInt(5, re.getType());
-			pstmt.setInt(6, re.getStatus());
+			pstmt.setBlob(3, blob);
+			pstmt.setDate(4, re.getSubmitted());
+			pstmt.setInt(5, re.getAuthor());
+			pstmt.setInt(6, re.getType());
+			pstmt.setInt(7, re.getStatus());
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

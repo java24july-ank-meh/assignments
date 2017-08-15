@@ -11,11 +11,15 @@ function submitReimb() {
     var a = document.getElementById("amount").value;
     var d = document.getElementById("description").value;
     var t = document.getElementById("type").value;
-    var f = document.getElementById("fileinput").value;
-    var form = new FormData
-    console.log(f);
+    var f = document.getElementById("fileinput").files[0];
+    var form = new FormData();
+    form.append("amount", a);
+    form.append("description", d);
+    form.append("type", t);
+    form.append("fileinput", f);
     xhttp.open("POST", "ReimbServlet", true);
-    xhttp.send(a + "," + d + "," + t+","+f);
+    console.log(form);
+    xhttp.send(form);
 }
 
 function loadEmp() {
