@@ -30,18 +30,22 @@ loginMod.controller('loginCtrl', function loginCtrl($scope, $http){
 	//	alert(pw);
 		
 		$http({
-			method : 'GET',
-			url : 'login',
+			method : 'POST',
+			url : 'loginrequest',
 			params : {"username" : un, "password" : pw }
+		}).then(function callBack(response) {
+			alert("success");
+			alert(response.data);
+			alert(response.status);
+//			alert(response.statusText);
+//			alert(response.header);
+//			 document.write(response.data);
+		}, function errorCallBack(response){
+			alert("error");
 		});
 		
-		/*.success(function(status) {
-			alert("success");
-		}).error(function(error) {
-			alert("error");
-		});*/		
-		
 	};
+	
 	
 	
 });

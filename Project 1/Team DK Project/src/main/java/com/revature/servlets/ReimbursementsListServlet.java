@@ -18,13 +18,13 @@ import com.revature.domain.*;
 /**
  * Servlet implementation class ReimbursementsView
  */
-public class ReimbursementsView extends HttpServlet {
+public class ReimbursementsListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReimbursementsView() {
+    public ReimbursementsListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,10 +36,17 @@ public class ReimbursementsView extends HttpServlet {
 		// TODO Auto-generated method stub
 		ReimbursementDao rD = new ReimbursementDaoImpl();
         List<Reimbursement> i = rD.readAllReimb();
+        
         System.out.println(i.toString());
-        String json = new Gson().toJson(i);
-        System.out.println(json);
+        
+		String json = new Gson().toJson(i);
+        
+		System.out.println("json string -- "+ json);
+        
+		response.setContentType("application/json");
+		response.getWriter().write(json);
 
+        System.out.println(json);
      }
 
 	/**
@@ -47,17 +54,13 @@ public class ReimbursementsView extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		ReimbursementDao rD = new ReimbursementDaoImpl();
-//        Reimbursement r1 = rD.readReimb(100000);
-//              
-//        r1.setReceipt(null);
-//        
-//        System.out.println(r1.toString());
-//        String json = new Gson().toJson(r1);
-//        
-//        System.out.println("json string-- "+json);
-//        response.setContentType("application/json");
-//        response.getWriter().write(json);
+		//old get one reimbursement and put into json
+		/*Reimbursement message = rd.readReimb(100000);
+		System.out.println(message.toString());
+		String json = new Gson().toJson(message);
+		System.out.println("json string -- "+ json);
+		response.setContentType("application/json");
+		response.getWriter().write(json);*/
 	}
 
 }

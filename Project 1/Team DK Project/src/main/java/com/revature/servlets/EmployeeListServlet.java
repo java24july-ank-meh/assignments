@@ -14,13 +14,13 @@ import com.revature.domain.User;
 /**
  * Servlet implementation class EmployeeInfoServlet
  */
-public class EmployeeInfoServlet extends HttpServlet {
+public class EmployeeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmployeeInfoServlet() {
+    public EmployeeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

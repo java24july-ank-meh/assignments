@@ -46,7 +46,11 @@ public class LoginServlet extends HttpServlet {
 		//	response.sendRedirect("Request.html");
 		
 		response.setContentType("text/html");
+		
 		PrintWriter out = response.getWriter();
+		
+		request.getRequestDispatcher("link.html").include(request, response);  
+		
 		String un = request.getParameter("username");
 		String pw = request.getParameter("password");
 		
@@ -69,12 +73,13 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("valid");
 			int uid = new UserDaoImpl().loginReturnID(username,password);
 			User u =  new UserDaoImpl().loginReturnPartial(username,password);
-			
-			if(u != null) {
-				out.print("Welcome, "+u.getFirstName()+" "+u.getLastName()+"..User "+uid);
-			} else {
-				out.print("Welcome, User "+uid);
-			}
+	
+
+//			if(u != null) {
+				out.println("Welcome, "+u.getFirstName()+" "+u.getLastName()+"..User "+uid);
+//			} else {
+//				out.print("Welcome, User "+uid);
+//			}
 
 			HttpSession session = request.getSession();
 
@@ -82,14 +87,23 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("lastName", u.getFirstName());
 			session.setAttribute("roleID", u.getRoleID());
 			session.setAttribute("user", u.getuID());
+			System.out.println("manager:"+u.isManager());
+//			out.print("Correct loading home now");
 			
-			out.print("Correct loading home now");
+//			if(u.isManager()) {
+//				request.setAttribute("user", u.getFirstName());
+//				request.setAttribute("userid", u.getuID());
+//				RequestDispatcher rd = request.getRequestDispatcher("homepage.html");
+//				rd.forward(request, response);
 
-			if(u.isManager()) {
-				request.getRequestDispatcher("Manager_Homepage.html").include(request, response);
-			} else {
-				request.getRequestDispatcher("Employee_Homepage.html").include(request, response);
-			}
+//				response.sendRedirect("http://localhost:8181/ReimbursementSite/manager/homepage.html");
+				
+//				response.sendRedirect("http://localhost:9088/ReimbursementSite/manager/homepage.html");
+			
+//				request.getRequestDispatcher("manhomepage.html").include(request, response);  
+//			} else {
+//				request.getRequestDispatcher("Employee_Homepage.html").include(request, response);
+//			}
 
 		}else {
 			System.out.println("not valid");
@@ -126,8 +140,46 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+response.setContentType("text/html");
+		
+		PrintWriter out = response.getWriter();
+		
+		request.getRequestDispatcher("link.html").include(request, response);  
+		
+		String un = request.getParameter("username");
+		String pw = request.getParameter("password");
+		
+		String username =un.substring(1, un.length()-1);
+		String password =pw.substring(1, pw.length()-1);
+
+		System.out.println("username "+username);
+		System.out.println("password "+password);
+
+		boolean validate = new SiteService().validateFullLogin(username, password);
+
+		if(validate) {
+			System.out.println("valid");
+			int uid = new UserDaoImpl().loginReturnID(username,password);
+			User u =  new UserDaoImpl().loginReturnPartial(username,password);
+	
+			out.println("Welcome, "+u.getFirstName()+" "+u.getLastName()+"..User "+uid);
+
+			HttpSession session = request.getSession();
+
+			session.setAttribute("firstName", u.getFirstName());
+			session.setAttribute("lastName", u.getFirstName());
+			session.setAttribute("roleID", u.getRoleID());
+			session.setAttribute("user", u.getuID());
+			System.out.println("manager:"+u.isManager());
+
+		}else {
+			System.out.println("not valid");
+			out.print("Sorry, username or password error!");
+			request.getRequestDispatcher("login.html").include(request, response);
+		}
+
+		out.close();
+
 	}
 
 

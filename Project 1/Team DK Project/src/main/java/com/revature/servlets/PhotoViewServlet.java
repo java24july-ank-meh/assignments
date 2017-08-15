@@ -37,13 +37,13 @@ import oracle.sql.BLOB;
 /**
  * Servlet implementation class PhototHelper
  */
-public class PhotoServlet extends HttpServlet {
+public class PhotoViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public PhotoServlet() {
+	public PhotoViewServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
