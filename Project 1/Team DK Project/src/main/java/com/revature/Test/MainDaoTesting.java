@@ -17,7 +17,7 @@ public class MainDaoTesting {
 
 	public static void main(String[] args) {
 		ReimbursementDaoImpl rD = new ReimbursementDaoImpl();
-        Reimbursement i = rD.readmyReimburse();
+//        Reimbursement i = rD.readmyReimburse();
 //        System.out.println(i.toString());
 //        String json = new Gson().toJson(i);
 //        System.out.println(json);

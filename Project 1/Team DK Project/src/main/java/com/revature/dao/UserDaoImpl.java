@@ -528,7 +528,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	public User loginReturnPartial(String username, String password) {
-		User u = null;
+		User u = new User();
 		try(Connection conn = ConnectionUtil.getConection()){
 			PreparedStatement pstmt = conn.prepareStatement("Select * FROM WEB_USERS WHERE USER_NAME = ? AND PASS_WORD = ?");
 			pstmt.setString(1, username);
@@ -539,7 +539,7 @@ public class UserDaoImpl implements UserDao {
 				u.setuID(rs.getInt("User_ID"));
 				u.setFirstName(rs.getString("First_Name"));
 				u.setLastName(rs.getString("Last_Name"));
-				u.setRoleID(rs.getInt("Role_ID"));
+				u.setRoleID(rs.getInt("Ur_ID"));
 			}
 						
 		}catch(Exception e) {

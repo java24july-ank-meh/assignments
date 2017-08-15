@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="loginMod">
 <head>
 <meta charset="ISO-8859-1">
 
@@ -18,6 +18,8 @@
 
 <link rel="stylesheet" href="./assets/css/stylesheet1.css">
 
+<script src="./assets/javascript/loginAJS.js"></script>
+
 </head>
 <body>
 
@@ -30,21 +32,23 @@
 
 		<h2 id="loginTitle">Login</h2>
 <br>
-		<form action="login" method="post" class="has-danger mx-auto">
+	<div ng-controller="loginCtrl">
+		<form  class="has-danger mx-auto"  ng-submit="tryLogin()">
 			<!-- searches for login(servlet) and does (do)post method -->
 
 			<label for="username" class="loginLabels">Username: </label> <input type="text"
-				name="username" placeholder="enter your username..."
+				 ng-model="username" name="username" placeholder="enter your username..."
 				class="form-control form-control-md" required autofocus> 
 				
 			<label for="password" class="loginLabels">Password: </label> <input type="password"
-				name="password" placeholder="enter your password..."
+				 ng-model="password" name="password" placeholder="enter your password..."
 				class="form-control form-control-lg" required autofocus> 
 	<br>
 			<input type="submit" value="Login" class="btn btn-success">
 
 		</form>
-		
+		<p>{{username}}, {{password}}</p>
+		</div>
 		<div id="registerButton">
 		<br>
 			<button type="button" class="btn btn-primary">Register</button>
