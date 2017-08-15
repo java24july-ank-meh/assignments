@@ -1,4 +1,4 @@
-window.onload = loadPendReimbs;
+//window.onload = loadPendReimbs;
 
 function submitReimb() {
     let xhttp = new XMLHttpRequest();
@@ -42,7 +42,7 @@ function loadPendReimbs() {
     xhttp.onreadystatechange = function() {
         console.log(this.readyState);
         if (xhttp.readyState === 4 && xhttp.status === 200) {
-        	displayPendReimbTable(JSON.parse(xhttp.responseText));
+        	
         }
     }
     xhttp.open("GET", "ReimbServlet", true);

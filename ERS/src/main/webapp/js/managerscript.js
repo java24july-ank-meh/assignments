@@ -17,13 +17,16 @@ function displayTable(rJSON) {
         for (let j = 0; j < rJSON[i].pendingReimbs.length; j++) {
             table = document.getElementById("emptable");
             row = table.insertRow();
-            row.setAttribute("data-toggle", "collapse");
-            row.setAttribute("data-target", "#entry" + i + j);//input for loop number here
-            row.setAttribute("class", "accordian-toggle");
+            cell = row.insertCell();
+            cell.innerHTML = "<button class=\"btn btn-default btn-xs\" data-toggle=\"collapse\" data-target=\"#entry"+i+j+"\" class=\"accordion-toggle\"><span class=\"glyphicon glyphicon-chevron-down\"></span></button></td>";
             cell = row.insertCell();
             cell.innerHTML = rJSON[i].firstname + " " + rJSON[i].lastname;
             cell = row.insertCell();
-            cell.innerHTML = typeType(rJSON[i].pendingReimbs[j].status);
+            cell.innerHTML = rJSON[i].pendingReimbs[j].submitted;
+            cell = row.insertCell();
+            cell.innerHTML = typeType(rJSON[i].pendingReimbs[j].type);
+            cell = row.insertCell();
+            cell.innerHTML = "$"+rJSON[i].pendingReimbs[j].amount;
             cell = row.insertCell();
             cell.innerHTML = "<select id=\"sel"+i+j+"\" class=\"form-control\"><option value=\"2\">Approve</option><option value=\"3\">Disapprove</option></select>";
             cell = row.insertCell();
@@ -32,9 +35,23 @@ function displayTable(rJSON) {
             console.log(document.getElementById("but"+i+j).onclick);
             row = table.insertRow();
             cell = row.insertCell();
-            cell.innerHTML = "<div class=\"accordian-body collapse\" id=\"entry" + i + j + "\"><div class=\"col-md-8\"><p class=bg-info>" + rJSON[i].pendingReimbs[j].description + "</p></div></div>";
+            cell.innerHTML = "<div class=\"accordian-body collapse\" id=\"entry" + i + j + "\"><div class=\"well-lg\"><div class=\"col-md-8\"><p class=bg-info>" + rJSON[i].pendingReimbs[j].description + "</p></div><div class=\"col-md-4\"><p><img id=\"image"+i+j+"\"></p></div></div></div>";
+            var urlCreator = window.URL || window.webkitURL;
+            var imageUrl = urlCreator.createObjectURL(new Blob(rJSON[i].pendingReimbs[j].receipt), {type : 'img/jpeg'});
+            document.getElementById("image"+i+j).src = imageUrl;//"data:image/png;base64," + tostring(rJSON[i].pendingReimbs[j].receipt);
+            
         }
     }
+}
+
+function tostring( bytes ) {
+    var temp = "";
+    //var bytes = new Uint8Array( buffer );
+    var len = bytes.length;
+    for (var i = 0; i < len; i++) {
+        temp += bytes[ i ];
+    }
+    return temp;
 }
 
 function test(message) {

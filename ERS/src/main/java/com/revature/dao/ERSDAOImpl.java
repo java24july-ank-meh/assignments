@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 
 import org.apache.commons.io.IOUtils;
 
@@ -92,6 +93,7 @@ public class ERSDAOImpl implements ERSDAO {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			Blob blob = conn.createBlob();
 			OutputStream out = blob.setBinaryStream(0);
+			
 			IOUtils.copy(fileContent, out);
 			PreparedStatement pstmt = conn.prepareStatement(
 					"INSERT INTO ERS_REIMBURSEMENTS(R_AMOUNT, R_DESCRIPTION, R_RECEIPT, R_SUBMITTED, U_ID_AUTHOR, RT_TYPE, RT_STATUS) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -201,8 +203,9 @@ public class ERSDAOImpl implements ERSDAO {
 				rs.getString(6), rs.getInt(7));
 	}
 
-	private Reimbursement newReimbFromRS(ResultSet rs) throws SQLException {
-		return new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getBlob(4), rs.getDate(5),
+	private Reimbursement newReimbFromRS(ResultSet rs) throws SQLException, IOException {
+		byte[] blobval = Base64.getEncoder().encode(IOUtils.toByteArray(rs.getBlob(4).getBinaryStream()));
+		return new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getString(3), blobval, rs.getDate(5),
 				rs.getDate(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10));
 	}
 

@@ -24,14 +24,13 @@ public class ManagerServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 
 		ArrayList<User> users = ersdao.viewAllEmps();
-
+		
 		for (User u : users) {
 			u.setPendReimbs(ersdao.viewUserReimb(u, 1));
 		}
-
 		Gson gson = new Gson();
 		String rJSON = gson.toJson(users);
-
+		System.out.println(rJSON);
 		// Set up response body for json
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
