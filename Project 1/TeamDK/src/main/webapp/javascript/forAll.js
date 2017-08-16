@@ -18,45 +18,24 @@ angular.module('reimbWebSite').controller('userICtrl', function($scope,$http) {
 			numOfReimb: 10
 		 };
 	
+});
+
+angular.module('reimbWebSite').controller('notAuth', function($scope,$http){
+	
+	$scope.login = function() {
+		$http({
+			method : 'GET',
+			url : 'login',
+			params: {"link":"needauth"}		
+		});
+	};
 	
 });
 
 
-//
-
 angular.module('reimbWebSite').controller('photoCtrl',	function photoCtrl($scope, $http/*, FileUploader*/) {
 	$scope.inputtedNumber;
 	$scope.imageUpload;
-
-//	$scope.uploadPhotoF = function() {
-//		var fd = new FormData();
-//		let image = $scope.imageUpload;
-//		fd.append('file',image);
-//
-//
-//		let numberRID = $scope.inputtedNumber; 
-//	
-//		let rData = {"reimb_id":numberRID};
-//		alert(rData);
-//		alert(JSON.stringify(rData));
-//		
-//		fd.append('rDataStringify',JSON.stringify(rData));
-//
-//		alert("fd "+fd);
-//
-//		$http.post('uploadPhoto', fd, {
-//            transformRequest: angular.identity,
-//            headers: { 'Content-Type': undefined }
-//		}).success(function(status,response) {
-////			alert(status);
-//			console.log('success', response);
-//		}).error(function(status, error) {
-////			alert(status + "/ " + error);
-//			 console.log('error', response);
-//		});
-//
-//	};
-	
 });
 
 angular.module('reimbWebSite').directive("photoin", [ function() {
@@ -78,3 +57,5 @@ angular.module('reimbWebSite').directive("photoin", [ function() {
 		}
 	}
 }]);
+
+//document.onload authenticate

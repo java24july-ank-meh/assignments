@@ -14,8 +14,19 @@ function closeNav() {
 
 angular.module('reimbWebSite').controller('navECtrl', function($scope,$http) {
 
-	$scope.user = $rootScope.user;
-	let un = $scope.user.username;
+	function authorize(){
+	
+		$rootScope.user = function() {
+			$http({
+				method : 'GET',
+				url : 'user'	
+			});
+		};
+		
+	}
+	
+//	$scope.user = $rootScope.user;
+//	let un = $scope.user.username;
 	
 	$scope.empinfo = function() {
 		$http({
@@ -64,5 +75,7 @@ angular.module('reimbWebSite').controller('navECtrl', function($scope,$http) {
 			params: {"link":"photo"}		
 		});
 	};
+	
+
 	
 });

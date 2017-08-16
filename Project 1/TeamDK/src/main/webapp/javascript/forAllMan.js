@@ -14,10 +14,10 @@ function closeNav() {
 
 angular.module('reimbWebSite').controller('navMCtrl', function($scope,$rootScope,$http) {
 
-	$scope.user = $rootScope.user;
-	if($scope.user){
-		var un = $scope.user.username;
-	}
+//	$scope.user = $rootScope.user;
+//	if($scope.user){
+//		var un = $scope.user.username;
+//	}
 
 	$scope.maninfo = function() {
 		$http({

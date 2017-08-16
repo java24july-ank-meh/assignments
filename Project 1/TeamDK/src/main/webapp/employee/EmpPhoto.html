@@ -18,33 +18,68 @@
 <link rel="stylesheet" href="..\css\employeeCSS.css">
 
 <script src="..\javascript\forAll.js"></script>
+<script src="..\javascript\forAllEmp.js"></script>
 
 </head>
 <body ng-app="reimbWebSite">
-	<div>
-		<form action="photo" method="post" enctype="multipart/form-data">
-			<table>
-				<tr>
-					<td>Enter Description :</td>
-					<td><input type="text" name="desc" /></td>
-				</tr>
-				<tr>
-					<td>Select Photo</td>
-					<td><input type="file" ng-model="imageupload"
-						photoin="imageUpload" name="file" />
-				</tr>
-			</table>
-			<p />
-			<input type="submit" value="Upload File" />
-			<br /> <br />
-				<img src="{{imageUpload}}" width="100" height="50"
-				alt="Image preview..."><br />
-			<p>Image dataURI:</p>
-			<pre>{{imageUpload}}</pre>
-			<br />
-			<br /> 
-			
-		</form>
+
+	<div id="mySidenav" class="sidenav" ng-controller="navECtrl">
+		<a href="javascript:void(0)" style="font-size: 30px;" class="closebtn"
+			onclick="closeNav()">&times;</a>
+		<ul style="margin-right: 20%">
+			<form action="pages">
+				<li><a ng-click="emphome()">Home</a></li>
+				<li><a>My Reimbursements</a>
+					<ul id="ddown" class="dropdown">
+						<dl>
+							<a ng-click="myreimbs()">All Reimbursements</a>
+						</dl>
+
+					</ul></li>
+
+				<li><a>Information</a>
+					<ul class="dropdown" style="margin-right: 20%">
+						<dl>
+							<a ng-click="empinfo()">My Information</a>
+						</dl>
+
+					</ul></li>
+			</form>
+			<a ng-click="logout()" style="margin-bottom: 0%">Logout</a>
+	</div>
+	<div id="main">
+		<h1 id="emptitle" class="page-header" style="margin-top: 0;">
+			<img alt="#logo" src="">Company
+		</h1>
+		<span style="font-size: 25px; cursor: pointer; align-content: right"
+			onclick="openNav()">&#9776; Menu</span>
+
+		<div id="loginContainer" class="container ">
+			<div id="loginJumbotron" class="jumbotron-fluid">
+
+				<form action="photo" method="post" enctype="multipart/form-data">
+					<table>
+						<tr>
+							<td>Enter Description :</td>
+							<td><input type="text" name="desc" /></td>
+						</tr>
+						<tr>
+							<td>Select Photo</td>
+							<td><input type="file" ng-model="imageupload"
+								photoin="imageUpload" name="file" />
+						</tr>
+					</table>
+					<p />
+					<input type="submit" value="Upload File" /> <br /> <br /> <img
+						src="{{imageUpload}}" width="100" height="50"
+						alt="Image preview..."><br />
+					<p>Image dataURI:</p>
+					<pre>{{imageUpload}}</pre>
+					<br /> <br />
+
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

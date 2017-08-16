@@ -21,35 +21,35 @@
 
 </head>
 
-<body>
+<body ng-app="reimbWebSite">
 
 
-	<div id="mySidenav" class="sidenav">
+	<div id="mySidenav" class="sidenav" ng-controller="navECtrl">
 		<a href="javascript:void(0)" style="font-size: 30px;" class="closebtn"
 			onclick="closeNav()">&times;</a>
 		<ul style="margin-right: 20%">
 			<form action="pages">
-				<li><a href="emphomepage.html">Home</a></li>
-				<li><a href="#">Reimbursements</a>
+				<li><a ng-click="emphome()">Home</a></li>
+				<li><a>My Reimbursements</a>
 					<ul id="ddown" class="dropdown">
 				<dl>
-						<a href="Employee_SubmitRequest.html">Requests</a>
+						<a ng-click="myreimbs()">All Reimbursements</a>
 					</dl>
 					<dl>
-						<a href="Employee_ApprovedRequest.html">Approvals</a>
+						<a ng-click="()">Approvals</a>
 					</dl>
 
 					</ul></li>
 
-				<li><a href="#">Information</a>
+				<li><a>Information</a>
 					<ul class="dropdown" style="margin-right: 20%">
 						<dl>
-							<a href="#">Employee Information</a>
+							<a ng-click="empinfo()">My Information</a>
 						</dl>
 
 					</ul></li>
 			</form>
-			<a href="# " style="margin-bottom: 0%">Logout</a>
+			<a ng-click="logout()" style="margin-bottom: 0%">Logout</a>
 	</div>
 
 	<div id="main">
