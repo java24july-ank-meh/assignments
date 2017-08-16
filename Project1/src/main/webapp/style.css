@@ -1,0 +1,76 @@
+body{
+
+	font: 15px/1.5 Arial, Helvetica, sans-serif;
+	background-color: #8080ff;
+	margin: auto;
+}
+h1 {
+	padding: 20;
+	text-align: center;
+}
+form{
+	text-align: center;
+}
+.container{
+	width: 80%;
+	margin: auto;
+	overflow: hidden;
+}
+ul{
+	
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0;
+	
+}
+header{
+	background: #303835;
+	color: #ffffff;
+	padding-top: 15px;
+	margin-left: 0;
+	margin-right: 0;
+	min-height: 70px;
+	border-bottom: #000000;
+}
+
+header a{
+	color: #ffffff;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 16px;
+	
+}
+
+header li{
+	float: left;
+	display: inline;
+	padding: 0 20px 0 20px;
+}
+
+/*id with #*/
+header #branding{
+	float: left;
+}
+
+header #branding h1{
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+header .highlight, header .current a {
+	color: #e6202f;
+	font-weight: bold;
+}
+
+header a:hover{
+	color: #cccccc;
+	font-weight: bold;
+}
+table {
+	background: #303835;
+	align: center;
+}
+td {
+	color: #ffffff;
+}

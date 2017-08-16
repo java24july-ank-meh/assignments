@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel= "stylesheet" href="style.css">
+<meta charset="ISO-8859-1">
+<title>pendingReimbursements</title>
+</head>
+<script>
+function pendingReimbursements() {
+	let xhttp = new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function() {
+		console.log(this.readyState);
+		if(xhttp.readyState === 4 && xhttp.status === 200) {
+	        let Data = JSON.parse(xhttp.responseText);
+	        var table = document.getElementById("myDynamicTable");
+	        
+	        table.border='1';
+	       
+	        var tableBody = document.createElement('TBODY');
+	           var tr = document.createElement('TR');
+	           tableBody.appendChild(tr);
+	          
+	               var td1 = document.createElement('TD');
+	               td1.width='150';
+	               td1.appendChild(document.createTextNode("Amount"));
+	               tr.appendChild(td1);
+	               var td2 = document.createElement('TD');
+	               td2.width='300';
+	               td2.appendChild(document.createTextNode("Description"));
+	               tr.appendChild(td2);
+	               var td3 = document.createElement('TD');
+	               td3.width='150';
+	               td3.appendChild(document.createTextNode("Time Submitted"));
+	               tr.appendChild(td3);
+	               var td4 = document.createElement('TD');
+	               td4.width='150';
+	               
+	               td4.appendChild(document.createTextNode("Type"));
+	               tr.appendChild(td4);
+	               
+	        table.appendChild(tableBody);
+	        for (var i=0; i<Data.length; i++){
+	           var tr = document.createElement('TR');
+	           tableBody.appendChild(tr);
+	          
+	               var td1 = document.createElement('TD');
+	               td1.width='150';
+	               td1.appendChild(document.createTextNode(Data[i].amount));
+	               tr.appendChild(td1);
+	               var td2 = document.createElement('TD');
+	               td2.width='300';
+	               td2.appendChild(document.createTextNode(Data[i].description));
+	               tr.appendChild(td2);
+	               var td3 = document.createElement('TD');
+	               td3.width='150';
+	               td3.appendChild(document.createTextNode(Data[i].submitted));
+	               tr.appendChild(td3);
+	               var td4 = document.createElement('TD');
+	               td4.width='150';
+	               
+	               var temp = "";
+	               if(Data[i].type === 1){
+	            	   temp="Vacation";
+	               }
+	            	if(Data[i].type === 2){
+	            		temp = "Damages";
+	            	}
+	            	if(Data[i].type === 3){
+	    	       		temp = "Gas";
+	            	}
+	               td4.appendChild(document.createTextNode(temp));
+	               tr.appendChild(td4);
+	        }
+		}
+	}
+	xhttp.open("POST", "UserPendingReimbursements", true);
+	xhttp.send();
+}
+
+</script>
+
+<body onload="pendingReimbursements()">
+	<header>
+		<div>
+			<div>
+				<h1>
+					Welcome to the Employee Reimbursement System
+				</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="employeeHomepage.html">Home</a></li>
+					<li><a href="submitRequest.html">Submit Reimbursement Request</a></li>
+					<li><a href="pendingReimbursements.html">Pending Reimbursements</a></li>
+					<li><a href="resolvedReimbursements.html">Resolved Reimbursements</a></li>
+					<li><a href="profile.html">My Profile</a></li>
+					<li><a href="index.html">Logout</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	</br>
+	<table id ="myDynamicTable">
+	</table>
+</body>
+</html>

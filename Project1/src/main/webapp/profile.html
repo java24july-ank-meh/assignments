@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel= "stylesheet" href="style.css">
+<meta charset="ISO-8859-1">
+<title>profile</title>
+</head>
+<script>
+
+function userInfo() {
+	let xhttp = new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function() {
+		console.log(this.readyState);
+		if(xhttp.readyState === 4 && xhttp.status === 200) {         
+			        var Data = JSON.parse(xhttp.responseText);
+			        document.getElementById("user").innerHTML = Data.username;
+			        document.getElementById("password").innerHTML = Data.password;
+			        document.getElementById("first").innerHTML = Data.fName;
+			        document.getElementById("last").innerHTML = Data.lName;
+			        document.getElementById("email").innerHTML = Data.email;
+		}
+	}
+	
+	xhttp.open("POST", "ViewUserInfoServlet", true);
+	xhttp.send();
+}
+</script>
+<body onload="userInfo()">
+	<header>
+		<div>
+			<div>
+				<h1>
+					Welcome to the Employee Reimbursement System
+				</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="employeeHomepage.html">Home</a></li>
+					<li><a href="submitRequest.html">Submit Reimbursement Request</a></li>
+					<li><a href="pendingReimbursements.html">Pending Reimbursements</a></li>
+					<li><a href="resolvedReimbursements.html">Resolved Reimbursements</a></li>
+					<li><a href="profile.html">My Profile</a></li>
+					<li><a href="index.html">Logout</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	</br>
+	<ul>
+		<li>Username: <span name = "user" id="user"></span></li>
+		<li>Password: <span name = "pass" id="password"></span></li>
+		<li>First Name: <span name ="first" id="first"></span></li>
+		<li>Last Name: <span name="last" id="last"></span></li>
+		<li>Email: <span name="em" id="email"></span></li>
+	</ul>
+	</br>
+	<h2>Update Information</h2>
+	<form method = "post" action="UpdateUser">
+		<input name="username" placeholder="Enter a new username">
+		<input name="password" placeholder="Enter a new password">
+		<input name="fName" placeholder="Enter a new  first name">
+		<input name="lName" placeholder="Enter a new last name">
+		<input name="email" placeholder="Enter a new Email">
+		<button type="submit">Submit</button>
+	</form>
+	</div>
+</body>
+</html>

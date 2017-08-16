@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel= "stylesheet" href="style.css">
+<meta charset="ISO-8859-1">
+<title>employees</title>
+</head>
+<script>
+
+function viewEmployees() {
+let xhttp = new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function() {
+	console.log(this.readyState);
+	if(xhttp.readyState === 4 && xhttp.status === 200) {
+		let Data = JSON.parse(xhttp.responseText);
+	        var table = document.getElementById("myDynamicTable");
+	        
+	        table.border='1';
+	       
+	        var tableBody = document.createElement('TBODY');
+	        table.appendChild(tableBody);
+	        
+	        var tr = document.createElement('TR');
+	           tableBody.appendChild(tr);
+	          
+	               var td1 = document.createElement('TD');
+	               td1.width='75';
+	               td1.appendChild(document.createTextNode("Username"));
+	               tr.appendChild(td1);
+	               var td2 = document.createElement('TD');
+	               td2.width='75';
+	               td2.appendChild(document.createTextNode("First Name"));
+	               tr.appendChild(td2);
+	               var td4 = document.createElement('TD');
+	               td4.width='75';
+	               td4.appendChild(document.createTextNode("Last Name"));
+	               tr.appendChild(td4);
+	               var td5 = document.createElement('TD');
+	               td5.width='75';
+	               td5.appendChild(document.createTextNode("Email"));
+	               tr.appendChild(td5);
+	        
+	        for (var i=0; i<Data.length; i++){
+	           var tr = document.createElement('TR');
+	           tableBody.appendChild(tr);
+	          
+	               var td1 = document.createElement('TD');
+	               td1.width='75';
+	               td1.appendChild(document.createTextNode(Data[i].username));
+	               tr.appendChild(td1);
+	               var td2 = document.createElement('TD');
+	               td2.width='75';
+	               td2.appendChild(document.createTextNode(Data[i].fName));
+	               tr.appendChild(td2);
+	               var td4 = document.createElement('TD');
+	               td4.width='75';
+	               td4.appendChild(document.createTextNode(Data[i].lName));
+	               tr.appendChild(td4);
+	               var td5 = document.createElement('TD');
+	               td5.width='75';
+	               td5.appendChild(document.createTextNode(Data[i].email));
+	               tr.appendChild(td5);
+	               
+	               var btn = document.createElement('BUTTON');
+	               btn.innerHTML="View Employee";
+	               btn.addEventListener ("click", function() {
+	            	   alert("did something");
+	               });
+	               var td6 = document.createElement('TD');
+	               td6.width='75';
+	               td6.appendChild(btn);
+	               tr.appendChild(td6);
+	               
+	               
+	        }
+	       		
+	        
+		}
+}
+xhttp.open("POST", "ViewEmployees", true);
+xhttp.send();
+}
+</script>
+<body onload="viewEmployees()">
+	<header>
+		<div>
+			<div>
+				<h1>
+					Welcome to the Employee Reimbursement Management System
+				</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="managerHomepage.html">Home</a></li>
+					<li><a href="pendingRequests.html">Pending Requests</a></li>
+					<li><a href="resolvedRequests.html">Resolved Requests</a></li>
+					<li><a href="employees.html">Employees</a></li>
+					<li><a href="index.html">Logout</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<br/>
+	<table id ="myDynamicTable"></table>
+</body>
+</html>

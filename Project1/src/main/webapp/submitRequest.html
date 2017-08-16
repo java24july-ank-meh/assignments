@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel= "stylesheet" href="style.css">
+<meta charset="ISO-8859-1">
+<title>submitRequest</title>
+</head>
+<body>
+	<header>
+		<div>
+			<div>
+				<h1>
+					Welcome to the Employee Reimbursement System
+				</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="employeeHomepage.html">Home</a></li>
+					<li><a href="submitRequest.html">Submit Reimbursement Request</a></li>
+					<li><a href="pendingReimbursements.html">Pending Reimbursements</a></li>
+					<li><a href="resolvedReimbursements.html">Resolved Reimbursements</a></li>
+					<li><a href="profile.html">My Profile</a></li>
+					<li><a href="index.html">Logout</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	</br>
+	<h1>New Request</h1>
+	<form method = "post" action="reimbursementrequest">
+		<input name="amount" placeholder="Enter amount">
+		<input name="description" placeholder="Enter a brief description">
+		<select name="type">
+    		<option value="gas">Gas</option>
+    		<option value="damages">Damages</option>
+    		<option value="vacation" selected>Vacation</option>
+  		</select>
+		<button type="submit">Submit Request</button>
+	</form>
+	
+</body>
+</html>
