@@ -4,19 +4,7 @@
 
 angular.module('reimbWebSite', []);
 
-angular.module('reimbWebSite').controller('navMCtrl', function($scope,$http) {
 
-	$scope.maninfo = function() {
-		$http({
-			method : 'GET',
-			url : 'manager',
-			params: {"link":"info"}		
-		});
-	};
-
-
-
-});
 
 angular.module('reimbWebSite').controller('userICtrl', function($scope,$http) {
 

@@ -4,7 +4,46 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
+<body ng-app="reimbWebSite">
 
+<div id="mySidenav" class="sidenav" ng-controller="navMCtrl">
+		<a href="javascript:void(0)" style="font-size: 30px;" class="closebtn"
+			onclick="closeNav()">&times;</a>
+		<ul style="margin-right: 20%">
+			<li><a href="ManHomepage.html"ng-click="manhome()">Home</a></li>
+			<li><a ng-click="manviewallreim()">Reimbursements</a>
+				<ul id="ddown" class="dropdown">
+					<dl>
+						<a ng-click="allReimbs()">Employees' Reimbursements</a>
+					</dl>
+					<dl>
+						<a ng-click="myreimbs()">Manager Reimbursements</a>
+					</dl>
+				</ul></li>
+
+			<li><a href="#">Information</a>
+				<ul class="dropdown" style="margin-right: 20%">
+					<dl>
+						<a ng-click="allemps()">Employees' Information</a>
+					</dl>
+					<dl>
+						<a ng-click="maninfo()">Manager Information</a>
+					</dl>
+				</ul></li>
+
+			<a ng-click="maninfo()">Logout</a>
+			</ul>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>

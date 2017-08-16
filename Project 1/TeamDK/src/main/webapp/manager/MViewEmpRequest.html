@@ -21,39 +21,38 @@
 <link rel="stylesheet" href="..\css\cleansidebar.css">
 
 </head>
+<body ng-app="reimbWebSite">
 
-<body>
-
-
-	<div id="mySidenav" class="sidenav">
+<div id="mySidenav" class="sidenav" ng-controller="navMCtrl">
 		<a href="javascript:void(0)" style="font-size: 30px;" class="closebtn"
 			onclick="closeNav()">&times;</a>
 		<ul style="margin-right: 20%">
-			<li><a href="ManHomepage.html"ng-click="manhomepage()">Home</a></li>
+			<li><a href="ManHomepage.html"ng-click="manhome()">Home</a></li>
 			<li><a ng-click="manviewallreim()">Reimbursements</a>
 				<ul id="ddown" class="dropdown">
 					<dl>
-						<a href="MViewEmpRequests.html"ng-click="manviewallreim()">Employee Requests</a>
+						<a ng-click="allReimbs()">Employees' Reimbursements</a>
 					</dl>
 					<dl>
-						<a href="ManApprovals.html"ng-click="manreim()">Managment Approvals</a>
+						<a ng-click="myreimbs()">Manager Reimbursements</a>
 					</dl>
 				</ul></li>
 
 			<li><a href="#">Information</a>
 				<ul class="dropdown" style="margin-right: 20%">
 					<dl>
-						<a href="MViewAllEmps.html"ng-click="manallemployee()">Employee
-							Information</a>
+						<a ng-click="allemps()">Employees' Information</a>
 					</dl>
 					<dl>
-						<a href="ManInfo.html"ng-click="maninfo()">Manager Information</a>
+						<a ng-click="maninfo()">Manager Information</a>
 					</dl>
 				</ul></li>
 
-			<a href="# " style="margin-bottom: 0%">Logout</a>
+			<a ng-click="maninfo()">Logout</a>
+			</ul>
 	</div>
-
+	
+	
 	<div id="main">
 		<h1 id="emptitle" class="page-header" style="margin-top: 0;">Manager
 			- Employee Requests</h1>
