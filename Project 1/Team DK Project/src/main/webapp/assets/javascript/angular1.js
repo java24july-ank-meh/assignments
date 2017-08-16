@@ -71,11 +71,6 @@ myWebApp.controller('loginCtrl', function loginCtrl($scope,$http) {
 
 });
 
-
-
-
-
-
 myWebApp.controller('photoCtrl',	function photoCtrl($scope, $http/*, FileUploader*/) {
 	$scope.inputtedNumber;
 	$scope.imageUpload;
@@ -204,41 +199,34 @@ myWebApp.controller('viewReimbCtrl', function viewReimbCtrl($scope,$http) {
 	
 });
 
+myWebApp.controller('ReimbursementCtrl', function ReimbursementCtrl($scope,$http) {
+
+	$scope.getReimbursementFromServerGet = function() {
+		$http({
+			method : 'Post',
+			url : '/reimbursementList'
+		}).success(function(data, status, headers, config) {
+			$scope.person = data;
+		}).error(function(data, status, headers, config) {
+
+		});
+	};
+
+	$scope.updateRiembursementServerGet = function() {
+		$http({
+			method : 'Get',
+			url : '/UpdateServlet'
+		}).success(function(data, status, headers, config) {
+			$scope.person = data;
+		}).error(function(data, status, headers, config) {
+
+		});
+	};
 
 
 
 
-});
-};
-
-$scope.getReimbursementFromServerGet = function() {
-	$http({
-		method : 'Get',
-		url : 'reimbursementList'
-	}).success(function(data, status, headers, config) {
-		$scope.reimbursement = data;
-	}).error(function(data, status, headers, config) {
-
-	});
-};
-
-$scope.updateReimbursementToServer = function() {
-	let dataU = angular.toJson($scope.newUser);
-	alert(dataU);
-
-	$http({
-		method : 'Get',
-		url : 'user' /* ?data='+dataU */,
-		data : dataU
-	}).success(function(status) {
-		alert(status);
-	}).error(function(status, error) {
-		alert(status + "/ " + error);
-	});
-
-};
 
 });
-
 
 
