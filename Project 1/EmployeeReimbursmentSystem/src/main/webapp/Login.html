@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <title>Working Title, LLC. - Employee Reimbursement</title>
+	    <meta name="author" content="Eric Hontz & Vince Commero">
+	    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Black">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="./css/loginstyle.css">
+	</head>
+
+	<body>
+		<div class='bckgrnd'>
+			<video loop muted autoplay poster="./assets/poster.png" class='bckgrnd_video'>
+				<source src="./assets/background.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+	    <header>
+	    	<div class="page-header" id="title_container">
+	    		<div style="background:transparent !important">
+	                <h1 id="title_text">Working Title, LLC</h1>
+	            </div>
+	        </div>
+	    </header>
+	
+	
+	    <section id="login_section">
+	        <div class="container">
+	        	<div id="login_header">
+		        	<h3>Employee Reimbursement System</h3><br/>
+		            <h4>Login</h4>
+	            </div>
+	            
+	            <div id="login_form">
+	                <span style="color: white;">Username: </span><input type="text" placeholder="Username" id="username">
+	                <span style="color: white;">Password: </span><input type="password" placeholder="Enter Password" id="password"/>
+	                <button type="button" class="btn btn-primary btn-sm" onclick="loginFunc()">Log In</button>
+	            </div>
+	            <p id="login_status_display"></p>
+	        </div>
+	    </section>
+	
+	    <footer id="credits">
+	        <div class="page-footer">
+	        	<p>Working Title, LLC - Copyright &copy; 2017</p>
+	        </div>
+	    </footer>   
+		<script src="js/login.js"></script>
+	</body>
+</html>

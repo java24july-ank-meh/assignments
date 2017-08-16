@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Profile</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Black">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	</head>
+	<body>
+		<header class="page-header">
+			<button type="button" class="btn btn-default" id="home-btn" onclick="window.location.href = 'EmpHome.html'">Home</button>
+			<h1><span id="username-text"></span>'s User Profile</h1>
+		</header>
+		<div id="profile-container">
+			<ul class="list-group">
+				<li class="list-group-item" id="firstname-item">Firstname: <span id="firstname-text"></span></li>
+				<li class="list-group-item" id="lastname-item">Lastname: <span id="lastname-text"></span></li>
+				<li class="list-group-item" id="email-item">Email: <span id="email-text"></span></li>
+				<li class="list-group-item" id="role-item">Role: <span id="role-text"></span></li>
+			</ul>
+		</div>
+	    <button type="submit" class="button_1">Update Profile</button>
+		
+		<script src="js/profile.js"></script>
+	</body>
+</html>

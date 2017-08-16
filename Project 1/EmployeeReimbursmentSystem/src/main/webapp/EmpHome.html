@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Employee Home</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Black">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	</head>
+	<body>
+	
+		<header id="emp-header" class="page-header">
+			<button type="button" class="btn btn-danger btn-xs" id="logout-btn" onclick="logoutFunc()">Logout</button>
+			<h1>Employee Home</h1>
+	        <h2 id="welcome-message">Welcome, <span id="user-greeting"></span>!</h2>
+		</header>
+	    <section id="newsletter">
+	        <div class="container">
+	            
+	            <div class="btn-group btn-group-lg" role="group" aria-label="...">
+					<button type="button" class="btn btn-default" id="view-info-btn" onclick="window.location.href = 'Profile.html'">View Profile</button>
+					<button type="button" class="btn btn-default" id="submit-req-btn" onclick="window.location.href = 'Submit.html'">Submit Request</button>
+					<button type="button" class="btn btn-default" id="view-requests-btn" onclick="window.location.href = 'EmpRequests.html'">View Reimbursement Requests</button>
+	        	</div>
+	        </div>
+	     </section>
+		<script src="js/emphome.js"></script>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>View Reimbursement Requests</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Black">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	</head>
+	<body>
+		<header class="page-header">
+			<button type="button" class="btn btn-default" id="home-btn" onclick="window.location.href='EmpHome.html'">Home</button>
+			<h1><span id="user-greeting"></span>'s Reimbursement Requests</h1>
+		</header>
+	    <table class="table table-striped">
+	    	<thead>
+		    	<tr>
+		    		<th>Request ID</th>
+		    		<th>Amount</th>
+		    		<th>Type</th>
+		    		<th>Description</th>
+		    		<th>Status</th>
+		    	</tr>
+		    </thead>
+		    <tbody id="requests_table">
+		    </tbody>
+	    </table>
+	    <script src="js/emprequests.js"></script>
+	</body>
+</html>

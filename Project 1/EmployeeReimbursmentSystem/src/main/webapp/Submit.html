@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Submit Reimbursement Request</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Black">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	</head>
+	<body>
+	    <header class="page-header">
+	    	<button type="button" class="btn btn-default" id="home-btn" onclick="window.location.href = 'EmpHome.html'">Home</button>
+	    	<h1>Submit Reimbursement Request</h1>
+	    </header>
+	    <form>
+	    	<div class="form-group">
+	    		<label for="inputAmount">Amount</label>
+	    		<input class="form-control" id="inputAmount" type="number" min="0" step="0.01">
+	    	</div>
+	    	<div class="form-group">
+	    		<label for="inputDesc">Description</label>
+	    		<textarea class="form-control" id="inputDesc" rows="3"></textarea>
+	    	</div>
+	    	<div class="form-group">
+	    		<label for="inputImg">Receipt Image</label>
+	    		<input class="form-control" id="inputImg" type="file" accept=".png,.jpg,.jpeg,.gif">
+	    	</div>
+	    	<div class="form-group">
+	    		<label for="inputType">Type</label>
+	    		<select class="form-control" id="inputType">
+	    			<option>Travel</option>
+	    			<option>Materials</option>
+	    			<option>Licensing or Certification</option>
+	    			<option>Other</option>
+	    		</select>
+	    	</div>
+	    	<div class="form-group">
+	    		<button class="btn btn-submit" type="button" id="formSubmit" onclick="submitFunc()">Submit</button>
+	    	</div>
+	    </form>
+	    <script src="js/submit.js"></script>
+	</body>
+</html>
