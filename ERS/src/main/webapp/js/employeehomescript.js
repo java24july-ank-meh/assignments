@@ -1,4 +1,4 @@
-//window.onload = loadPendReimbs;
+window.onload = loadPendReimbs;
 
 function submitReimb() {
     let xhttp = new XMLHttpRequest();
@@ -50,7 +50,7 @@ function loadPendReimbs() {
         	document.getElementById("damount").innerHTML = "$"+reimb.amount;
         	document.getElementById("ddescription").innerHTML = reimb.description;
         	document.getElementById("dstatus").innerHTML = statusType(reimb.status);
-        	dovument.getElementById("navname").innerHTML = rJSON.firstname+" "+rJSON.lastname;
+        	document.getElementById("navname").innerHTML = rJSON.firstname+" "+rJSON.lastname;
         }
     }
     xhttp.open("GET", "ReimbServlet", true);

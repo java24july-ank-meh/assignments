@@ -9,16 +9,54 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="employeehomestyle.css">
+    <link rel="stylesheet" href="css/employeehomestyle.css">
 </head>
 
 <body onload="loadEmp();">
-    <div class="jumbotron">
-        <p>Update Profile</p>
-    </div>
+    <nav class="navbar navbar-default navabar-fixed top">
+            <!-- Container to take the width of the screen -->
+            <div class=" content container">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
+                                <span class="sr-only">Toggle Naviagtion</span>
+                                <span class "icon bar"></span>
+                                <span class "icon bar"></span>
+                                <span class "icon bar"></span>
+                            </button>
+                    <a id="homelink" href='#' class="navbar-brand"> The Re-Up Company
+                            <!--<img alt ="Brand" src = "" > -->
+                            </a>
+                </div>
+                <div class="collapse navbar-collapse" id="collapse" aria-expanded="false" style="height: 1px;">
+                    <!-- Meun Items-->
+                    <ul class="nav navbar-nav ">
+                        <li><a href="# ">Reimbursement History</a></li>
+                        <li><a href="updateemployee.html ">Update Info</a></li>
+
+                        <!--Drop Down meun -->
+                        <li class="dropdown ">
+                            <a href="# " class="dropdown-toggle " data-toggle="dropdown "> My Profile <span class="caret "></span></a>
+                            <ul class="dropdown-menu ">
+                                <li><a href=" ">Update Info</a></li>
+                                <li><a href="# ">Photos</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-right " role="search ">
+                        <div class="form-group ">
+                            <p class="navbar-text " id="navname">Employee Name</p>
+                        </div>
+                        <button type="button" onclick="logOut()" class="btn btn-default navbar-btn ">Log Out</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
     <div class="container">
+    <h1>Update Information</h1>
         <div class="row">
             <section class="col lg-12">
+            <form class="form-horizontal">
                     <div class=" form-group ">
                         <label for="Email " class="col-sm-2 control-label ">Password</label>
                         <div class="col-sm-10 ">
@@ -45,50 +83,14 @@
                     </div>
                     <div class="form-group ">
                         <div class="col-sm-offset-2 col-sm-10 ">
-                            <button onclick="updateEmp()" class="btn btn-default center ">Update Info</button>
+                            <button onclick="updateEmp()" type="button" class="btn btn-default center ">Update Info</button>
                         </div>
                     </div>
                     <p id="updateresult"></p>
+                    </form>
             </section>
         </div>
     </div>
-    <script>
-    function updateEmp() {
-    	let xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			console.log(this.readyState);
-			if (xhttp.readyState === 4 && xhttp.status === 200) {
-				document.getElementById("updateresult").innerHTML = xhttp.responseText;
-				
-			}
-		}
-		let p = document.getElementById("password").value;
-		let f = document.getElementById("firstname").value;
-		let l = document.getElementById("lastname").value;
-		let e = document.getElementById("email").value;
-		xhttp.open("POST", "EmpUpdateServlet", true);
-		xhttp.send(p+":"+f+":"+l+":"+e);
-    }
-    
-    function loadEmp() {
-    	let xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			console.log(this.readyState);
-			if (xhttp.readyState === 4 && xhttp.status === 200) {
-				if (xhttp.responseText === "fail") {
-
-					window.location = "loginpage.html";
-				}
-				let arr = xhttp.responseText.split(":");
-				document.getElementById("password").value = arr[0];
-				document.getElementById("firstname").value = arr[1];
-				document.getElementById("lastname").value = arr[2];
-				document.getElementById("email").value = arr[3];
-			}
-		}
-		xhttp.open("POST", "AuthenticationServlet", true);
-		xhttp.send();
-    }
-    
-    </script>
+    <script src="js/updateemployeescript.js"></script>
+    <script src="js/commonscript.js"></script>
 </body>

@@ -51,4 +51,14 @@
   	<servlet-name>manager</servlet-name>
   	<url-pattern>/ManagerServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>manemplview</servlet-name>
+  	<servlet-class>com.revature.servlet.ManagerEmplReimbServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>manemplview</servlet-name>
+  	<url-pattern>/ManagerEmplReimbServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

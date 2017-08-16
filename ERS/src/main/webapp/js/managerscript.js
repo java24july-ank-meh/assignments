@@ -1,3 +1,21 @@
+window.onload = auth;
+
+function auth() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        console.log(this.readyState);
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+            if (xhttp.responseText === "fail") {
+
+                window.location = "loginpage.html";
+            } else {
+            	loadData();
+            }
+        }
+    }
+    xhttp.open("POST", "AuthenticationServlet", true);
+    xhttp.send("2");
+}
 
 function loadData() {
     let xhttp = new XMLHttpRequest();

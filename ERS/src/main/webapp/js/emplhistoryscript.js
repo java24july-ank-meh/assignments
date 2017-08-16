@@ -1,4 +1,21 @@
-window.onload = loadResReimbs
+window.onload = auth;
+
+function auth() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        console.log(this.readyState);
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+            if (xhttp.responseText === "fail") {
+
+                window.location = "loginpage.html";
+            } else {
+            	loadResReimbs();
+            }
+        }
+    }
+    xhttp.open("POST", "AuthenticationServlet", true);
+    xhttp.send("1");
+}
 
 function loadResReimbs() {
     let xhttp = new XMLHttpRequest();
