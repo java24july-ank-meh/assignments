@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Index</title>
+
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="./css/stylesheet1.css">
+
+</head>
+<body>
+
+	<div id="header">
+		<h1 id="company">"co" Company Name</h1>
+		<hr>
+	</div>
+
+	<div id="loginContainer" class="container ">
+		<div id="loginJumbotron" class="jumbotron-fluid">
+
+			<h2 id="loginTitle">Login</h2>
+			<br>
+			<form class="has-danger" action="login" method="GET">
+				<!-- searches for login(servlet) and does (do)post method -->
+
+				<label for="username" class="loginLabels">Username: </label> <input
+					type="text" name="username" placeholder="enter your username..."
+					required autofocus> 
+					<br>
+					<br>
+				<label for="password"
+					class="loginLabels">Password: </label> <input type="password"
+					name="password" placeholder="enter your password..." required
+					autofocus>
+					 <br>
+					 <br>
+					<input type="submit" value="Login"
+					class="btn btn-success">
+
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</html>
