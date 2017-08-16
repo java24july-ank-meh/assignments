@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.revature.dao.UserDao;
+import com.revature.dao.UserDaoImpl;
+import com.revature.domain.User;
+//import com.revature.dao.UserDao;
+//import com.revature.dao.UserDaoImpl;
+//import com.revature.domain.User;
 import com.revature.utilities.ConnectionUtil;
 
 public class UserById extends HttpServlet {
@@ -23,6 +29,27 @@ public class UserById extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//	String userID = request.getParameter("user");
+//	System.out.println("User id: "+userID);
+//	
+//	userID = "100000";
+//	System.out.println("User id: "+userID);
+//
+//	UserDao uD = new UserDaoImpl();
+//    User personData = uD.readUser(Integer.parseInt(userID));
+//    System.out.println(personData.toString());
+//    String json = new Gson().toJson(personData);
+//    System.out.println("json string-- "+json);
+//    response.setContentType("application/json");
+//    response.getWriter().write(json);
+	
+	
+	
+	
+	
+	
+	
+	
 			throws ServletException, IOException {
 		PreparedStatement prep = null;
 		ResultSet rs = null;
@@ -68,13 +95,22 @@ public class UserById extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String userID = request.getParameter("user");
+		System.out.println("User id: "+userID);
+		
+		userID = "100000";
+		System.out.println("User id: "+userID);
+	
+		UserDao uD = new UserDaoImpl();
+        User personData = uD.readUser(Integer.parseInt(userID));
+        System.out.println(personData.toString());
+        String json = new Gson().toJson(personData);
+        System.out.println("json string-- "+json);
+        response.setContentType("application/json");
+        response.getWriter().write(json);
 		doGet(request, response);
 	}
 
