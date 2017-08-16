@@ -1,150 +1,41 @@
 <!DOCTYPE html>
-<html ng-app="rWebSite">
+<html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Index of Website</title>
+<title>Login</title>
+
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<script src="./assets/javascript/angular1.js"></script>
-<script src="./assets/javascript/forAll.js"></script>
-
+<link rel="stylesheet" href="./assets/css/stylesheet1.css">
 
 </head>
 <body>
-<section ng-hide="true">
-	<div ng-controller="loginCtrl">
-		<div>
-			<button ng-click="getAUserFromServerGet()">Fetch user from
-				server</button>
-			<p>Id : {{person.uID}}</p>
-			<p>First Name : {{person.firstName}}</p>
-			<p>Last Name : {{person.lastName}}</p>
-			<p>Email : {{person.email}}</p>
-			<p>Role id : {{person.roleID}}</p>
-			<p>Manager : {{person.manager}}</p>
-		</div>
-		<br />
-		<div>
 
-			<form name="updateForm" ng-submit="updateUserToServer()">
+	<div id="loginContainer" class="container ">
+		<div id="loginJumbotron" class="jumbotron-fluid">
 
-				<label>New Name</label> <input type="text" id="inputName"
-					class="form-control" ng-model="newUser.name" required /> <br /> <br />
-				<label>New Age</label> <input type="text" id="inputAge"
-					class="form-control" ng-model="newUser.age" /> <br /> <br /> <label>New
-					State</label> <input type="text" id="inputState" class="form-control"
-					ng-model="newUser.state" /> <br /> <br />
-				<button ng-disabled="updateForm.$invalid" class="btn btn-primary">Update</button>
+			<h2 id="loginTitle">Login</h2>
+			<br>
+			<form class="has-danger mx-auto" action="loginrequest" method="POST">
+				<!-- searches for login(servlet) and does (do)post method -->
+
+				<label for="username" class="loginLabels">Username: </label> <input
+					type="text" name="username" placeholder="enter your username..."
+					required autofocus> <label for="password"
+					class="loginLabels">Password: </label> <input type="password"
+					name="password" placeholder="enter your password..." required
+					autofocus> <br> <input type="submit" value="Login"
+					class="btn btn-success">
 
 			</form>
 
 		</div>
-		<br />
 	</div>
-
-	<div ng-controller="photoCtrl">
-		<form ng-submit="uploadPhotoF()" enctype="multipart/form-data">
-			<label>RID</label> <input type="text" ng-model="inputtedNumber" /> <br />
-
-			<label for="exampleInputFile">File input</label><br /> <br /> <input
-				type="file" photoin="imageUpload" ng-model="imageUpload"><br />
-			<!-- will only accept images, 
-		class="form-control-file btn-primary"
-			photoin="imageUpload" accept="image/*"
-			aria-describedby="inputFileHelp"
-			
-				<small id="inputFileHelp" class="form-text text-muted">This is
-			some placeholder block-level help text for the above input. It's a
-			bit lighter and easily wraps to a new line.</small> <br /> <br /> <br /> 
-			-->
-
-
-			<img src="{{imageUpload}}" width="100" height="50"
-				alt="Image preview..."><br />
-			<p>Image dataURI:</p>
-			<pre>{{imageUpload}}</pre>
-			<br />
-			<button class="btn btn-primary" type="submit">Upload</button>
-			<br /> <br /> <br />
-
-			<!-- 
-		  <input type="file" nv-file-select uploader="uploader"/><br/>
-        <ul>
-            <li ng-repeat="item in uploader.queue">
-                Name: <span ng-bind="item.file.name"></span><br/>
-                <button ng-click="item.upload()">upload</button>
-            </li>
-        </ul>
-		
-		<div>
-			<img width='300' height='300' src="photo"></img>
-		</div>
-	-->
-		</form>
-	</div>
-
-	<br />
-	<div ng-controller="viewReimbCtrl">
-		<div>
-			<button ng-click="getAReimbFromServerGet()">Fetch reimb
-				from server</button>
-			<ul>
-				<li>id: {{reimb.rID}}</li>
-				<li>amount: {{reimb.amount}}</li>
-				<li>desc: {{reimb.description}}</li>
-				<li>receipt: <img data-ng-src="{{downloadedImage}}"
-					alt="Image..." /></li>
-				<li>submitted: {{reimb.submitted}}</li>
-				<li>resolved: {{reimb.resloved}}</li>
-				<li>author: {{reimb.authorID}}</li>
-				<li>resolver: {{reimb.resolverID}}</li>
-				<li>type: {{reimb.type}}</li>
-				<li>status: {{reimb.status}}</li>
-			</ul>
-
-		</div>
-
-	</div>
-
-	<br />
-	<div name="thisUploadTry">
-
-		<form action="uploadPhoto" method="post" enctype="multipart/form-data">
-			<table>
-				<tr>
-					<td>Enter Player Name :</td>
-					<td><input type="text" name="rid" /></td>
-				</tr>
-				<tr>
-					<td>Select Photo</td>
-					<td><input type="file" ng-model="imageupload"
-						photoin="imageUpload" name="file" />
-				</tr>
-			</table>
-			<p />
-			<input type="submit" value="Upload File" />
-		</form>
-
-	</div>
-</section>
-
-	<form  class="has-danger mx-auto"  action="loginrequest" method="POST">
-			<!-- searches for login(servlet) and does (do)post method -->
-
-			<label for="username" class="loginLabels">Username: </label> <input type="text"
-				name="username" placeholder="enter your username..."
-				class="form-control form-control-md" required autofocus> 
-				
-			<label for="password" class="loginLabels">Password: </label> <input type="password"
-				name="password" placeholder="enter your password..."
-				class="form-control form-control-lg" required autofocus> 
-	<br>
-			<input type="submit" value="Login" class="btn btn-success">
-
-		</form>
 
 </body>
 </html>

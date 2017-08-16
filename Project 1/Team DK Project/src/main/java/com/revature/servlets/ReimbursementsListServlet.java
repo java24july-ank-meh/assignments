@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
 import com.revature.dao.*;
 import com.revature.domain.*;
 
@@ -34,19 +33,15 @@ public class ReimbursementsListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String author = request.getParameter("U_ID_AUTHOR");
+//		String author = request.getParameter("U_ID_AUTHOR");
 
 		
 		
-		ReimbursementDaoImpl rD = new ReimbursementDaoImpl();
+		ReimbursementDao rD = new ReimbursementDaoImpl();
+		Reimbursement myreimburse =  rD.readReimb(100000);
 		
-		Reimbursement reim = rD.readReimb(Integer.parseInt(author));
-		String json = new Gson().toJson(reim);
+		System.out.println(myreimburse);
 		
-		System.out.println(json);
-		
-        response.setContentType("application/json");
-        response.getWriter().write(json);
 
      }
 
@@ -54,15 +49,7 @@ public class ReimbursementsListServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ReimbursementDao rD = new ReimbursementDaoImpl();
-		List<Reimbursement> mr =  new ArrayList<>();
-		mr.addAll(rD.readAllReimb());
-		String json = new Gson().toJson(mr.toString());
-		json = json.replace("[", "").replace("]", "");
-		System.out.println(json);
-		
-        response.setContentType("application/json");
-        response.getWriter().write(json);
+
 
 		// TODO Auto-generated method stub
 		//old get one reimbursement and put into json
