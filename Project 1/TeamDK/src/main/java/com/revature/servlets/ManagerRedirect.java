@@ -85,13 +85,13 @@ public class ManagerRedirect extends HttpServlet {
 				rd = context.getRequestDispatcher("/manager/ManInfo.html");
 			}else if(link.equals("employees")) {
 				System.out.println("employees");
-				rd = context.getRequestDispatcher("/manager/MViewAllEmps.html");
+				rd = context.getRequestDispatcher("/manager/MViewAllEmp.html");
 			}else if(link.equals("reimbursments")) {
 				System.out.println("reimbursments");
 				rd = context.getRequestDispatcher("/manager/MViewAllRequests.html");
 			}else if(link.equals("myreimbursements")) {
 				System.out.println("myreimbursements");
-				rd = context.getRequestDispatcher("/manager/MyReimbs.html");
+				rd = context.getRequestDispatcher("/manager/MMyReimbs.html");
 				User u2 = new User();
 				u2.setuID(sId);
 				String json01 = new Gson().toJson(u2);

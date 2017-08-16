@@ -28,25 +28,25 @@
 		<a href="javascript:void(0)" style="font-size: 30px;" class="closebtn"
 			onclick="closeNav()">&times;</a>
 		<ul style="margin-right: 20%">
-			<li><a href="Manager_Homepage"ng-click="maninfo">Home</a></li>
-			<li><a href="Manager_AllRequest.html"ng-click="maninfo">Reimbursements</a>
+			<li><a href="ManHomepage.html"ng-click="manhomepage()">Home</a></li>
+			<li><a ng-click="manviewallreim()">Reimbursements</a>
 				<ul id="ddown" class="dropdown">
 					<dl>
-						<a href="MViewEmpRequest.html"ng-click="maninfo">Employee Requests</a>
+						<a href="MViewEmpRequests.html"ng-click="manviewallreim()">Employee Requests</a>
 					</dl>
 					<dl>
-						<a href="ManApprovals.html" ng-click="maninfo">Managment Approvals</a>
+						<a href="ManApprovals.html"ng-click="manreim()">Managment Approvals</a>
 					</dl>
 				</ul></li>
 
 			<li><a href="#">Information</a>
 				<ul class="dropdown" style="margin-right: 20%">
 					<dl>
-						<a href="MVeiwEmp.html"ng-click="maninfo">Employee
+						<a href="MViewAllEmps.html"ng-click="manallemployee()">Employee
 							Information</a>
 					</dl>
 					<dl>
-						<a href="ManInfo.html"ng-click="maninfo">Manager Information</a>
+						<a href="ManInfo.html"ng-click="maninfo()">Manager Information</a>
 					</dl>
 				</ul></li>
 
@@ -127,6 +127,24 @@
             document.getElementById("mySidenav").style.width = "0";
             document.getElementById("main").style.marginLeft = "0";
         }
+        
+        function maninfo() {
+        	$.get("/manager");
+        }
+
+        function manhomepage(){
+        	$.get("/home")
+        }
+        function manallemployee(){
+        	$.get("/home")
+        }
+        function manviewallreim(){
+        	$.get("/reimbursements")
+        }
+        function manreim(){
+        	$.get("/myreimbursements")
+        }
+
 
     </script>
 

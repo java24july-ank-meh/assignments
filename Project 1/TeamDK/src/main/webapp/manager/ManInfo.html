@@ -13,36 +13,48 @@
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="..\assets\css\cleansidebar.css">
+<link rel="stylesheet" href="..\css\cleansidebar.css">
 
 </head>
 
-<body>
+<body ng-app="reimbWebSite">
 
 
-	<div id="mySidenav" class="sidenav">
+	<div id="mySidenav" class="sidenav" ng-controller="navMCtrl">
 		<a href="javascript:void(0)" style="font-size: 30px;" class="closebtn"
 			onclick="closeNav()">&times;</a>
 		<ul style="margin-right: 20%">
-			<li><a href="Manager_Homepage"ng-click="maninfo">Home</a></li>
-			<li><a href="Manager_AllRequest.html"ng-click="maninfo">Reimbursements</a>
+	<li><a href="ManHomepage.html"ng-click="manhomepage()">Home</a></li>
+			<li><a ng-click="manviewallreim()">Reimbursements</a>
 				<ul id="ddown" class="dropdown">
 					<dl>
-						<a href="Manager_EmployeeRequest.html"ng-click="maninfo">Employee Requests</a>
+						<a href="MViewEmpRequests.html"ng-click="manviewallreim()">Employee Requests</a>
 					</dl>
 					<dl>
-						<a href="Management_approvals.html"ng-click="maninfo">Managment Approvals</a>
+						<a href="ManApprovals.html"ng-click="manreim()">Managment Approvals</a>
+
+			<li><a href="ManHomepage.html"ng-click="manhomepage()">Home</a></li>
+			<li><a ng-click="manviewallreim()">Reimbursements</a>
+				<ul id="ddown" class="dropdown">
+					<dl>
+						<a href="MViewEmpRequests.html"ng-click="manviewallreim()">Employee Requests</a>
+					</dl>
+					<dl>
+						<a href="ManApprovals.html"ng-click="manreim()">Managment Approvals</a>
+
 					</dl>
 				</ul></li>
 
 			<li><a href="#">Information</a>
 				<ul class="dropdown" style="margin-right: 20%">
 					<dl>
-						<a href="Manager_Employee_Information.html"ng-click="maninfo">Employee
+
+						<a href="MViewAllEmps.html"ng-click="manallemployee()">Employees
 							Information</a>
 					</dl>
 					<dl>
-						<a href="Manager_Information_Page.html"ng-click="maninfo">Manager Information</a>
+						<a href="ManInfo.html"ng-click="maninfo()">Manager Information</a>
+
 					</dl>
 				</ul></li>
 
@@ -57,40 +69,126 @@
 
 		<hr>
 		<!--This will be user information  -->
-		<div class="jumbotron" style="margin: 8px 8px 8px 8px">
+		<div class="jumbotron" ng-controller="userICtrl">
 			<div class="container">
 				<h2 class="jumboHeader">Home</h2>
 
-			        
-                     <p style="padding-left: 45%">Employee Information</p>
-                     <button style="margin-left: 47%" type="button" class="btn btn-default">Show Employees</button>
-                     
-    </div>
-			
+
+				<p style="padding-left: 45%">Manager Information</p>
+
+				<div>
+					<table id="userInfoTable">
+						<!-- add bootstrap for bordering and stripes and table spacings between rows-->
+						<thead>
+
+							<tr>
+								<td colspan="2">From Company Database</td>
+								<td>Update <input type="checkbox" /></td>
+								<!-- ng-model="" if unchecked nothing, but checked allows for data change -->
+							</tr>
+
+						</thead>
+
+
+						<tbody>
+
+							<tr>
+								<td>User Id:</td>
+								<td colspan="2">{{$scope.user.uID}}</td>
+								<!-- <td>
+            <input type="text" />
+            </td> -->
+							</tr>
+
+							<tr>
+								<td>First Name:</td>
+								<td>{{$scope.user.firstName}}
+								<td>
+								<td><input type="text" ng-model="user.firstName" /></td>
+							</tr>
+
+							<tr>
+								<td>Middle Initial:</td>
+								<td>{{$scope.user.middleInitial}}
+								<td>
+								<td><input type="text" ng-model="user.middleInitial" /></td>
+							</tr>
+
+							<tr>
+								<td>Last Name:</td>
+								<td>{{$scope.user.lastName}}
+								<td>
+								<td><input type="text" ng-model="user.lastName" /></td>
+							</tr>
+
+							<tr>
+								<td>Email:</td>
+								<td>{{$scope.user.email}}
+								<td>
+								<td><input type="text" ng-model="user.email" /></td>
+							</tr>
+
+							<tr>
+								<td>Role Id:</td>
+								<td colspan="2">{{$scope.user.roleID}}
+								<td>
+									<!-- <td>
+            <input type="button" value="Ask for Role Change"/>
+            </td> -->
+							</tr>
+
+							<tr>
+								<td>Number of Requests:</td>
+								<td>{{$scope.user.numOfReimb}}<!-- create this one -->
+								<td>
+								<td><input type="button" value="Submit Request"
+									onclick="goToSubmitRequest()" /></td>
+							</tr>
+
+						</tbody>
+
+						<tfoot>
+						</tfoot>
+
+					</table>
+
+
+				</div>
+
 
 			</div>
 		</div>
-	
+
+</div>
 
 
 
 
+		<script>
+			function openNav() {
+				document.getElementById("mySidenav").style.width = "250px";
+				document.getElementById("main").style.marginLeft = "250px";
+			}
 
+			function closeNav() {
+				document.getElementById("mySidenav").style.width = "0";
+				document.getElementById("main").style.marginLeft = "0";
+			}
 
-	<script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-        }
-
-    </script>
-
-
+		     
+	        function manhomepage(){
+	        	$.get("/home")
+	        }
+	        function manallemployee(){
+	        	$.get("/home")
+	        }
+	        function manviewallreim(){
+	        	$.get("/reimbursements")
+	        }
+	        function manreim(){
+	        	$.get("/myreimbursements")
+	        }
+		</script>
 </body>
 
 </html>

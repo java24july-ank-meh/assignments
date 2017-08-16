@@ -74,9 +74,9 @@ public class EmployeeRedirect extends HttpServlet {
 			}else if(link.equals("submit")) {
 				System.out.println("submit");
 				rd = context.getRequestDispatcher("/employe/EmpSubmit.html");
-			}else if(link.equals("reimbursments")) {
-				System.out.println("reimbursments");
-				rd = context.getRequestDispatcher("/employe/EmpReimbs.html");
+			}else if(link.equals("myreimbursments")) {
+				System.out.println("myreimbursments");
+				rd = context.getRequestDispatcher("/employe/EMyReimbs.html");
 			}else if(link.equals("photo")) {
 				System.out.println("photo");
 				rd = context.getRequestDispatcher("/employee/EmpPhoto.html");

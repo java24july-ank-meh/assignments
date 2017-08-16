@@ -25,3 +25,16 @@ function maninfo() {
 	$.get("/manager");
 }
 
+function manhomepage(){
+	$.get("/home")
+}
+function manallemployee(){
+	$.get("/home")
+}
+function manviewallreim(){
+	$.get("/reimbursements")
+}
+function manreim(){
+	$.get("/myreimbursements")
+}
+
