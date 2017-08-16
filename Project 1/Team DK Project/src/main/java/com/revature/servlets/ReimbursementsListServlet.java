@@ -34,10 +34,14 @@ public class ReimbursementsListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ReimbursementDao rD = new ReimbursementDaoImpl();
-		List<Reimbursement> mr =  new ArrayList<>();
-		mr.addAll(rD.readAllReimb());
-		String json = new Gson().toJson(mr);
+		String author = request.getParameter("U_ID_AUTHOR");
+
+		
+		
+		ReimbursementDaoImpl rD = new ReimbursementDaoImpl();
+		
+		Reimbursement reim = rD.readReimb(Integer.parseInt(author));
+		String json = new Gson().toJson(reim);
 		
 		System.out.println(json);
 		

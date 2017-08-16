@@ -16,10 +16,10 @@ import com.revature.utilities.ConnectionUtil;
 public class ReimbursementDaoImpl implements ReimbursementDao {
 
 	@Override
-	public List<Reimbursement> readAllReimb() {
+	public ArrayList<Reimbursement> readAllReimb() {
 		PreparedStatement pStmt1 = null;
 		ResultSet rs = null;
-		List<Reimbursement> reims = new ArrayList<Reimbursement>();
+		ArrayList<Reimbursement> reims = new ArrayList<Reimbursement>();
 
 		String sql1 = "";
 		try (Connection conn = ConnectionUtil.getConection()) {

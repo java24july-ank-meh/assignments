@@ -22,7 +22,7 @@ public class Reimbursement {
 
 	@Override
 	public String toString() {
-		return "Reimbursement [rID=" + rID + ", amount=" + amount + ", description=" + description + ", receipt="
+		return "["+ "rID=" + rID + ", amount=" + amount + ", description=" + description + ", receipt="
 				+ receipt + ", submitted=" + submitted + ", resolved=" + resolved + ", authorID=" + authorID
 				+ ", resolverID=" + resolverID + ", type=" + type + ", status=" + status + "]";
 	}

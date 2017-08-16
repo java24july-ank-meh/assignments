@@ -4,7 +4,6 @@
   <welcome-file-list>
     <welcome-file>login.html</welcome-file>
   </welcome-file-list>
-
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>com.revature.servlets.LoginServlet</servlet-class>
@@ -13,7 +12,6 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/loginrequest</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>ReimbursementsListServlet</display-name>
@@ -24,18 +22,16 @@
     <servlet-name>ReimbursementsListServlet</servlet-name>
     <url-pattern>/reimbursementList</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>PhotoViewServlet</display-name>
     <servlet-name>PhotoViewServlet</servlet-name>
     <servlet-class>com.revature.servlets.PhotoViewServlet</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>PhotoViewServlet</servlet-name>
     <url-pattern>/photoV</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>PhotoUploadServlet</display-name>
@@ -46,7 +42,6 @@
     <servlet-name>PhotoUploadServlet</servlet-name>
     <url-pattern>/photoU</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>EmployeeListServlet</display-name>
@@ -57,7 +52,6 @@
     <servlet-name>EmployeeListServlet</servlet-name>
     <url-pattern>/employeeList</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>UserReadServlet</display-name>
@@ -68,5 +62,24 @@
     <servlet-name>UserReadServlet</servlet-name>
     <url-pattern>/userR</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>UpdateServlet</display-name>
+    <servlet-name>UpdateServlet</servlet-name>
+    <servlet-class>com.revature.servlets.UpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateServlet</servlet-name>
+    <url-pattern>/UpdateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserById</display-name>
+    <servlet-name>UserById</servlet-name>
+    <servlet-class>com.revature.servlets.UserById</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserById</servlet-name>
+    <url-pattern>/UserById</url-pattern>
+  </servlet-mapping>
 </web-app>
