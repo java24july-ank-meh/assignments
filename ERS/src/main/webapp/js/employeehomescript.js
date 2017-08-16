@@ -30,6 +30,8 @@ function loadEmp() {
             if (xhttp.responseText === "fail") {
 
                 window.location = "loginpage.html";
+            } else {
+            	loadPendReimbs();
             }
         }
     }
@@ -42,7 +44,13 @@ function loadPendReimbs() {
     xhttp.onreadystatechange = function() {
         console.log(this.readyState);
         if (xhttp.readyState === 4 && xhttp.status === 200) {
-        	
+        	rJSON = JSON.parse(xhttp.responseText);
+        	reimb = rJSON.pendingReimbs[rJSON.pendingReimbs.length-1];
+        	document.getElementById("dtype").innerHTML = typeType(reimb.type);
+        	document.getElementById("damount").innerHTML = "$"+reimb.amount;
+        	document.getElementById("ddescription").innerHTML = reimb.description;
+        	document.getElementById("dstatus").innerHTML = statusType(reimb.status);
+        	dovument.getElementById("navname").innerHTML = rJSON.firstname+" "+rJSON.lastname;
         }
     }
     xhttp.open("GET", "ReimbServlet", true);
@@ -64,4 +72,31 @@ function displayPendReimbTable(rJSON) {
         cell.innerHTML = "pending";
         cell = row.insertCell();
 	}
+}
+
+function statusType(num) {
+    switch (num) {
+        case 1:
+            return "Pending";
+        case 2:
+            return "Approved";
+        case 3:
+            return "Denied";
+            return "Unknown";
+    }
+}
+
+function typeType(num) {
+    switch (num) {
+        case 1:
+            return "Medical";
+        case 2:
+            return "Business";
+        case 3:
+            return "Travel";
+        case 4:
+            return "Family";
+        default:
+            return "Unknown";
+    }
 }

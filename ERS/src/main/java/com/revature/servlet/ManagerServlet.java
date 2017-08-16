@@ -30,7 +30,6 @@ public class ManagerServlet extends HttpServlet {
 		}
 		Gson gson = new Gson();
 		String rJSON = gson.toJson(users);
-		System.out.println(rJSON);
 		// Set up response body for json
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");

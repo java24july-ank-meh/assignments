@@ -46,9 +46,9 @@
                 </ul>
                 <form class="navbar-form navbar-right " role="search ">
                     <div class="form-group ">
-                        <p class="navbar-text ">Employee Name</p>
+                        <p class="navbar-text " id="navname">Employee Name</p>
                     </div>
-                    <button type="submit " class="btn btn-default navbar-btn ">Log Out</button>
+                    <button onclick="logOut()" class="btn btn-default navbar-btn ">Log Out</button>
                 </form>
             </div>
         </div>
@@ -105,15 +105,15 @@
                         <div id="remibtable">
                             <dl class="dl-horizontal">
                                 <dt>Type</dt>
-                                <dd>text type</dd>
+                                <dd id="dtype">text type</dd>
                                 <dt>Amount</dt>
-                                <dd>amount text</dd>
+                                <dd id="damount">amount text</dd>
                                 <dt>Description</dt>
-                                <dd> description text</dd>
+                                <dd id=ddescription> description text</dd>
                             </dl>
                             <h5><strong>Status</strong></h5>
                             <div class="well-sm">
-                                <p class="text-center"><strong>NO</strong></p>
+                                <p class="text-center"><strong id="dstatus">NO</strong></p>
                             </div>
                         </div>
                     </div>

@@ -37,7 +37,7 @@ function displayTable(rJSON) {
             cell = row.insertCell();
             cell.setAttribute("colspan", "12");
             cell.setAttribute("class","hiddenRow")
-            cell.innerHTML = "<div class=\"accordian-body collapse\" id=\"entry" + i + j + "\"><div class=\"well-lg\"><div class=\"col-md-8\"><p class=bg-info>" + rJSON[i].pendingReimbs[j].description + "</p></div><div class=\"col-md-4\"><p><img id=\"image"+i+j+"\"></p></div></div></div>";
+            cell.innerHTML = "<div class=\"accordian-body collapse\" id=\"entry" + i + j + "\"><div class=\"well-lg\"><div class=\"col-md-8\"><p class=bg-info>" + rJSON[i].pendingReimbs[j].description + "</p></div><div class=\"col-md-4\"><p><img class=\"img-responsive\" id=\"image"+i+j+"\"></p></div></div></div>";
             //var urlCreator = window.URL || window.webkitURL;
             //var imageUrl = urlCreator.createObjectURL(new Blob([rJSON[i].pendingReimbs[j].receipt]), {type : 'image/png'});
             document.getElementById("image"+i+j).src = "data:image/png;base64," + rJSON[i].pendingReimbs[j].blobString;
