@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoImpl;
 import com.revature.domain.User;

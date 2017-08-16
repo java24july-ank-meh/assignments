@@ -23,25 +23,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/D.Thomas/Downloads/java-json.jar/java-json.jar"/>
-	<classpathentry kind="lib" path="C:/Users/D.Thomas/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="org.eclipse.jst.component.archivename" value="servlet-api-2.5.jar"/>
-			<attribute name="maven.groupId" value="javax.servlet"/>
-			<attribute name="maven.artifactId" value="servlet-api"/>
-			<attribute name="maven.version" value="2.5"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/D.Thomas/.m2/repository/com/oracle/jdbc/ojdbc7/12.1.0.1/ojdbc7-12.1.0.1.jar" sourcepath="/BankApplication">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="com.oracle.jdbc"/>
-			<attribute name="maven.artifactId" value="ojdbc7"/>
-			<attribute name="maven.version" value="12.1.0.1"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
