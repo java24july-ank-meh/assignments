@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="myWebApp">
 
 <head>
 <title>Reimbursement Application</title>
@@ -14,6 +14,7 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="..\assets\css\cleansidebar.css">
+<script src = "..\assets\css\cleansidebar.css"></script>
 
 </head>
 
@@ -58,6 +59,10 @@
 		<hr>
 		<!--This will be user information  -->
 		<div class="jumbotron">
+		<h3 style="margin-left: 45%">List of Employee Requests</h3>
+			<span ng-controller="ReimbursementCtrl">
+			<li ng-bind="getReimbursementFromServerGet"></li>
+			</span>
 
 		</div>
 	</div>
