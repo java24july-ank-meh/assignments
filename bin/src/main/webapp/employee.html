@@ -1,0 +1,208 @@
+
+<div class="row">
+	<ul class="list-group">
+    		<li class="list-group-item">
+		  <div class="row">
+		  
+		  	<div class="col-xs-4">
+	  			<span>Employee</span>
+	  		</div>
+	  		<div class="col-xs-4">
+	  			<span>First Name: {{employee.firstName}}</span>
+	  		</div>
+	  		
+	  		<div class="col-xs-4">
+	  			<span>Last Name: {{employee.lastName}}</span>
+	  		</div>	  
+	  	  </div>	
+  	  	</li>
+	</ul>	
+</div>
+
+<!-- Button trigger modal -->
+<div class="row">
+	<div class="col-sm-6">
+		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newReimbursement">
+		  New Reimbursement
+		</button>
+    </div>
+
+	<div class="col-sm-6">
+		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#employeeProfile">
+		  Employee Profile
+		</button>
+	</div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h6 class="panel-title">Pending Reimbursements</h6>
+	  </div>
+	  <div class="panel-body">
+	    <ul class="list-group" id="pending">
+	    		<li class="list-group-item" ng-repeat="x in pendingReimbursements">
+			  <div class="row">
+		  		
+		  		<div class="col-xs-3">
+		  			<span>Amount: {{x.amount}}</span>
+		  		</div>
+		  		
+		  		<div class="col-xs-3">
+		  			<span>Status: {{x.status}}</span>
+		  		</div>
+		  		
+		  		<button ng-click="downloadImage($event)" name="{{x.id}}" class="btn btn-primary">Image</button>
+		  
+		  	  </div>	
+	  	  	</li>
+		</ul>	
+	  </div>
+	</div>
+</div>	
+	
+<div class="row">
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h6 class="panel-title">Resolved Reimbursements</h6>
+	  </div>
+	  <div class="panel-body">
+	    <ul class="list-group" id="resolved">
+		  <li class="list-group-item" ng-repeat="x in resolvedReimbursements">
+			  <div class="row">
+		  		
+		  		<div class="col-xs-3">
+		  			<span>Amount: {{x.amount}}</span>
+		  		</div>
+		  		
+		  		<div class="col-xs-3">
+		  			<span>Status: {{x.status}}</span>
+		  		</div>
+		  		
+		  		<button ng-click="downloadImage($event)" name="{{x.id}}" class="btn btn-primary">Image</button>
+		  
+		  	  </div>	
+	  	  	</li>
+		</ul>
+    
+		<!-- <li ng-repeat="x in resolvedReimbursements">
+			{{x}}
+		</li> -->	
+	  </div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newReimbursement" tabindex="-1" role="dialog" aria-labelledby="reimbursementLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="reimbursementLabel">Submit New Reimbursement</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/ReimbursementApplication/api/v1/reimbursements" method="post" id="reimbursementForm">
+		
+			<div class="form-group">
+			  <label for="example-number-input" class="col-2 col-form-label">Amount</label>
+			  <div class="col-10">
+			    <input class="form-control" type="number" min="0" value="0" name="amount">
+			  </div>
+			</div>
+			
+		
+			<div class="form-group">
+			  <label for="example-text-input" class="col-2 col-form-label">Description</label>
+			  <div class="col-10">
+			    <input class="form-control" type="text" name="description">
+			  </div>
+			</div>
+			
+			
+			<div class="form-group">
+			  <label for="example-text-input" class="col-2 col-form-label">Receipt</label>
+			  <div class="col-10">
+			    <input class="form-control" type="file" accept="image/*" name="receipt">
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			    <label for="exampleSelect1">Type</label>
+			    <select class="form-control" name="type">
+			      <option>Work</option>
+			      <option>Travel</option>
+			      <option>Materials</option>
+			    </select>
+			  </div>
+			
+			<div class="form-group row">
+		      <div class="col-sm-12">
+		        <button type="submit" class="btn btn-primary">Submit</button>
+		      </div>
+		    </div>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="employeeProfile" tabindex="-1" role="dialog" aria-labelledby="employeeLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="employeeLabel">Employee Profile</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/ReimbursementApplication/api/v1/employees" method="post" id="reimbursementForm">
+		
+			<input type="hidden" name="id" value="{{employee.id}}">
+		
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">Username</label>
+			  <div class="col-10">
+			    <input class="form-control" type="text" name="employeeUserName" value="{{employee.userName}}">
+			  </div>
+			</div>
+			
+		
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">Password</label>
+			  <div class="col-10">
+			    <input class="form-control" type="password" name="password" value="{{employee.password}}">
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">First Name</label>
+			  <div class="col-10">
+			    <input class="form-control" type="text" name="firstName" value="{{employee.firstName}}">
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">Last Name</label>
+			  <div class="col-10">
+			    <input class="form-control" type="text" name="lastName" value={{employee.lastName}}>
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">Email</label>
+			  <div class="col-10">
+			    <input class="form-control" type="email" name="employeeEmail" value={{employee.email}}>
+			  </div>
+			</div>
+			
+			<div class="form-group row">
+		      <div class="col-sm-12">
+		        <button type="submit" class="btn btn-primary">Update</button>
+		      </div>
+		    </div>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>

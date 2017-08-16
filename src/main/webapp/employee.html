@@ -1,0 +1,234 @@
+
+<div class="row">
+	<ul class="list-group">
+    		<li class="list-group-item">
+		  <div class="row">
+		  
+		  	<div class="col-xs-4">
+	  			<span>Employee</span>
+	  		</div>
+	  		<div class="col-xs-4">
+	  			<span>First Name: {{employee.firstName}}</span>
+	  		</div>
+	  		
+	  		<div class="col-xs-4">
+	  			<span>Last Name: {{employee.lastName}}</span>
+	  		</div>	  
+	  	  </div>	
+  	  	</li>
+	</ul>	
+</div>
+
+<!-- Button trigger modal -->
+<div class="row">
+	<div class="col-sm-6">
+		<button type="button" ng-hide="{{manager!==undefined}}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newReimbursement">
+		  New Reimbursement
+		</button>
+    </div>
+
+	<div class="col-sm-6">
+		<button type="button" ng-hide="{{manager!==undefined}}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#employeeProfile">
+		  Employee Profile
+		</button>
+	</div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h6 class="panel-title">Pending Reimbursements</h6>
+	  </div>
+	  <div class="panel-body">
+	    <ul class="list-group" id="pending">
+	    		<li class="list-group-item" ng-repeat="x in pendingReimbursements">
+			  <div class="row">
+		  		
+		  		<div class="col-xs-3">
+		  			<span>Amount: {{x.amount}}</span>
+		  		</div>
+		  		
+		  		<div class="col-xs-3">
+		  			<span>Description: {{x.description}}</span>
+		  		</div>
+		  		
+		  		<div class="col-xs-3">
+		  			<span>Date: {{x.dateSubmitted}}</span>
+		  		</div>
+		  		
+		  		<button ng-click="downloadImage($event)" name="{{x.rId}}" ng-hide="{{!x.hasReceipt}}" class="btn btn-primary">Image</button>
+						
+				<button ng-click="resolveReimbursement($event, false)" ng-hide="{{manager===undefined}}" name="{{x.rId}}" class="btn btn-danger pull-right">Deny</button>
+				<button ng-click="resolveReimbursement($event, true)" ng-hide="{{manager===undefined}}" name="{{x.rId}}" class="btn btn-success pull-right">Accept</button>	
+		  	  </div>	
+	  	  	</li>
+		</ul>	
+	  </div>
+	</div>
+</div>	
+	
+<div class="row">
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h6 class="panel-title">Resolved Reimbursements</h6>
+	  </div>
+	  <div class="panel-body">
+	    <ul class="list-group" id="resolved">
+		  <li class="list-group-item" ng-repeat="x in resolvedReimbursements">
+			  <div class="row">
+		  		
+		  		<div class="col-xs-2">
+		  			<span>Amount: {{x.amount}}</span>
+		  		</div>
+		  		
+		  		<div class="col-xs-2">
+		  			<span>Description: {{x.description}}</span>
+		  		</div>
+		  		
+		  		<div class="col-xs-2">
+		  			<span>Date: {{x.dateSubmitted}}</span>
+		  		</div>
+		  		
+		  		<div class="col-xs-2">
+		  			<span>Resolver: {{x.resolver}}</span>
+		  		</div>
+		  		
+		  		<button ng-click="downloadImage($event)" name="{{x.rId}}" ng-hide="{{!x.hasReceipt}}" class="btn btn-primary">Image</button>
+		  
+		  	  </div>	
+	  	  	</li>
+		</ul>	
+	  </div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newReimbursement" tabindex="-1" role="dialog" aria-labelledby="reimbursementLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="reimbursementLabel">Submit New Reimbursement</h4>
+      </div>
+      <div class="modal-body">
+        <form id="reimbursementForm" method="post" action="/ReimbursementApplication/api/v1/reimbursements" enctype="multipart/form-data" >
+		
+			<input type="hidden" value="{{employee.userId}}" name="employeeId">
+		
+			<div class="form-group">
+			  <label for="example-number-input" class="col-2 col-form-label">Amount</label>
+			  <div class="col-10">
+			    <input class="form-control" type="number" min="0" value="0" name="amount">
+			  </div>
+			</div>
+			
+		
+			<div class="form-group">
+			  <label for="example-text-input" class="col-2 col-form-label">Description</label>
+			  <div class="col-10">
+			    <input class="form-control" type="text" name="description">
+			  </div>
+			</div>
+			
+			
+			<div class="form-group">
+			  <label for="example-text-input" class="col-2 col-form-label">Receipt</label>
+			  <div class="col-10">
+			    <input class="form-control" type="file" accept="image/*" id="imageFile" name="receipt">
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			    <label for="exampleSelect1">Type</label>
+			    <select class="form-control" name="type">
+			      <option>WORK</option>
+			      <option>TRAVEL</option>
+			    </select>
+			  </div>
+			
+			<div class="form-group row">
+		      <div class="col-sm-12">
+		        <input type="submit" class="btn btn-primary" value="Submit" name="submit" ng-click="submitReimbursement($event)">
+		      </div>
+		    </div>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="employeeProfile" tabindex="-1" role="dialog" aria-labelledby="employeeLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="employeeLabel">Employee Profile</h4>
+      </div>
+      <div class="modal-body">
+        <form ng-submit="updateProfile()">
+		
+			<input type="hidden" name="id" value="{{employee.userId}}">
+		
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">Username</label>
+			  <div class="col-10">
+			    <input ng-model="profile.username" class="form-control" type="text" name="employeeUserName" >
+			  </div>
+			</div>
+			
+		
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">Password</label>
+			  <div class="col-10">
+			    <input ng-model="profile.password" class="form-control" type="password" name="password">
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">First Name</label>
+			  <div class="col-10">
+			    <input ng-model="profile.firstName" class="form-control" type="text" name="firstName">
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">Last Name</label>
+			  <div class="col-10">
+			    <input ng-model="profile.lastName" class="form-control" type="text" name="lastName" >
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			  <label for="example-text-input" class="col-4 col-form-label">Email</label>
+			  <div class="col-10">
+			    <input ng-model="profile.eMail" class="form-control" type="email" name="employeeEmail" >
+			  </div>
+			</div>
+			
+			<div class="form-group row">
+		      <div class="col-sm-12">
+		        <input type="submit" class="btn btn-primary" value="submit">
+		      </div>
+		    </div>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="reimbursementImage" tabindex="-1" role="dialog" aria-labelledby="reimbursementImageLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="reimbursementImageLabel">Receipt</h4>
+      </div>
+      <div class="modal-body">
+        <img ng-src="{{outImage}}" class="img-responsive" alt="There was no receipt for this Reimbursement" />
+      </div>
+    </div>
+  </div>
+</div>

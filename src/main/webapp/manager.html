@@ -1,0 +1,90 @@
+<h1> Manager Homepage </h1>
+
+
+<div class="row">
+	<div class="col-xs-6">
+		<button class="btn btn-primary" ng-click="showEmployees()">Employees</button>
+	</div>
+	
+	<div class="col-xs-6">
+		<button class="btn btn-primary" ng-click="showReimbursements()">Reimbursements</button>
+	</div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+	<div class="panel panel-primary">
+	  
+	  
+	  <div ng-switch="managerViewState">
+	  
+	  	  <!-- Viewing all the reimbursements for all users -->
+		  <div ng-switch-when="allReimbursements">
+			  <div class="panel-heading">
+			    <h6 class="panel-title">Reimbursements</h6>
+			  </div>
+			  <div class="panel-body">
+			    <ul class="list-group" id="pending">
+				  <li class="list-group-item" ng-repeat="x in reimbursements">
+				  	<div class="row">
+				  		<div class="col-xs-2">
+				  			<span>Reimbursement Id: {{x.rId}}</span>
+				  		</div>
+				  		
+				  		<div class="col-xs-2">
+				  			<span>Amount: {{x.amount}}</span>
+				  		</div>
+				  		
+				  		<div class="col-xs-2">
+				  			<span>Description: {{x.description}}</span>
+				  		</div>
+				  		
+				  		<div class="col-xs-2">
+				  			<span>Employee Id: {{x.author}}</span>
+				  		</div>
+				  		
+				  		
+				  		<button ng-click="downloadImage($event)" name="{{x.rId}}" ng-hide="{{!x.hasReceipt}}" class="btn btn-primary">Image</button>
+						
+						<button ng-click="resolveReimbursement($event, false)" name="{{x.rId}}" class="btn btn-danger pull-right">Deny</button>
+				  		<button ng-click="resolveReimbursement($event, true)" name="{{x.rId}}" class="btn btn-success pull-right">Accept</button>				  		
+				  		
+				  	</div>	
+				  </li>
+				</ul>
+			  </div>
+		  </div>
+		  
+		  
+		  <!--  Viewing all the Employees -->
+		  <div ng-switch-when="allEmployees">
+			  <div class="panel-heading">
+			    <h6 class="panel-title">Employees</h6>
+			  </div>
+			  <div class="panel-body">
+			    <ul class="list-group" id="pending">
+				  <li class="list-group-item" ng-repeat="x in employees">
+				  	<div class="row">
+				  		<div class="col-xs-3">
+				  			<span>First Name: {{x.firstName}}</span>
+				  		</div>
+				  		
+				  		<div	 class="col-xs-3">
+				  			<span>Last Name: {{x.lastName}}</span>
+				  		</div>
+				  		
+				  		<div class="col-xs-3">
+				  			<span>Email: {{x.eMail}}</span>
+				  		</div>
+				  		
+				  		<button ng-click="employeeInfo($event)" name="{{x}}" class="btn btn-primary pull-right">Reimbursements</button>
+				  	</div>	
+				  </li>
+				</ul>
+			  </div>
+		  </div>
+		  
+		  
+	  </div>
+	  
+	</div>
+</div>	
