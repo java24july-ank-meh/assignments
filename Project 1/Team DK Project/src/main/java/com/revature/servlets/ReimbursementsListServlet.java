@@ -33,16 +33,9 @@ public class ReimbursementsListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String author = request.getParameter("U_ID_AUTHOR");
-
 		
 		
-		ReimbursementDao rD = new ReimbursementDaoImpl();
-		Reimbursement myreimburse =  rD.readReimb(100000);
 		
-		System.out.println(myreimburse);
-		
-
      }
 
 	/**
@@ -50,15 +43,48 @@ public class ReimbursementsListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		PreparedStatement prep = null;
+		ResultSet rs = null;
 
-		// TODO Auto-generated method stub
-		//old get one reimbursement and put into json
-		/*Reimbursement message = rd.readReimb(100000);
-		System.out.println(message.toString());
-		String json = new Gson().toJson(message);
-		System.out.println("json string -- "+ json);
-		response.setContentType("application/json");
-		response.getWriter().write(json);*/
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+
+
+
+		try (Connection conn = ConnectionUtil.getConection()) {
+
+			prep = conn.prepareStatement("SELECT * FROM  REIMBURSEMENTS");
+
+			out.print("<table width = 50% border = 3>");
+			out.print("<caption> Here are the Reimbursemts</caption>");
+
+			rs = prep.executeQuery();
+
+			ResultSetMetaData md = rs.getMetaData();
+			int totalResults = md.getColumnCount();
+			out.print("<tr>");
+			for (int i = 1; i <= totalResults; i++) {
+
+				out.print("<th>" + md.getColumnTypeName(i) + "</th>");
+			}
+			out.print("</tr>");
+
+			while (rs.next()) {
+				out.print("<tr><td>" + rs.getInt(1) + "<tr><td>"+rs.getDouble(2)+"<tr><td>"+rs.getString(3)+"<tr><td>"+rs.getBlob(4)+"<tr><td>"+rs.getString(5)+"<tr><td>"+rs.getInt(6)+"<tr><td>"+rs.getInt(7)+"<tr><td>"+rs.getInt(8)+"<tr><td>"+rs.getInt(9)+"<tr><td>"+rs.getInt(10));
+
+			}
+			
+			out.print("</table>");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			out.close();
+		}
+		
+		
+		
 	}
 
 }

@@ -35,7 +35,6 @@ public class UserReadServlet extends HttpServlet {
 		
 		userID = "100000";
 		System.out.println("User id: "+userID);
-	
 		UserDao uD = new UserDaoImpl();
         User personData = uD.readUser(Integer.parseInt(userID));
         System.out.println(personData.toString());

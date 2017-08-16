@@ -82,4 +82,5 @@
     <servlet-name>UserById</servlet-name>
     <url-pattern>/UserById</url-pattern>
   </servlet-mapping>
+
 </web-app>

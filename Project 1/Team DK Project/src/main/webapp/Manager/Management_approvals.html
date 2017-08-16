@@ -13,7 +13,7 @@
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="../cleansidebar.css">
+<link rel="stylesheet" href="..\assets\css\cleansidebar.css">
 
 </head>
 
@@ -71,6 +71,32 @@
 			document.getElementById("mySidenav").style.width = "0";
 			document.getElementById("main").style.marginLeft = "0";
 		}
+		
+		.sidenav a {
+			padding: 8px 8px 8px 8px;
+			text-decoration: none;
+			font-size: 25px;
+			color: #818181;
+			display: block;
+			transition: 0.3s;
+		}
+		.sidenav .closebtn {
+			position: absolute;
+			top: 0;
+			right: 25px;
+			font-size: 36px;
+			margin-left: 50px;
+		}
+		@media screen and (max-height: 450px) {
+			.sidenav {
+				padding-top: 15px;
+			}
+			.sidenav a {
+				font-size: 18px;
+			}
+		}
+		
+		
 	</script>
 
 
