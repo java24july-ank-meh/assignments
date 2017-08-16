@@ -18,11 +18,13 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
 
 <link rel="stylesheet" href="./assets/css/stylesheet1.css">
 
 <script src="./assets/javascript/loginAJS.js"></script>
+
+  <style>.active { color: red; font-weight: bolder; }</style>
 
 </head>
 <body>
@@ -31,31 +33,7 @@
 		<h1 id="company">"co" Company Name</h1>
 		<hr>
 	</div>
-<<<<<<< HEAD
-	<div id="loginContainer" class="container ">
-		<div id="loginJumbotron" class="jumbotron-fluid">
 
-			<h2 id="loginTitle">Login</h2>
-			<br>
-			<form action="login" method="post" class="has-danger mx-auto">
-				<!-- searches for login(servlet) and does (do)post method -->
-
-				<label for="username" class="loginLabels">Username: </label> <input
-					type="text" name="username" placeholder="enter your username..."
-					class="form-control form-control-md" required autofocus> <label
-					for="password" class="loginLabels">Password: </label> <input
-					type="password" name="password"
-					placeholder="enter your password..."
-					class="form-control form-control-lg" required autofocus> <br>
-				<input type="submit" value="Login" class="btn btn-success">
-
-			</form>
-
-			<div id="registerButton">
-				<br>
-				<button type="button" class="btn btn-primary">Register</button>
-			</div>
-=======
 <div id="loginContainer" class="container ">
 	<div id="loginJumbotron" class="jumbotron-fluid">
 
@@ -67,11 +45,11 @@
 
 			<label for="username" class="loginLabels">Username: </label> <input type="text"
 				 ng-model="username" name="username" placeholder="enter your username..."
-				class="form-control form-control-md" required autofocus> 
-				
+				class="form-control form-control-md" required autofocus>
+
 			<label for="password" class="loginLabels">Password: </label> <input type="password"
 				 ng-model="password" name="password" placeholder="enter your password..."
-				class="form-control form-control-lg" required autofocus> 
+				class="form-control form-control-lg" required autofocus>
 	<br>
 			<input type="submit" value="Login" class="btn btn-success">
 
@@ -82,11 +60,17 @@
 		<br>
 			<button type="button" class="btn btn-primary">Register</button>
 		</div>
->>>>>>> ab79f61d2b553ebdf794da7c75ffb6f5943b3d31
 
 		</div>
 	</div>
-
+	<!-- ui-sref is like href -->
+ <a ui-sref="hello" ui-sref-active="active">Hello</a>
+  <a ui-sref="about">About</a>
+<a ui-sref="loggedIn">Logged In</a>
+ <ui-view>
+ 
+ 
+ </ui-view>
 
 	<div id="footer"></div>
 

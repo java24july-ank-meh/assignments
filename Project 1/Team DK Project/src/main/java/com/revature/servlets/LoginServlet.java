@@ -49,8 +49,6 @@ public class LoginServlet extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		
-		request.getRequestDispatcher("link.html").include(request, response);  
-		
 		String un = request.getParameter("username");
 		String pw = request.getParameter("password");
 		
@@ -102,7 +100,7 @@ public class LoginServlet extends HttpServlet {
 			
 //				request.getRequestDispatcher("manhomepage.html").include(request, response);  
 			} else {
-//				request.getRequestDispatcher("Employee_Homepage.html").include(request, response);
+				request.getRequestDispatcher("emphomepage.html").forward(request, response);
 			}
 
 		}else {
@@ -143,14 +141,12 @@ public class LoginServlet extends HttpServlet {
 response.setContentType("text/html");
 		
 		PrintWriter out = response.getWriter();
-		
-		request.getRequestDispatcher("link.html").include(request, response);  
-		
+				
 		String un = request.getParameter("username");
 		String pw = request.getParameter("password");
 		
-		String username =un.substring(1, un.length()-1);
-		String password =pw.substring(1, pw.length()-1);
+		String username =un;//.substring(1, un.length()-1);
+		String password =pw;//.substring(1, pw.length()-1);
 
 		System.out.println("username "+username);
 		System.out.println("password "+password);
@@ -170,7 +166,30 @@ response.setContentType("text/html");
 			session.setAttribute("lastName", u.getFirstName());
 			session.setAttribute("roleID", u.getRoleID());
 			session.setAttribute("user", u.getuID());
+			
+			request.setAttribute("user", u.getFirstName());
+			request.setAttribute("userid", u.getuID());
+			
 			System.out.println("manager:"+u.isManager());
+			
+			if(u.isManager()==true) {
+				boolean manager = true;
+				String manJson = new Gson().toJson(manager);
+				String unJson = new Gson().toJson(u.getUserName());
+				System.out.println("mj "+manJson+", uj"+unJson);
+
+				manJson.concat(unJson);
+				System.out.println("mj "+manJson);
+//				out.write("");
+//				request.getRequestDispatcher("manhomepage.html").include(request, response);  
+				
+				response.sendRedirect("http://localhost:9080/ReimbursementSite/manhomepage.html");
+
+//				RequestDispatcher rd = request.getRequestDispatcher("manhomepage.html");
+//				rd.forward(request, response);  
+			} else {
+				request.getRequestDispatcher("emphomepage.html").forward(request, response);
+			}
 
 		}else {
 			System.out.println("not valid");

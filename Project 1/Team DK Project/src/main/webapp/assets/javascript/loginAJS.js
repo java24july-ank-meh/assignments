@@ -2,7 +2,7 @@
  * 
  */
 
-//Check for the various File API support.
+// Check for the various File API support.
 if (window.File && window.FileReader && window.Blob) {
 	// Great success! All the File APIs are supported.
 	alert('Supported');
@@ -10,47 +10,48 @@ if (window.File && window.FileReader && window.Blob) {
 	alert('The File APIs are not fully supported in this browser.');
 }
 
+var loginMod = angular.module('loginMod', [ 'ui.router' ]); // Empty brackets
+// for dependencies
 
-var loginMod =  angular.module('loginMod', []); // Empty brackets for dependencies
 
+loginMod.controller('loginCtrl', function loginCtrl($scope, $http) {
 
-loginMod.controller('loginCtrl', function loginCtrl($scope, $http){
-	
 	$scope.username;
 	$scope.password;
-	
-	$scope.tryLogin = function(){
+
+	$scope.tryLogin = function() {
 		let usern = $scope.username;
 		let passw = $scope.password;
 
-		let un = angular.toJson(usern);
-		let pw = angular.toJson(passw);
-		
-//		alert(un);
-	//	alert(pw);
-		
+		// alert(un);
+		// alert(pw);
+
 		$http({
 			method : 'POST',
 			url : 'loginrequest',
-			params : {"username" : un, "password" : pw }
-		}).then(function callBack(response) {
-			alert("success");
-			alert(response.data);
-			alert(response.status);
-//			alert(response.statusText);
-//			alert(response.header);
-//			 document.write(response.data);
-		}, function errorCallBack(response){
-			alert("error");
-		});
-		
+			params : {
+				"username" : usern,
+				"password" : passw
+			}
+		}).then(function callBack(response,request) {
+		 alert("success");
+		 alert(response.url);
+		 alert(response);
+		 alert(response.toString());
+		 alert(request.header);
+		 alert(request.url);
+		 alert(request.responseType);
+		 alert(request.getBody());
+		 
+		// // alert(response.data);
+		// // alert(response.status);
+		// // alert(response.statusText);
+		// // alert(response.header);
+		// // document.write(response.data);
+		 }, function errorCallBack(response){
+		// alert("error");
+		 });
+
 	};
-	
-	
-	
+
 });
-
-
-
-
-

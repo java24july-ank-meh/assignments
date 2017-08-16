@@ -9,10 +9,12 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
 
 <script src="./assets/javascript/angular1.js"></script>
+<script src="./assets/javascript/forAll.js"></script>
+
 
 </head>
 <body>
-
+<section ng-hide="true">
 	<div ng-controller="loginCtrl">
 		<div>
 			<button ng-click="getAUserFromServerGet()">Fetch user from
@@ -127,6 +129,22 @@
 		</form>
 
 	</div>
+</section>
+
+	<form  class="has-danger mx-auto"  action="loginrequest" method="POST">
+			<!-- searches for login(servlet) and does (do)post method -->
+
+			<label for="username" class="loginLabels">Username: </label> <input type="text"
+				name="username" placeholder="enter your username..."
+				class="form-control form-control-md" required autofocus> 
+				
+			<label for="password" class="loginLabels">Password: </label> <input type="password"
+				name="password" placeholder="enter your password..."
+				class="form-control form-control-lg" required autofocus> 
+	<br>
+			<input type="submit" value="Login" class="btn btn-success">
+
+		</form>
 
 </body>
 </html>
