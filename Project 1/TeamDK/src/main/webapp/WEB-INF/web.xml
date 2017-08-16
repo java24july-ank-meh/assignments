@@ -72,4 +72,14 @@
     <servlet-name>ManagerRedirect</servlet-name>
     <url-pattern>/manager</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>EmployeeRedirect</display-name>
+    <servlet-name>EmployeeRedirect</servlet-name>
+    <servlet-class>com.revature.servlets.EmployeeRedirect</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmployeeRedirect</servlet-name>
+    <url-pattern>/employee</url-pattern>
+  </servlet-mapping>
 </web-app>

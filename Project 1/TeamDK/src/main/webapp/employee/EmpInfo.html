@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="empMod">
+
+<head>
+
+<title>Emp Info</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatable" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+
+<link rel="stylesheet" href="..\assets\css\cleansidebar.css">
+<link rel="stylesheet" href="..\assets\css\employeeCSS.css">
+
+<script src="..\assets\javascript\employeeAJS.js"></script>
+
+</head>
+
+<body>
+
+
+	<div id="mySidenav" class="sidenav">
+		<a href="javascript:void(0)" style="font-size: 30px;" class="closebtn"
+			onclick="closeNav()">&times;</a>
+		<ul style="margin-right: 20%">
+			<li><a href="emphomepage.html">Home</a></li>
+			<li><a href="Employee_reimb.html">Reimbursements</a>
+				<ul id="ddown" class="dropdown">
+					<dl>
+						<a href="Employee_requests.html">Requests</a>
+					</dl>
+					<dl>
+						<a href="Employee_approval.html">Approvals</a>
+					</dl>
+
+				</ul></li>
+
+			<li><a href="#">Information</a>
+				<ul class="dropdown" style="margin-right: 20%">
+					<dl>
+						<a href="#">Employee Information</a>
+					</dl>
+
+				</ul></li>
+
+			<a href="# " style="margin-bottom: 0%">Logout</a>
+	</div>
+
+	<div id="main">
+		<h1 id="emptitle" class="page-header" style="margin-top: 0;">#Logo#
+			Company Name</h1>
+		<span style="font-size: 25px; cursor: pointer; align-content: right"
+			onclick="openNav()">&#9776; Menu</span>
+
+		<hr>
+		<!--This will be user information  -->
+		<div class="jumbotron" style="margin: 8px 8px 8px 8px">
+			<div class="container">
+				<h2 class="jumboHeader">{{user.firstName}}'s/ Your Information</h2>
+				<label>Username: </label> <label>First Name: </label> <label>Last
+					Name: </label> <label>Email: </label> <label>Username: </label> Email:
+
+			</div>
+		</div>
+	</div>
+	<div id="main" ng-controller="infoCtrl">
+
+		<div>
+			<table id="userInfoTable">
+				<!-- add bootstrap for bordering and stripes and table spacings between rows-->
+				<thead>
+
+					<tr>
+
+						<td>From Company Database</td>
+						<td>Update <input type="checkbox" /></td>
+						<!-- ng-model="" if unchecked nothing, but checked allows for data change -->
+
+					</tr>
+
+				</thead>
+
+
+				<tbody>
+
+					<tr>
+						<td colspan="2">{{$scope.user.uID}}
+						<td>
+							<!-- <td>
+            <input type="text" />
+            </td> -->
+					</tr>
+
+					<tr>
+						<td>{{$scope.user.firstName}}
+						<td>
+						<td><input type="text" ng-model="user.firstName" /></td>
+					</tr>
+
+					<tr>
+						<td>{{$scope.user.lastName}}
+						<td>
+						<td><input type="text" ng-model="user.lastName" /></td>
+					</tr>
+
+					<tr>
+						<td>{{$scope.user.email}}
+						<td>
+						<td><input type="text" ng-model="user.email" /></td>
+					</tr>
+
+					<tr>
+						<td colspan="2">{{$scope.user.roleID}}
+						<td>
+							<!-- <td>
+            <input type="button" value="Ask for Role Change"/>
+            </td> -->
+					</tr>
+
+					<tr>
+						<td>{{$scope.user.numOfReimb}}<!-- create this one -->
+						<td>
+						<td><input type="button" value="Submit Request"
+							onclick="goToSubmitRequest()" /></td>
+					</tr>
+
+				</tbody>
+
+
+				<tfoot>
+				</tfoot>
+
+			</table>
+
+		</div>
+	</div>
+
+
+
+
+	<script>
+					function openNav() {
+						document.getElementById("mySidenav").style.width = "250px";
+						document.getElementById("main").style.marginLeft = "250px";
+					}
+
+					function closeNav() {
+						document.getElementById("mySidenav").style.width = "0";
+						document.getElementById("main").style.marginLeft = "0";
+					}
+				</script>
+</body>
+
+</html>

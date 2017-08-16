@@ -2,6 +2,7 @@ package com.revature.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -113,7 +114,13 @@ response.setContentType("text/html");
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	//does logout part...
-		
+		HttpSession session = request.getSession();
+		Enumeration<String> atts = session.getAttributeNames();
+		while(atts.hasMoreElements()) {
+			String s = atts.nextElement();
+			session.setAttribute(s, null);
+		}
+		response.getWriter().write("Logged out, completely");
 	}
 
 }
