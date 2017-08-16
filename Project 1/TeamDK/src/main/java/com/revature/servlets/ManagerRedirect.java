@@ -85,7 +85,7 @@ public class ManagerRedirect extends HttpServlet {
 				rd = context.getRequestDispatcher("/manager/ManInfo.html");
 			}else if(link.equals("employees")) {
 				System.out.println("employees");
-				rd = context.getRequestDispatcher("/manager/MViewAllEmps.html");
+				rd = context.getRequestDispatcher("/manager/MViewAllEmp.html");
 			}else if(link.equals("reimbursments")) {
 				System.out.println("reimbursments");
 				rd = context.getRequestDispatcher("/manager/MViewAllRequests.html");
