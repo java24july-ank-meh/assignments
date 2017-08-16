@@ -13,7 +13,12 @@
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="..\assets\css\cleansidebar.css">
+<link rel="stylesheet" href="..\css\stylesheet1.css">
+
+
+<script src="..\javascript\forAll.js"></script>
+<script src="..\javascript\forAllMan.js"></script>
+<link rel="stylesheet" href="..\css\cleansidebar.css">
 
 </head>
 
@@ -24,25 +29,25 @@
 		<a href="javascript:void(0)" style="font-size: 30px;" class="closebtn"
 			onclick="closeNav()">&times;</a>
 		<ul style="margin-right: 20%">
-			<li><a href="Manager_Homepage">Home</a></li>
-			<li><a href="Manager_AllRequest.html">Reimbursements</a>
+			<li><a href="Manager_Homepage"ng-click="maninfo">Home</a></li>
+			<li><a href="Manager_AllRequest.html"ng-click="maninfo">Reimbursements</a>
 				<ul id="ddown" class="dropdown">
 					<dl>
-						<a href="Manager_EmployeeRequest.html">Employee Requests</a>
+						<a href="MViewEmpRequest.html"ng-click="maninfo">Employee Requests</a>
 					</dl>
 					<dl>
-						<a href="Management_approvals.html">Managment Approvals</a>
+						<a href="ManApprovals.html" ng-click="maninfo">Managment Approvals</a>
 					</dl>
 				</ul></li>
 
 			<li><a href="#">Information</a>
 				<ul class="dropdown" style="margin-right: 20%">
 					<dl>
-						<a href="Manager_Employee_Information.html">Employee
+						<a href="MVeiwEmp.html"ng-click="maninfo">Employee
 							Information</a>
 					</dl>
 					<dl>
-						<a href="Manager_Information_Page.html">Manager Information</a>
+						<a href="ManInfo.html"ng-click="maninfo">Manager Information</a>
 					</dl>
 				</ul></li>
 
@@ -58,8 +63,8 @@
 		<hr>
 		<!--This will be user information  -->
 		<div class="jumbotron">
-
-		</div>
+                 
+    </div>
 	</div>
 
 
