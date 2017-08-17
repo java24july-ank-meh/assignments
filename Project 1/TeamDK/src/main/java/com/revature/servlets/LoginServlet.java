@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-response.setContentType("text/html");
+		response.setContentType("text/html");
 		
 		PrintWriter out = response.getWriter();
 		
@@ -54,10 +54,10 @@ response.setContentType("text/html");
 			System.out.println("valid");
 			int uid = new UserDaoImpl().loginReturnID(username,password);
 			User u =  new UserDaoImpl().loginReturnPartial(username,password);
-	
+			System.out.println("\n user: "+uid+" \n");
 
 //			if(u != null) {
-				out.println("Welcome, "+u.getFirstName()+" "+u.getLastName()+"..User "+uid);
+//				out.println("Welcome, "+u.getFirstName()+" "+u.getLastName()+"..User "+uid);
 //			} else {
 //				out.print("Welcome, User "+uid);
 //			}

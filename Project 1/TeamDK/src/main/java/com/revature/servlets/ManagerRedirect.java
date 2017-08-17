@@ -40,26 +40,22 @@ public class ManagerRedirect extends HttpServlet {
 		HttpSession session = request.getSession();
 		int sId = -1;
 		sId = (int) session.getAttribute("user");
-		String sFName = "";
-		sFName = (String) session.getAttribute("firstName");
-		String sLName = "";
-		sFName = (String) session.getAttribute("lastName");
-		String sUN = "";
-		sFName = (String) session.getAttribute("userName");
 		int sRole = -1;
 		sRole =	(int) session.getAttribute("roleID");
 
-
+		System.out.println("user info: "+sId+", role is "+sRole);
+		
 		String link = "";
 		String next = "";
 
 		if(sId != -1 && sRole==1) {	
 			next = request.getParameter("link");
+			
 			if(next != null) {
 				System.out.println("has value");
-				System.out.println(next);
+				System.out.println("link is: "+next);
 				link = next;
-			} else {
+			} else if(next == null){
 				System.out.println("has no value");
 				link = (String) session.getAttribute("link");
 			}
@@ -69,76 +65,81 @@ public class ManagerRedirect extends HttpServlet {
 			ServletContext context= getServletContext();
 			RequestDispatcher rd = null;
 
-			User u = new User();
-			u.setUserName(sUN);
-			u.setFirstName(sFName);
-			u.setLastName(sLName);
-			String json = new Gson().toJson(u);
+//			User u = new UserDaoImpl().readUser(sId);
+//			String json = new Gson().toJson(u);
 			
-			System.out.println(json);
+//			System.out.println(json);
 			
 			if(link.equals("home")) {
-				System.out.println("home");
+//				System.out.println("home");
 				rd = context.getRequestDispatcher("/manager/ManHomepage.html");			
 			}else if(link.equals("info")) {
-				System.out.println("info");
+//				System.out.println("info");
 				rd = context.getRequestDispatcher("/manager/ManInfo.html");
 			}else if(link.equals("employees")) {
-				System.out.println("employees");
-				rd = context.getRequestDispatcher("/manager/MViewAllEmp.html");
+//				System.out.println("employees");
+				rd = context.getRequestDispatcher("/manager/MViewAllEmps.html");
 			}else if(link.equals("reimbursments")) {
-				System.out.println("reimbursments");
+//				System.out.println("reimbursments");
 				rd = context.getRequestDispatcher("/manager/MViewAllRequests.html");
 			}else if(link.equals("myreimbursements")) {
-				System.out.println("myreimbursements");
+//				System.out.println("myreimbursements");
 				rd = context.getRequestDispatcher("/manager/MMyReimbs.html");
-				User u2 = new User();
-				u2.setuID(sId);
-				String json01 = new Gson().toJson(u2);
+//				User u2 = new User();
+//				u2.setuID(sId);
+//				String json01 = new Gson().toJson(u2);
 				
-				List<Reimbursement> reimbs = new ReimbursementDaoImpl().readReimbByUser(u2,"author");
-				String json02 = new Gson().toJson(reimbs);
+//				List<Reimbursement> reimbs = new ReimbursementDaoImpl().readReimbByUser(u2,"author");
+//				String json02 = new Gson().toJson(reimbs);
 				
-				System.out.println("json of info: ");
-				System.out.println(json01+"//\\"+json02);
+//				System.out.println("json of info: ");
+//				System.out.println(json01+"//\\"+json02);
 		}else if(link.equals("empreimbursements")) {
-				System.out.println("empreimbursements");
-				String emp = request.getParameter("employee");
-				System.out.println("employee "+emp);
+//				System.out.println("empreimbursements");
+//				String emp = request.getParameter("employee");
+//				System.out.println("employee "+emp);
 				rd = context.getRequestDispatcher("/manager/MViewEmpRequests.html");
 				
-				User u2 = new User();
-				u2.setuID(Integer.parseInt(emp));
-				String json11 = new Gson().toJson(u2);
+//				User u2 = new User();
+//				u2.setuID(Integer.parseInt(emp));
+//				String json11 = new Gson().toJson(u2);
 				
-				List<Reimbursement> reimbs = new ReimbursementDaoImpl().readReimbByUser(u2,"author");
-				String json12 = new Gson().toJson(reimbs);
+//				List<Reimbursement> reimbs = new ReimbursementDaoImpl().readReimbByUser(u2,"author");
+//				String json12 = new Gson().toJson(reimbs);
 				
-				System.out.println("json of info: ");			
-				System.out.println(json11+"//\\"+json12);
+//				System.out.println("json of info: ");			
+//				System.out.println(json11+"//\\"+json12);
 			}else if(link.equals("employee")) {
-				String emp = request.getParameter("employee");
-				System.out.println("employee "+emp);
+//				String emp = request.getParameter("employee");
+//				System.out.println("employee "+emp);
 				rd = context.getRequestDispatcher("/manager/MViewEmp.html");
-				
-				User u2 = new User();
-				u2.setuID(Integer.parseInt(emp));
-				String json21 = new Gson().toJson(u2);
-				
-				List<Reimbursement> reimbs = new ReimbursementDaoImpl().readReimbByUser(u2,"author");
-				String json22 = new Gson().toJson(reimbs);
-				
-				System.out.println("json of info: ");
-				System.out.println(json21+"//\\"+json22);
+//				
+//				User u2 = new User();
+//				u2.setuID(Integer.parseInt(emp));
+//				String json21 = new Gson().toJson(u2);
+//				
+//				List<Reimbursement> reimbs = new ReimbursementDaoImpl().readReimbByUser(u2,"author");
+//				String json22 = new Gson().toJson(reimbs);
+//				
+//				System.out.println("json of info: ");
+//				System.out.println(json21+"//\\"+json22);
 			}
 		
-			System.out.println("json of user: "+json);
+//			System.out.println("json of user: "+json);
 			
-			response.getWriter().write(json);
+//			response.getWriter().write(json);
+			System.out.println("\n\n");
 			rd.forward(request, response);
 		}
 	}
-
+/*
+ *  <error-page>
+  <error-code>404</error-code>
+  <location>/index.html</location>
+</error-page>
+ * 
+ * 
+ */
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

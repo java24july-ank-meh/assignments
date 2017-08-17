@@ -4,34 +4,50 @@
 
 angular.module('reimbWebSite', []);
 
+angular.module('reimbWebSite').run(function($rootScope,$http){
 
+	$rootScope.user = {};
+
+	$http({	method : 'GET',
+		url : 'user'	
+	}).then(function(data){
+		if(data !== null){
+			alert("not null");
+//			let u = angular.fromJson(data);
+
+			$rootScope.user = data;
+
+//			alert("duser "+data.uID);
+//			alert("duser "+data.username);
+//			alert("duser "+data.firstName);
+//			alert("duser "+data.lastName);
+//			alert("duser "+data.manager);
+//			alert("duser "+data.roleID);
+			
+//			let u = $rootScope.user;
+//			alert("user "+u.uID);
+//			alert("user "+u.username);
+//			alert("user "+u.firstName);
+//			alert("user "+u.lastName);
+//			alert("user "+u.manager);
+//			alert("user "+u.roleID);
+//
+//			alert("rs user "+$rootScope.user);
+//			alert("rs user "+$rootScope.username);
+//			alert("rs user "+$rootScope.fname);
+//			alert("rs user "+$rootScope.lname);
+//			alert("rs user "+$rootScope.manager);
+//			alert("rs user "+$rootScope.roleid);
+
+		}
+	});
+}
+
+);
 
 angular.module('reimbWebSite').controller('userICtrl', function($scope,$http) {
 
-	$scope.user = 
-		 { uID: 100,
-			firstName: 'John',
-			middleInitial: 'M',
-			lastName: 'Doe',
-			email: 'myemail@mail.com',
-			roleID: 1,
-			numOfReimb: 10
-		 };
-	
 });
-
-angular.module('reimbWebSite').controller('notAuth', function($scope,$http){
-	
-	$scope.login = function() {
-		$http({
-			method : 'GET',
-			url : 'login',
-			params: {"link":"needauth"}		
-		});
-	};
-	
-});
-
 
 angular.module('reimbWebSite').controller('photoCtrl',	function photoCtrl($scope, $http/*, FileUploader*/) {
 	$scope.inputtedNumber;

@@ -2,22 +2,27 @@
 <html lang="en">
 
 <head>
-<title>Reimbursement Application</title>
+<title>Your Info</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatable" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
 
-<link rel="stylesheet" href="..\css\cleansidebar.css">
-<link rel="stylesheet" href="..\css\stylesheet1.css">
+<link rel="stylesheet" href="./css/cleansidebar.css">
+<link rel="stylesheet" href="./css/stylesheet1.css">
 
-<script src="..\javascript\forAll.js"></script>
-<script src="..\javascript\forAllMan.js"></script>
+<script src="./javascript/forAll.js"></script>
+<script src="./javascript/forAllMan.js"></script>
+
 </head>
 
 <body ng-app="reimbWebSite">
@@ -62,9 +67,6 @@
 		<div class="container" id="pageContainer">
 			<div class="jumbotron" ng-controller="userICtrl">
 				<h2 class="jumboHeader">Your Information</h2>
-
-
-				<p style="padding-left: 45%">Manager Information</p>
 
 				<div>
 					<table id="userInfoTable">
