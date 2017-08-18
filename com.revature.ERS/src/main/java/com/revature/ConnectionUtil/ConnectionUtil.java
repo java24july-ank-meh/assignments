@@ -4,16 +4,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import oracle.jdbc.driver.OracleDriver;
+
+
 public class ConnectionUtil {
 
 	public static Connection getConnection() throws SQLException {
 		
-		String url = "demo.cuwvdmddkxll.us-east-1.rds.amazonaws.com:1521";
+	
+		//ConnectionUtil.
+		String url = "JDBC:oracle:thin:@localhost:1521:xe";
 		final String uname = "ERS";
 		final String password = "ERS";
 		
-		return DriverManager.getConnection(url, uname, password);
 		
+		
+		OracleDriver driver = new OracleDriver();
+		DriverManager.registerDriver(driver);
+		return DriverManager.getConnection(url,uname,password);
 	}
 	
 }

@@ -10,15 +10,175 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
-  <servlet>
-     <servlet-name>ERS</servlet-name>
-     <servlet-class>com.revature.servlet</servlet-class>
- </servlet>
+ 	<!--NEW SERVLET-->
+	  <servlet>
+	    <servlet-name>TestServlet</servlet-name>
+	    <servlet-class>com.revature.Servlets.TestServlet</servlet-class>
+	  </servlet>
+	
+	  <servlet-mapping>
+	    <servlet-name>TestServlet</servlet-name>
+	    <url-pattern>/TestServlet</url-pattern>
+	  </servlet-mapping>
+	  
+ 	<!--NEW SERVLET-->
+  	<servlet>
+ 		<servlet-name>LoginServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.LoginServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>LoginServlet</servlet-name>
+ 		<url-pattern>/LoginServlet</url-pattern>
+ 	</servlet-mapping>
  
- <servlet-mapping>
-     <servlet-name>ERS</servlet-name>
-     <url-pattern>ERS</url-pattern>
- </servlet-mapping>
+ 	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>ManagerServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.ManagerServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>ManagerServlet</servlet-name>
+ 		<url-pattern>/ManagerServlet</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	
+ 	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>ER_PendingServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.ER_PendingServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>ER_PendingServlet</servlet-name>
+ 		<url-pattern>/ER_PendingServlet/*</url-pattern>
+ 	</servlet-mapping>
  
+	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>ER_SubmitReimbursementServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.ER_SubmitReimbursementServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>ER_SubmitReimbursementServlet</servlet-name>
+ 		<url-pattern>/ER_SubmitReimbursementServlet/*</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	
+ 	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>ER_SubmitReimbursementWithImage</servlet-name>
+ 		<servlet-class>com.revature.Servlets.ER_SubmitReimbursementWithImage</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>ER_SubmitReimbursementWithImage</servlet-name>
+ 		<url-pattern>/ER_SubmitReimbursementWithImage/*</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	
+ 	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>ER_ResolvedServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.ER_ResolvedServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>ER_ResolvedServlet</servlet-name>
+ 		<url-pattern>/ER_ResolvedServlet/*</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>ER_EmployeeInfoServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.ER_EmployeeInfoServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>ER_EmployeeInfoServlet</servlet-name>
+ 		<url-pattern>/ER_EmployeeInfoServlet/*</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>ER_UpdateEmployeeServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.ER_UpdateEmployeeServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>ER_UpdateEmployeeServlet</servlet-name>
+ 		<url-pattern>/ER_UpdateEmployeeServlet/*</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>MR_UpdateReimbursementStatusServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.MR_UpdateReimbursementStatusServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>MR_UpdateReimbursementStatusServlet</servlet-name>
+ 		<url-pattern>/MR_UpdateReimbursementStatusServlet/*</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 
+ 	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>MR_ViewAllReimbursements</servlet-name>
+ 		<servlet-class>com.revature.Servlets.MR_ViewAllReimbursements</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>MR_ViewAllReimbursements</servlet-name>
+ 		<url-pattern>/MR_ViewAllReimbursements/*</url-pattern>
+ 	</servlet-mapping>
+
+	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>MR_ViewReceiptImageServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.MR_ViewReceiptImageServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>MR_ViewReceiptImageServlet</servlet-name>
+ 		<url-pattern>/MR_ViewReceiptImageServlet/*</url-pattern>
+ 	</servlet-mapping>
+	
+	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>MR_ViewApprovedByManagerServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.MR_ViewApprovedByManagerServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>MR_ViewApprovedByManagerServlet</servlet-name>
+ 		<url-pattern>/MR_ViewApprovedByManagerServlet/*</url-pattern>
+ 	</servlet-mapping>
+	
+	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>MR_ViewAllEmployeesServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.MR_ViewAllEmployeesServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>MR_ViewAllEmployeesServlet</servlet-name>
+ 		<url-pattern>/MR_ViewAllEmployeesServlet/*</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<!--NEW SERVLET-->
+ 	<servlet>
+ 		<servlet-name>MR_ViewAllReimbursementsByEmployeeServlet</servlet-name>
+ 		<servlet-class>com.revature.Servlets.MR_ViewAllReimbursementsByEmployeeServlet</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>MR_ViewAllReimbursementsByEmployeeServlet</servlet-name>
+ 		<url-pattern>/MR_ViewAllReimbursementsByEmployeeServlet/*</url-pattern>
+ 	</servlet-mapping>
+	
+	
  
 </web-app>

@@ -1,21 +1,19 @@
 package com.revature.ERS;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Blob;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+@SuppressWarnings("unused")
 public class Employee {
 
 	String u_username, u_password, u_firstname, u_lastname, u_email, ur_role;
-
+	int id = 0;
+	
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -75,7 +73,14 @@ public class Employee {
 	public String getUr_role() {
 		return ur_role;
 	}
-
+	
+	public int getId() {
+		return this.id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 	public void setUr_role(String ur_role) {
 		this.ur_role = ur_role;
 	}
@@ -91,7 +96,7 @@ public class Employee {
 		StringBuilder pass = new StringBuilder();
 		Random rndm = new Random();
 		while(pass.length() < 8) {
-			int index = (int) (rndm.nextInt() * allChar.length());
+			int index = rndm.nextInt(allChar.length());
 			pass.append(allChar.charAt(index));
 		}
 		String finalStr = pass.toString();

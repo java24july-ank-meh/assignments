@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+ 	<script src="js/angular.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<script src="js/angular-ui-router.js"></script>
+  	<script src="js/employeeRouter.js"></script>
+  	
+  
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+<body ng-app="employeeRouter" style="background-color: black">
+
+<!-- Navbar================================================== -->
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Revature</a>
+    </div>
+
+    <ul class="nav navbar-nav">
+
+      <li class="active"><a href="#">Employee Home</a></li>
+
+       <li><a href="#" ui-sref="account"><span class="glyphicon glyphicon-user"></span > Account</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+    
+
+<!-- 
+================================================== -->
+
+	<div id="mycarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner carousel-inner-homepage">
+        <div class="item active">
+        <img src="kitty.jpg" alt="" class="img-responsive">
+           <div class="carousel-caption ctitle">
+           Welcome [username]
+           </div>
+        </div>
+    </div>
+	</div>
+
+
+		<!-- Buttons -->
+		<div class="btn-group" style="width:100%" >
+			<button ui-sref="pending" 
+			type="button" id ="viewResolved" style="width:33%" class="btn btn-home">  
+			<span class="glyphicon glyphicon-th-list"></span> View Pending Requests</button>
+
+			<button ui-sref="resolved" 
+			type="button" id ="viewResolved" style="width:33%" class="btn btn-home">  
+			<span class="glyphicon glyphicon-th-list"></span> View Resolved Requests</button>
+
+			<button ui-sref="reimbursment" 
+			type="button" id ="viewResolved" style="width:33%" class="btn btn-home">  <span class="glyphicon glyphicon-usd"></span> Create New Reimbursment</button>
+		</div>
+
+
+
+  		<ui-view></ui-view>
+
+		
+		<footer class="footerCust footer text-small">
+        <p style="bottom:0px">Revature 2017 &copy; All Rights reserved </a></p>
+   		</footer>
+	</body>
+	
+</html>
